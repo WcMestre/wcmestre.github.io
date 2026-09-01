@@ -40,6 +40,11 @@
   --accent: #5cd2ff;
   --accent-ink: #041423;
   --accent-soft: rgba(92, 210, 255, 0.1);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, #ffffff);
+
+  /* Véu do <dialog>. Mais escuro que --bg-base para o painel destacar-se do
+     fundo mesmo quando a página atrás já é quase preta. */
+  --backdrop: rgba(3, 6, 14, 0.78);
 
   /* Único matiz semântico fora da família azul, e existe por necessidade:
      erro de formulário pintado com --accent ficaria idêntico ao CTA, dizendo

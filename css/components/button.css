@@ -47,7 +47,7 @@
 }
 
 .btn--primary:hover {
-  background: color-mix(in srgb, var(--accent) 88%, white);
+  background: var(--accent-hover);
 }
 
 /* --border-control, e não --border-strong: o limite de um controle precisa de

@@ -26,7 +26,7 @@
 }
 
 .modal::backdrop {
-  background: rgba(3, 6, 14, 0.78);
+  background: var(--backdrop);
 }
 
 @supports (backdrop-filter: blur(1px)) {
@@ -226,6 +226,9 @@
    (que são <a href="#id">) passam a funcionar como âncoras comuns.
    -------------------------------------------------------------------------- */
 
+/* Sem scroll-margin aqui: o `scroll-padding-top` do <html> (base/reset.css) já
+   recua a zona de pouso. Os dois somam — era exatamente o bug de 168px que fez
+   o scroll-margin sair de `.section` em layout/grid.css. */
 .no-js .modal {
   display: block;
   position: static;
@@ -233,7 +236,6 @@
   max-block-size: none;
   margin-block: var(--space-xl);
   padding-inline: var(--gutter);
-  scroll-margin-block-start: var(--header-h);
 }
 
 .no-js .modal__panel {
