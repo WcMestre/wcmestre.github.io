@@ -803,6 +803,33 @@
                 <li>Recomendações</li>
               </ul>
             </div>
+
+            <div class="modal__section">
+              <p class="eyebrow">Inteligência artificial</p>
+              <h3>IA não é estratégia. É uma ferramenta dentro da estratégia.</h3>
+              <p>
+                Antes de implementar IA, identificamos onde ela pode reduzir
+                custo, aumentar produtividade, melhorar atendimento, acelerar
+                decisões ou criar capacidade operacional. Essa é uma das
+                perguntas que o diagnóstico responde.
+              </p>
+
+              <div class="panel">
+                <h4 class="panel__title">
+                  Onde a IA costuma pagar o próprio custo
+                </h4>
+                <ul class="list-check">
+                  <li>Agentes para tarefas repetitivas de rotina</li>
+                  <li>Copilotos internos sobre a base de conhecimento da empresa</li>
+                  <li>Automação documental — leitura, extração e conferência</li>
+                  <li>Classificação e triagem de demandas</li>
+                  <li>Atendimento assistido</li>
+                  <li>Workflows com decisão apoiada por modelo</li>
+                  <li>Análise de dados e apoio à decisão</li>
+                  <li>Integração com os sistemas que já estão em uso</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <footer class="modal__foot">
@@ -886,6 +913,61 @@
                   </li>
                 </ol>
               </div>
+            </div>
+
+            <div class="modal__section">
+              <p class="eyebrow">Automações e integrações</p>
+              <h3>
+                Sistemas conectados. Processos automatizados. Informação
+                fluindo.
+              </h3>
+              <p>
+                Boa parte dos sprints passa por aqui: conectar o que a operação
+                já usa e tirar a digitação duplicada do caminho.
+              </p>
+
+              <div
+                class="flow"
+                role="img"
+                aria-label="Cadeia em seis etapas, nesta ordem: ERP, API, Automation, CRM, IA e BI. As etapas API, Automation e IA são a camada que a LabMídia TechOps constrói e mantém."
+              >
+                <span class="flow__item">
+                  <span class="flow__node">ERP</span>
+                  <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+                </span>
+                <span class="flow__item">
+                  <span class="flow__node flow__node--active">API</span>
+                  <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+                </span>
+                <span class="flow__item">
+                  <span class="flow__node flow__node--active">Automation</span>
+                  <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+                </span>
+                <span class="flow__item">
+                  <span class="flow__node">CRM</span>
+                  <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+                </span>
+                <span class="flow__item">
+                  <span class="flow__node flow__node--active">IA</span>
+                  <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+                </span>
+                <span class="flow__item">
+                  <span class="flow__node">BI</span>
+                </span>
+              </div>
+
+              <p class="flow-caption">
+                Em destaque, a camada que construímos e mantemos.
+              </p>
+
+              <ul class="chip-list u-center-x">
+                <li class="chip chip--mono">API</li>
+                <li class="chip chip--mono">Webhook</li>
+                <li class="chip chip--mono">Workflow</li>
+                <li class="chip chip--mono">Data</li>
+                <li class="chip chip--mono">Automation</li>
+                <li class="chip chip--mono">AI</li>
+              </ul>
             </div>
           </div>
 
@@ -1175,95 +1257,7 @@
         </div>
       </section>
 
-      <!-- ==================================================================
-           INTELIGÊNCIA ARTIFICIAL
-           ================================================================== -->
-      <section class="section" id="ia" aria-labelledby="ia-title">
-        <div class="container split split--text-lead">
-          <div class="split__body reveal">
-            <p class="eyebrow">Inteligência Artificial</p>
-            <h2 id="ia-title">
-              IA não é estratégia. É uma ferramenta dentro da estratégia.
-            </h2>
-            <p class="lead">
-              Antes de implementar IA, identificamos onde ela pode reduzir custo,
-              aumentar produtividade, melhorar atendimento, acelerar decisões ou
-              criar capacidade operacional.
-            </p>
-          </div>
 
-          <div class="panel reveal reveal--fade">
-            <h3 class="panel__title">Onde a IA costuma pagar o próprio custo</h3>
-            <ul class="list-check">
-              <li>Agentes para tarefas repetitivas de rotina</li>
-              <li>Copilotos internos sobre a base de conhecimento da empresa</li>
-              <li>Automação documental — leitura, extração e conferência</li>
-              <li>Classificação e triagem de demandas</li>
-              <li>Atendimento assistido</li>
-              <li>Workflows com decisão apoiada por modelo</li>
-              <li>Análise de dados e apoio à decisão</li>
-              <li>Integração com os sistemas que já estão em uso</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================================================================
-           AUTOMAÇÕES E INTEGRAÇÕES
-           ================================================================== -->
-      <section class="section section--alt" id="integracoes" aria-labelledby="integracoes-title">
-        <div class="container">
-          <header class="section__head section__head--center reveal">
-            <p class="eyebrow">Automações e integrações</p>
-            <h2 class="section__title" id="integracoes-title">
-              Sistemas conectados. Processos automatizados. Informação fluindo.
-            </h2>
-          </header>
-
-          <div
-            class="flow reveal reveal--fade"
-            role="img"
-            aria-label="Cadeia em seis etapas, nesta ordem: ERP, API, Automation, CRM, IA e BI. As etapas API, Automation e IA são a camada que a LabMídia TechOps constrói e mantém."
-          >
-            <span class="flow__item">
-              <span class="flow__node">ERP</span>
-              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
-            </span>
-            <span class="flow__item">
-              <span class="flow__node flow__node--active">API</span>
-              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
-            </span>
-            <span class="flow__item">
-              <span class="flow__node flow__node--active">Automation</span>
-              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
-            </span>
-            <span class="flow__item">
-              <span class="flow__node">CRM</span>
-              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
-            </span>
-            <span class="flow__item">
-              <span class="flow__node flow__node--active">IA</span>
-              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
-            </span>
-            <span class="flow__item">
-              <span class="flow__node">BI</span>
-            </span>
-          </div>
-
-          <p class="flow-caption reveal">
-            Em destaque, a camada que construímos e mantemos.
-          </p>
-
-          <ul class="chip-list reveal u-center-x u-stack-md">
-            <li class="chip chip--mono">API</li>
-            <li class="chip chip--mono">Webhook</li>
-            <li class="chip chip--mono">Workflow</li>
-            <li class="chip chip--mono">Data</li>
-            <li class="chip chip--mono">Automation</li>
-            <li class="chip chip--mono">AI</li>
-          </ul>
-        </div>
-      </section>
 
       <!-- ==================================================================
            DIFERENCIAIS

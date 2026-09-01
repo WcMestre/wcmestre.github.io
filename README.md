@@ -115,6 +115,19 @@ inertização do resto da página e devolução do foco ao gatilho — tudo o qu
 reimplementação em JavaScript costuma errar. `js/modules/modal.js` só decide
 quando abrir e fechar.
 
+A rolagem ficou com 9 seções; o material de aprofundamento vive nos diálogos:
+
+| Diálogo | Aberto por | Conteúdo |
+|---|---|---|
+| `#diagnostico` | card Solução 01 | Technology Efficiency Score, Impacto × Esforço, entregáveis, **Inteligência Artificial** |
+| `#sprint` | card Solução 02 | O que entra num sprint, ciclo TEO (Design/Execute/Optimize), **automações e integrações** |
+| `#tech-office` | card Solução 03 | Comparação modelo tradicional × Tech Office, escopo |
+| `#multiunidades` | link dentro de `#tech-office` | Árvore matriz → unidades |
+
+IA foi para o diagnóstico porque *onde a IA tem retorno* é uma das perguntas
+que o diagnóstico responde; integrações foram para o sprint porque são o
+conteúdo típico de um ciclo de implantação.
+
 **4. Duas versões do logo, por legibilidade.**
 O header usa o lockup **compacto** (erlenmeyer + LABMÍDIA TECHOPS) a 36px; a
 36px as linhas "Technology Operations" e "PROCESSES | AUTOMATION…" do lockup
