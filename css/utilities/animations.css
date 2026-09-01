@@ -1,0 +1,75 @@
+/* ==========================================================================
+   utilities/animations.css — Entrada de elementos
+
+   O estado inicial escondido só é aplicado sob .js (adicionada em
+   index.html antes da primeira pintura). Sem JavaScript nada fica invisível.
+   prefers-reduced-motion neutraliza tudo — ver base/accessibility.css.
+   ========================================================================== */
+
+.js .reveal {
+  opacity: 0;
+  translate: 0 14px;
+  transition: opacity var(--dur-slow) var(--ease-out),
+    translate var(--dur-slow) var(--ease-out);
+  transition-delay: var(--delay, 0ms);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Rede de segurança: se os módulos não carregarem (404, CSP, rede), o
+   temporizador no <head> marca .js-boot-failed e o conteúdo reaparece.
+   Sem isto, uma falha de JS deixaria a página em branco. */
+.js-boot-failed .reveal {
+  opacity: 1 !important;
+  translate: none !important;
+}
+
+/* Variante sem deslocamento — para blocos grandes onde o movimento
+   vertical seria perceptível demais. */
+.js .reveal--fade {
+  translate: none;
+}
+
+/* --------------------------------------------------------------------------
+   Escalonamento
+   Aplicado a filhos diretos de um container .stagger, sem precisar de
+   --delay inline em cada item.
+   -------------------------------------------------------------------------- */
+
+.js .stagger > .reveal:nth-child(1) {
+  --delay: 0ms;
+}
+.js .stagger > .reveal:nth-child(2) {
+  --delay: 70ms;
+}
+.js .stagger > .reveal:nth-child(3) {
+  --delay: 140ms;
+}
+.js .stagger > .reveal:nth-child(4) {
+  --delay: 210ms;
+}
+.js .stagger > .reveal:nth-child(5) {
+  --delay: 280ms;
+}
+.js .stagger > .reveal:nth-child(6) {
+  --delay: 350ms;
+}
+
+/* --------------------------------------------------------------------------
+   Pulsação discreta — só no ponto central do hero
+   -------------------------------------------------------------------------- */
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    scale: 1;
+  }
+  50% {
+    opacity: 0.7;
+    scale: 1.06;
+  }
+}

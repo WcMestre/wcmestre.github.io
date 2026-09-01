@@ -1,0 +1,64 @@
+/* ==========================================================================
+   components/flow.css — Cadeia horizontal ERP → API → … → BI
+   Flex com wrap: em tela estreita a cadeia quebra em linhas em vez de
+   estourar a largura ou exigir scroll horizontal.
+   ========================================================================== */
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs) var(--space-xs);
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+}
+
+.flow__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.flow__node {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9375rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Nós que representam a camada que a LabMídia constrói. */
+.flow__node--active {
+  border-color: var(--border-accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.flow__arrow {
+  flex: none;
+  inline-size: 1rem;
+  block-size: 1rem;
+  color: var(--text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Faixa de capacidades abaixo da cadeia
+   -------------------------------------------------------------------------- */
+
+.flow-caption {
+  margin-block-start: var(--space-md);
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-tertiary);
+}

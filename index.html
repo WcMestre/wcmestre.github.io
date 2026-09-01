@@ -1,374 +1,1464 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
+<!doctype html>
+<html lang="pt-BR" class="no-js">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+      LabMídia TechOps | Tecnologia, Automação, IA e Eficiência Operacional
+    </title>
+    <meta
+      name="description"
+      content="A LabMídia TechOps ajuda empresas a integrar sistemas, automatizar processos, aplicar IA e estruturar sua gestão tecnológica para crescer com eficiência."
+    />
+    <meta name="author" content="LabMídia TechOps" />
+    <meta name="theme-color" content="#0a101e" />
+    <link rel="canonical" href="https://labmidia.tec.br/" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LabMídia TechOps" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="https://labmidia.tec.br/" />
+    <meta
+      property="og:title"
+      content="LabMídia TechOps | Tecnologia que faz a operação escalar"
+    />
+    <meta
+      property="og:description"
+      content="Integramos estratégia, processos, automação, inteligência artificial e gestão tecnológica para tornar empresas mais eficientes e preparadas para crescer."
+    />
+    <meta property="og:image" content="https://labmidia.tec.br/assets/images/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="LabMídia TechOps — Technology Operations"
+    />
 
-    <title>LabMídia Tecnologia e Comunicação</title>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="LabMídia TechOps | Tecnologia que faz a operação escalar"
+    />
+    <meta
+      name="twitter:description"
+      content="Estratégia, tecnologia e execução para operações mais eficientes e escaláveis."
+    />
+    <meta name="twitter:image" content="https://labmidia.tec.br/assets/images/og-cover.png" />
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Ícones -->
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="./assets/logo/apple-touch-icon.png" />
 
+    <!-- Tipografia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-cyborg-gaming.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <!--
+      Folhas de estilo em <link> paralelos, e não @import: @import encadeia
+      requisições em série (critical request chain) e o Lighthouse penaliza.
+      Sobre HTTP/2, que o GitHub Pages serve, N arquivos pequenos no mesmo
+      domínio custam praticamente o mesmo que um arquivo único.
+      A ordem abaixo É a cascata — não reordene sem verificar.
+    -->
+    <!-- base -->
+    <link rel="stylesheet" href="./css/base/reset.css" />
+    <link rel="stylesheet" href="./css/base/tokens.css" />
+    <link rel="stylesheet" href="./css/base/typography.css" />
+    <link rel="stylesheet" href="./css/base/accessibility.css" />
+    <!-- layout -->
+    <link rel="stylesheet" href="./css/layout/grid.css" />
+    <link rel="stylesheet" href="./css/layout/header.css" />
+    <link rel="stylesheet" href="./css/layout/footer.css" />
+    <!-- components -->
+    <link rel="stylesheet" href="./css/components/navigation.css" />
+    <link rel="stylesheet" href="./css/components/button.css" />
+    <link rel="stylesheet" href="./css/components/card.css" />
+    <link rel="stylesheet" href="./css/components/chip.css" />
+    <link rel="stylesheet" href="./css/components/orbit.css" />
+    <link rel="stylesheet" href="./css/components/score-meter.css" />
+    <link rel="stylesheet" href="./css/components/stepper.css" />
+    <link rel="stylesheet" href="./css/components/flow.css" />
+    <link rel="stylesheet" href="./css/components/diagram.css" />
+    <link rel="stylesheet" href="./css/components/form.css" />
+    <!-- sections -->
+    <link rel="stylesheet" href="./css/sections/hero.css" />
+    <link rel="stylesheet" href="./css/sections/solutions.css" />
+    <link rel="stylesheet" href="./css/sections/efficiency.css" />
+    <link rel="stylesheet" href="./css/sections/cta.css" />
+    <link rel="stylesheet" href="./css/sections/contact.css" />
+    <!-- utilities -->
+    <link rel="stylesheet" href="./css/utilities/animations.css" />
+    <link rel="stylesheet" href="./css/utilities/helpers.css" />
+
+    <!--
+      Único script inline da página, e é proposital.
+      1. Troca .no-js por .js ANTES da primeira pintura, para que os blocos
+         com animação de entrada já nasçam invisíveis (sem piscar).
+      2. Arma uma rede de segurança: se os módulos não carregarem em 2,5s,
+         .js-boot-failed devolve a visibilidade de tudo. main.js cancela o
+         temporizador ao iniciar.
+    -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.remove("no-js");
+        root.classList.add("js");
+        window.__labmidiaBootTimer = window.setTimeout(function () {
+          root.classList.add("js-boot-failed");
+        }, 2500);
+      })();
+    </script>
+
+    <script src="./js/main.js" type="module"></script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "LabMídia TechOps",
+        "alternateName": "LabMídia Technology Operations",
+        "url": "https://labmidia.tec.br/",
+        "description": "Consultoria e gestão tecnológica que transforma processos, automação e inteligência artificial em eficiência operacional e capacidade de escala.",
+        "areaServed": ["São José do Rio Preto", "Brasil"],
+        "serviceType": [
+          "Consultoria em Tecnologia",
+          "Automação de Processos",
+          "Integração de Sistemas",
+          "Inteligência Artificial",
+          "Technology Operations"
+        ]
+      }
+    </script>
   </head>
 
-<body id="firstcharge">
-  <!--Preloader Start-->
-  <div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
-  <!--Preloader End-->
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
-  <!--Header Area Start-->
-  <header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!--Logo Start-->                  
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="">
+    <!-- Alvo do IntersectionObserver que compacta o header (header-scroll.js). -->
+    <div class="scroll-sentinel" id="top"></div>
+
+    <!-- ====================================================================
+         Sprite de ícones
+         Inline para não custar requisição e para herdar currentColor.
+         ==================================================================== -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7" />
+        <path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7" />
+      </symbol>
+      <symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 11V6a1.5 1.5 0 0 0-3 0" />
+        <path d="M15 10.5V4.5a1.5 1.5 0 0 0-3 0v6" />
+        <path d="M12 10.5v-5a1.5 1.5 0 0 0-3 0V13" />
+        <path d="M9 12.5 7.6 11a1.6 1.6 0 0 0-2.3 2.2l3.4 4.6A6 6 0 0 0 13.5 20H15a3 3 0 0 0 3-3v-6" />
+      </symbol>
+      <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="5.5" cy="18.5" r="2.5" />
+        <circle cx="18.5" cy="5.5" r="2.5" />
+        <path d="M8 18.5h6a4 4 0 0 0 0-8H10a4 4 0 0 1 0-8h6" />
+      </symbol>
+      <symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="5.5" rx="7.5" ry="3" />
+        <path d="M4.5 5.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6" />
+        <path d="M4.5 11.5v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6" />
+      </symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3.5 13.8 9l5.7 1.8-5.7 1.8L12 18.5l-1.8-5.9L4.5 10.8 10.2 9z" />
+        <path d="M18.5 16.5 19.2 18.6l2.3.7-2.3.7-.7 2.1-.7-2.1-2.3-.7 2.3-.7z" />
+      </symbol>
+      <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 17.5 9 11l4 4 8-8" />
+        <path d="M15.5 7H21v5.5" />
+      </symbol>
+      <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 12h15" />
+        <path d="m13 6 6 6-6 6" />
+      </symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 11v5" />
+        <path d="M12 7.75h.01" />
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2.5" />
+        <path d="m3.5 7 8.5 6 8.5-6" />
+      </symbol>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.94.53 3.75 1.44 5.3L2 22l4.98-1.6a9.8 9.8 0 0 0 5.06 1.4h.01c5.43 0 9.84-4.4 9.84-9.84S17.47 2 12.04 2Zm0 18a8.2 8.2 0 0 1-4.44-1.3l-.32-.2-2.95.95.96-2.87-.2-.33a8.14 8.14 0 0 1-1.25-4.4 8.2 8.2 0 1 1 8.2 8.15Zm4.5-6.11c-.25-.13-1.46-.72-1.68-.8-.23-.09-.39-.13-.55.12s-.64.8-.78.97c-.14.16-.29.18-.53.06a6.7 6.7 0 0 1-1.97-1.22 7.4 7.4 0 0 1-1.36-1.7c-.15-.24 0-.38.1-.5.1-.12.25-.29.37-.44.12-.15.16-.25.24-.41.08-.17.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.47-.4-.4-.55-.41h-.47a.9.9 0 0 0-.65.3 2.72 2.72 0 0 0-.85 2.02c0 1.19.87 2.34.99 2.5.12.17 1.7 2.6 4.13 3.65.58.25 1.03.4 1.38.51.58.19 1.1.16 1.52.1.46-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.15-1.18-.06-.1-.22-.16-.47-.29Z" />
+      </symbol>
+      <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM10 9h3.8v1.65h.05A4.17 4.17 0 0 1 17.6 8.7c3.9 0 4.62 2.5 4.62 5.76V21h-4v-5.66c0-1.35-.02-3.09-1.9-3.09-1.9 0-2.19 1.47-2.19 3v5.75h-4z" />
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </symbol>
+    </svg>
+
+    <!-- ====================================================================
+         HEADER
+         ==================================================================== -->
+    <header class="site-header">
+      <div class="container header__inner">
+        <a class="brand" href="#top" aria-label="LabMídia TechOps — início">
+          <svg
+            class="brand__mark"
+            viewBox="0 0 32 32"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <rect
+              x="1"
+              y="1"
+              width="30"
+              height="30"
+              rx="9"
+              stroke="currentColor"
+              stroke-opacity=".4"
+            />
+            <circle cx="16" cy="16" r="3.4" fill="currentColor" />
+            <circle cx="16" cy="7.5" r="1.9" fill="currentColor" fill-opacity=".65" />
+            <circle cx="23.5" cy="20" r="1.9" fill="currentColor" fill-opacity=".65" />
+            <circle cx="8.5" cy="20" r="1.9" fill="currentColor" fill-opacity=".65" />
+            <path
+              d="M16 12.6V9.4M18.6 17.8l3.1 1.4M13.4 17.8l-3.1 1.4"
+              stroke="currentColor"
+              stroke-opacity=".55"
+              stroke-width="1.3"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="brand__text">
+            <span class="brand__name">LabMídia</span>
+            <span class="brand__suffix">TechOps</span>
+          </span>
+        </a>
+
+        <!-- O botão vem antes do painel no DOM para que Tab entre no painel
+             assim que ele abre. A ordem visual é corrigida em CSS. -->
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Abrir menu de navegação"
+        >
+          <span class="nav-toggle__box" aria-hidden="true">
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+          </span>
+        </button>
+
+        <div class="header__collapse" id="site-nav">
+          <nav class="nav" aria-label="Navegação principal">
+            <ul class="nav__list">
+              <li><a class="nav__link" href="#proposta">O que fazemos</a></li>
+              <li><a class="nav__link" href="#solucoes">Soluções</a></li>
+              <li><a class="nav__link" href="#para-quem">Para quem</a></li>
+              <li><a class="nav__link" href="#metodologia">Metodologia</a></li>
+              <li><a class="nav__link" href="#contato">Contato</a></li>
+            </ul>
+          </nav>
+          <a class="btn btn--primary btn--sm header__cta" href="#contato">
+            Falar com um especialista
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <!-- ==================================================================
+           HERO
+           ================================================================== -->
+      <section class="hero glow" aria-labelledby="hero-title">
+        <div class="container hero__grid">
+          <div class="hero__body">
+            <p class="eyebrow">Technology Operations</p>
+
+            <h1 class="hero__title" id="hero-title">
+              Tecnologia que faz a operação escalar.
+            </h1>
+
+            <p class="hero__lead">
+              Integramos estratégia, processos, automação, inteligência
+              artificial e gestão tecnológica para tornar empresas mais
+              eficientes e preparadas para crescer.
+            </p>
+
+            <div class="btn-group hero__actions">
+              <a class="btn btn--primary btn--lg" href="#contato">
+                Conversar sobre minha operação
+                <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                  <use href="#i-arrow-right" />
+                </svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="#solucoes">
+                Conhecer nossas soluções
+              </a>
+            </div>
+
+            <ul class="hero__pillars">
+              <li class="hero__pillar">Estratégia</li>
+              <li class="hero__pillar">Automação</li>
+              <li class="hero__pillar">Integrações</li>
+              <li class="hero__pillar">IA</li>
+              <li class="hero__pillar">Technology Management</li>
+            </ul>
+          </div>
+
+          <figure class="hero__figure">
+            <!-- Diagrama: nós posicionados por --x/--y em % e linhas no mesmo
+                 sistema 0–100 do viewBox, então os dois sempre coincidem. -->
+            <div class="orbit" role="img" aria-label="Diagrama: ERP, CRM, automação, inteligência artificial e BI conectados por uma camada central de Technology Operations.">
+              <svg
+                class="orbit__lines"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <g>
+                  <path class="orbit__line" d="M50 44V14" />
+                  <path class="orbit__line" d="M43 47 18 38" />
+                  <path class="orbit__line" d="M57 47 82 38" />
+                  <path class="orbit__line" d="M46 56 28 80" />
+                  <path class="orbit__line" d="M54 56 72 80" />
+                </g>
+                <g>
+                  <path class="orbit__pulse" pathLength="100" style="--delay: 0s" d="M50 44V14" />
+                  <path class="orbit__pulse" pathLength="100" style="--delay: 0.7s" d="M43 47 18 38" />
+                  <path class="orbit__pulse" pathLength="100" style="--delay: 1.4s" d="M57 47 82 38" />
+                  <path class="orbit__pulse" pathLength="100" style="--delay: 2.1s" d="M46 56 28 80" />
+                  <path class="orbit__pulse" pathLength="100" style="--delay: 2.8s" d="M54 56 72 80" />
+                </g>
+              </svg>
+
+              <span class="orbit__node orbit__node--core" style="--x: 50%; --y: 50%">
+                <span class="orbit__core-label">
+                  <span class="orbit__core-sub">LabMídia</span>
+                  TechOps
+                </span>
+              </span>
+              <span class="orbit__node" style="--x: 50%; --y: 8%">CRM</span>
+              <span class="orbit__node" style="--x: 12%; --y: 36%">ERP</span>
+              <span class="orbit__node" style="--x: 88%; --y: 36%">IA</span>
+              <span class="orbit__node" style="--x: 24%; --y: 86%">Automação</span>
+              <span class="orbit__node" style="--x: 76%; --y: 86%">BI</span>
+            </div>
+
+            <figcaption class="hero__figcaption">
+              Uma camada de gestão conectando os sistemas que a operação já usa.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PROBLEMA
+           ================================================================== -->
+      <section class="section section--alt" id="problema" aria-labelledby="problema-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">O diagnóstico começa aqui</p>
+            <h2 class="section__title" id="problema-title">
+              Sua empresa precisa de mais tecnologia ou precisa organizar melhor
+              a tecnologia que já possui?
+            </h2>
+            <p class="section__lead lead">
+              Empresas em crescimento acumulam sistemas, ferramentas, planilhas,
+              fornecedores e processos. Quando essas peças não evoluem juntas, a
+              tecnologia deixa de acelerar o negócio e começa a gerar retrabalho.
+            </p>
+          </header>
+
+          <ul class="grid grid--cards stagger">
+            <li class="card card--numbered reveal">
+              <span class="card__icon" aria-hidden="true">
+                <svg><use href="#i-link" /></svg>
+              </span>
+              <p class="card__eyebrow">01</p>
+              <h3 class="card__title">Sistemas que não conversam</h3>
+              <p class="card__text">
+                ERP, CRM, financeiro, atendimento e outras plataformas
+                funcionando como ilhas.
+              </p>
+            </li>
+
+            <li class="card card--numbered reveal">
+              <span class="card__icon" aria-hidden="true">
+                <svg><use href="#i-hand" /></svg>
+              </span>
+              <p class="card__eyebrow">02</p>
+              <h3 class="card__title">Processos manuais</h3>
+              <p class="card__text">
+                Pessoas consumindo horas em atividades que poderiam ser
+                automatizadas.
+              </p>
+            </li>
+
+            <li class="card card--numbered reveal">
+              <span class="card__icon" aria-hidden="true">
+                <svg><use href="#i-route" /></svg>
+              </span>
+              <p class="card__eyebrow">03</p>
+              <h3 class="card__title">Projetos sem coordenação</h3>
+              <p class="card__text">
+                Vários fornecedores e iniciativas tecnológicas sem uma visão
+                central.
+              </p>
+            </li>
+
+            <li class="card card--numbered reveal">
+              <span class="card__icon" aria-hidden="true">
+                <svg><use href="#i-database" /></svg>
+              </span>
+              <p class="card__eyebrow">04</p>
+              <h3 class="card__title">Dados fragmentados</h3>
+              <p class="card__text">
+                Informação espalhada impedindo uma visão clara da operação.
+              </p>
+            </li>
+
+            <li class="card card--numbered reveal">
+              <span class="card__icon" aria-hidden="true">
+                <svg><use href="#i-spark" /></svg>
+              </span>
+              <p class="card__eyebrow">05</p>
+              <h3 class="card__title">IA sem estratégia</h3>
+              <p class="card__text">
+                Ferramentas sendo utilizadas sem definição clara de processo, ROI
+                ou governança.
+              </p>
+            </li>
+
+            <li class="card card--numbered reveal">
+              <span class="card__icon" aria-hidden="true">
+                <svg><use href="#i-trend" /></svg>
+              </span>
+              <p class="card__eyebrow">06</p>
+              <h3 class="card__title">Crescimento sem escala</h3>
+              <p class="card__text">
+                A estrutura administrativa cresce quase na mesma velocidade que o
+                negócio.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PROPOSTA DE VALOR + COMO ATUAMOS
+           ================================================================== -->
+      <section class="section" id="proposta" aria-labelledby="proposta-title">
+        <div class="container split split--text-lead">
+          <div class="split__body reveal">
+            <p class="eyebrow">Proposta de valor</p>
+            <h2 id="proposta-title">
+              Tecnologia não deve ser mais um problema para o empresário
+              administrar.
+            </h2>
+            <p class="lead">
+              A LabMídia TechOps funciona como um braço estratégico de tecnologia
+              da empresa. Entendemos o negócio, identificamos oportunidades,
+              desenhamos soluções, coordenamos fornecedores e acompanhamos a
+              execução.
+            </p>
+            <p>
+              <strong>Não começamos pela ferramenta. Começamos pelo problema.</strong>
+              APIs, desenvolvimento próprio, IA, RPA, ERP, CRM, n8n, Make, Power
+              Automate, cloud, BI ou o que já existe dentro do cliente — a
+              escolha depende do problema e do retorno esperado, nunca do
+              contrário.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="subhead" id="como-atuamos">Como atuamos</h3>
+            <ul class="grid stagger u-stack-sm" aria-labelledby="como-atuamos">
+              <li class="card card--pillar reveal">
+                <h4 class="card__title">Estratégia</h4>
+                <p class="card__text">
+                  Definimos prioridades tecnológicas alinhadas ao negócio.
+                </p>
+              </li>
+              <li class="card card--pillar reveal">
+                <h4 class="card__title">Processos</h4>
+                <p class="card__text">
+                  Identificamos gargalos, desperdícios e oportunidades.
+                </p>
+              </li>
+              <li class="card card--pillar reveal">
+                <h4 class="card__title">Tecnologia</h4>
+                <p class="card__text">
+                  Selecionamos e integramos as soluções adequadas.
+                </p>
+              </li>
+              <li class="card card--pillar reveal">
+                <h4 class="card__title">Execução</h4>
+                <p class="card__text">
+                  Transformamos planejamento em projetos implementados.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           TRÊS PRODUTOS
+           ================================================================== -->
+      <section class="section section--alt" id="solucoes" aria-labelledby="solucoes-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Soluções</p>
+            <h2 class="section__title" id="solucoes-title">
+              Da identificação do problema à transformação da operação.
+            </h2>
+          </header>
+
+          <div class="solutions__grid stagger">
+            <!-- Produto 01 -->
+            <article class="card card--solution reveal">
+              <p class="numeral">01</p>
+              <div class="card__head">
+                <h3 class="card__title">Diagnóstico de Eficiência Tecnológica</h3>
+              </div>
+              <p class="card__text">
+                Avaliamos processos, sistemas, integrações, dados, automações, IA
+                e estrutura tecnológica para identificar oportunidades de
+                eficiência e construir um roadmap de evolução.
+              </p>
+              <div>
+                <p class="card__deliverables-title">Entregáveis</p>
+                <ul class="list-check">
+                  <li>Diagnóstico executivo</li>
+                  <li>Mapa tecnológico</li>
+                  <li>Oportunidades priorizadas</li>
+                  <li>Technology Efficiency Score</li>
+                  <li>Roadmap</li>
+                  <li>Recomendações</li>
+                </ul>
+              </div>
+              <div class="card__foot">
+                <a class="btn btn--quiet" href="#diagnostico">
+                  Conhecer o diagnóstico
+                  <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                    <use href="#i-arrow-right" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Produto 02 -->
+            <article class="card card--solution reveal">
+              <p class="numeral">02</p>
+              <div class="card__head">
+                <h3 class="card__title">Sprint de Eficiência Operacional</h3>
+              </div>
+              <p class="card__text">
+                Selecionamos as iniciativas com maior potencial de retorno e
+                conduzimos sua implantação em ciclos estruturados.
+              </p>
+              <div>
+                <p class="card__deliverables-title">Possíveis iniciativas</p>
+                <ul class="list-check">
+                  <li>Integrações</li>
+                  <li>Automações</li>
+                  <li>IA</li>
+                  <li>Dashboards</li>
+                  <li>Melhoria de processos</li>
+                  <li>Aplicações e fluxos corporativos</li>
+                </ul>
+              </div>
+              <div class="card__foot">
+                <a class="btn btn--quiet" href="#metodologia">
+                  Conhecer os Sprints
+                  <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                    <use href="#i-arrow-right" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            <!-- Produto 03 — solução recorrente principal -->
+            <article class="card card--solution card--featured reveal">
+              <span class="chip chip--solid card__badge">Solução recorrente</span>
+              <p class="numeral">03</p>
+              <div class="card__head">
+                <h3 class="card__title">Technology Office</h3>
+              </div>
+              <p class="card__text">
+                Gestão tecnológica sob demanda para empresas que precisam de
+                liderança, estratégia e capacidade técnica sem construir uma
+                grande estrutura interna.
+              </p>
+              <div>
+                <p class="card__deliverables-title">Pode incluir</p>
+                <ul class="list-check">
+                  <li>Fractional CTO</li>
+                  <li>Gestão de projetos e de fornecedores</li>
+                  <li>Arquitetura</li>
+                  <li>IA e automação</li>
+                  <li>Estruturação de times</li>
+                  <li>Planejamento tecnológico</li>
+                </ul>
+              </div>
+              <div class="card__foot">
+                <a class="btn btn--quiet" href="#tech-office">
+                  Conhecer o Tech Office
+                  <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                    <use href="#i-arrow-right" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           TECHNOLOGY EFFICIENCY SCORE
+           Todos os números desta seção são simulados. O selo
+           "Exemplo ilustrativo" é obrigatório — ver §41 do briefing.
+           ================================================================== -->
+      <section class="section" id="diagnostico" aria-labelledby="diagnostico-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Diagnóstico</p>
+            <h2 class="section__title" id="diagnostico-title">
+              Transformamos ineficiência em um roadmap de execução.
+            </h2>
+            <p class="section__lead lead">
+              O diagnóstico atribui uma nota a cada dimensão da operação e cruza
+              as oportunidades encontradas por impacto e esforço. O resultado é
+              uma fila de execução, não um relatório.
+            </p>
+          </header>
+
+          <div class="efficiency__grid">
+            <div class="panel reveal">
+              <div class="panel__head">
+                <h3 class="panel__title">Technology Efficiency Score</h3>
+                <span class="illustrative-badge">
+                  <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
+                  Exemplo ilustrativo
+                </span>
+              </div>
+
+              <div class="meters">
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">Processos</span>
+                    <span class="meter__value">64</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 64"></div>
+                  </div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">Sistemas</span>
+                    <span class="meter__value">72</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 72"></div>
+                  </div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">Integrações</span>
+                    <span class="meter__value">41</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 41"></div>
+                  </div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">Automação</span>
+                    <span class="meter__value">35</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 35"></div>
+                  </div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">IA</span>
+                    <span class="meter__value">28</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 28"></div>
+                  </div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">Dados</span>
+                    <span class="meter__value">56</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 56"></div>
+                  </div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head">
+                    <span class="meter__label">Gestão</span>
+                    <span class="meter__value">68</span>
+                  </div>
+                  <div class="meter__track" aria-hidden="true">
+                    <div class="meter__fill" style="--value: 68"></div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="efficiency__legend">
+                <span class="efficiency__scale">Escala de 0 a 100 por dimensão</span>
+              </p>
+            </div>
+
+            <div class="panel reveal">
+              <div class="panel__head">
+                <h3 class="panel__title">Impacto × Esforço</h3>
+                <span class="illustrative-badge">
+                  <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
+                  Exemplo ilustrativo
+                </span>
+              </div>
+
+              <ul class="priority-list">
+                <li>
+                  <span class="priority-list__name">CRM ↔ ERP</span>
+                  <span class="chip chip--priority-high">Prioridade alta</span>
+                </li>
+                <li>
+                  <span class="priority-list__name">Automação financeira</span>
+                  <span class="chip chip--priority-high">Prioridade alta</span>
+                </li>
+                <li>
+                  <span class="priority-list__name">IA no atendimento</span>
+                  <span class="chip chip--priority-medium">Prioridade média</span>
+                </li>
+                <li>
+                  <span class="priority-list__name">BI executivo</span>
+                  <span class="chip chip--priority-medium">Prioridade média</span>
+                </li>
+              </ul>
+
+              <p class="card__text">
+                A priorização considera retorno esperado, esforço de implantação
+                e dependência entre iniciativas — para que a primeira entrega já
+                sustente as seguintes.
+              </p>
+
+              <div>
+                <a class="btn btn--ghost" href="#contato">Solicitar diagnóstico</a>
+              </div>
+            </div>
+          </div>
+
+          <p class="section__note">
+            Os valores acima são um exemplo de como o diagnóstico é apresentado.
+            Não representam resultado de cliente.
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           TECHNOLOGY OFFICE
+           ================================================================== -->
+      <section class="section section--alt" id="tech-office" aria-labelledby="tech-office-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Technology Office</p>
+            <h2 class="section__title" id="tech-office-title">
+              Uma estrutura executiva de tecnologia sem precisar montar toda uma
+              estrutura interna.
+            </h2>
+          </header>
+
+          <div class="compare reveal reveal--fade">
+            <div class="compare__panel">
+              <p class="compare__label">Modelo tradicional</p>
+              <ul class="compare__stack">
+                <li class="compare__box">CTO</li>
+                <li class="compare__box">Gerente</li>
+                <li class="compare__box">Arquiteto</li>
+                <li class="compare__box">PM</li>
+                <li class="compare__box">Especialista IA</li>
+                <li class="compare__box">DevOps</li>
+                <li class="compare__box">Desenvolvedores</li>
+                <li class="compare__box">Fornecedores</li>
+              </ul>
+              <p class="compare__note">
+                Oito frentes para contratar, coordenar e manter — cada uma com
+                custo fixo e curva própria de maturidade.
+              </p>
+            </div>
+
+            <p class="compare__versus" aria-hidden="true">vs</p>
+
+            <div class="compare__panel compare__panel--highlight">
+              <p class="compare__label">Technology Office</p>
+              <ul class="compare__blocks">
+                <li class="compare__block">Estratégia</li>
+                <li class="compare__block">Gestão</li>
+                <li class="compare__block">Arquitetura</li>
+                <li class="compare__block">Especialistas sob demanda</li>
+              </ul>
+              <p class="compare__note">
+                O Tech Office conecta direção, times e fornecedores, garantindo
+                que investimentos tecnológicos estejam alinhados às prioridades
+                da empresa.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           OPERAÇÕES MULTIUNIDADES
+           ================================================================== -->
+      <section class="section" id="multiunidades" aria-labelledby="multiunidades-title">
+        <div class="container split split--visual-lead">
+          <div class="split__body reveal">
+            <p class="eyebrow">Operação distribuída</p>
+            <h2 id="multiunidades-title">
+              Quanto mais distribuída a operação, maior o desafio de manter
+              tecnologia, processos e dados conectados.
+            </h2>
+            <p class="lead">
+              Atuamos especialmente em organizações nas quais matriz, unidades,
+              franquias ou empresas do mesmo grupo precisam compartilhar
+              tecnologia, dados e processos com eficiência.
+            </p>
+          </div>
+
+          <div
+            class="org-tree reveal reveal--fade"
+            role="img"
+            aria-label="Diagrama: a matriz se conecta ao Technology Office, que por sua vez coordena sistemas, dados e processos de cada unidade."
+          >
+            <div class="org-tree__level">
+              <span class="org-node org-node--root">Matriz</span>
+            </div>
+            <div class="org-tree__level">
+              <span class="org-node org-node--hub">Technology Office</span>
+            </div>
+            <ul class="org-tree__branches">
+              <li class="org-branch">
+                <span class="org-node">Unidade 01</span>
+                <ul class="org-branch__leaves">
+                  <li>Sistemas</li>
+                  <li>Dados</li>
+                  <li>Processos</li>
+                </ul>
+              </li>
+              <li class="org-branch">
+                <span class="org-node">Unidade 02</span>
+                <ul class="org-branch__leaves">
+                  <li>Sistemas</li>
+                  <li>Dados</li>
+                  <li>Processos</li>
+                </ul>
+              </li>
+              <li class="org-branch">
+                <span class="org-node">Unidade 03</span>
+                <ul class="org-branch__leaves">
+                  <li>Sistemas</li>
+                  <li>Dados</li>
+                  <li>Processos</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           PARA QUEM
+           ================================================================== -->
+      <section class="section section--alt" id="para-quem" aria-labelledby="para-quem-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Para quem</p>
+            <h2 class="section__title" id="para-quem-title">
+              Especializados em operações que precisam escalar.
+            </h2>
+          </header>
+
+          <ul class="grid grid--cards stagger">
+            <li class="card card--audience reveal">
+              <h3 class="card__title">Franquias</h3>
+              <p class="card__text">
+                Tecnologia e processos conectando franqueadora e unidades.
+              </p>
+            </li>
+            <li class="card card--audience reveal">
+              <h3 class="card__title">Redes multiunidades</h3>
+              <p class="card__text">
+                Padronização, dados, sistemas e gestão operacional.
+              </p>
+            </li>
+            <li class="card card--audience reveal">
+              <h3 class="card__title">Holdings</h3>
+              <p class="card__text">
+                Governança e estratégia tecnológica compartilhada entre empresas.
+              </p>
+            </li>
+            <li class="card card--audience reveal">
+              <h3 class="card__title">Empresas em crescimento</h3>
+              <p class="card__text">
+                Estruturação tecnológica sem necessidade de criar uma grande área
+                interna.
+              </p>
+            </li>
+            <li class="card card--audience reveal">
+              <h3 class="card__title">Distribuição e varejo</h3>
+              <p class="card__text">
+                Integração entre operação, vendas, estoque, logística e dados.
+              </p>
+            </li>
+            <li class="card card--audience reveal">
+              <h3 class="card__title">Serviços</h3>
+              <p class="card__text">
+                Automação de processos administrativos e atendimento.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           METODOLOGIA — TEO FRAMEWORK
+           ================================================================== -->
+      <section class="section" id="metodologia" aria-labelledby="metodologia-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">TEO Framework</p>
+            <h2 class="section__title" id="metodologia-title">
+              Technology Efficiency &amp; Operations
+            </h2>
+            <p class="section__lead lead">
+              Cinco etapas que vão do entendimento do negócio à melhoria
+              contínua. Cada uma produz um artefato que alimenta a seguinte.
+            </p>
+          </header>
+
+          <ol class="stepper stagger">
+            <li class="step reveal">
+              <p class="step__num">01</p>
+              <h3 class="step__title">Discover</h3>
+              <p class="step__text">
+                Entendemos negócio, operação, processos e sistemas.
+              </p>
+            </li>
+            <li class="step reveal">
+              <p class="step__num">02</p>
+              <h3 class="step__title">Measure</h3>
+              <p class="step__text">
+                Quantificamos gargalos, desperdícios, riscos e oportunidades.
+              </p>
+            </li>
+            <li class="step reveal">
+              <p class="step__num">03</p>
+              <h3 class="step__title">Design</h3>
+              <p class="step__text">
+                Desenhamos processos, arquitetura e solução.
+              </p>
+            </li>
+            <li class="step reveal">
+              <p class="step__num">04</p>
+              <h3 class="step__title">Execute</h3>
+              <p class="step__text">
+                Coordenamos e implementamos as iniciativas.
+              </p>
+            </li>
+            <li class="step reveal">
+              <p class="step__num">05</p>
+              <h3 class="step__title">Optimize</h3>
+              <p class="step__text">
+                Medimos resultados e evoluímos continuamente.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           INTELIGÊNCIA ARTIFICIAL
+           ================================================================== -->
+      <section class="section section--alt" id="ia" aria-labelledby="ia-title">
+        <div class="container split split--text-lead">
+          <div class="split__body reveal">
+            <p class="eyebrow">Inteligência Artificial</p>
+            <h2 id="ia-title">
+              IA não é estratégia. É uma ferramenta dentro da estratégia.
+            </h2>
+            <p class="lead">
+              Antes de implementar IA, identificamos onde ela pode reduzir custo,
+              aumentar produtividade, melhorar atendimento, acelerar decisões ou
+              criar capacidade operacional.
+            </p>
+          </div>
+
+          <div class="panel reveal reveal--fade">
+            <h3 class="panel__title">Onde a IA costuma pagar o próprio custo</h3>
+            <ul class="list-check">
+              <li>Agentes para tarefas repetitivas de rotina</li>
+              <li>Copilotos internos sobre a base de conhecimento da empresa</li>
+              <li>Automação documental — leitura, extração e conferência</li>
+              <li>Classificação e triagem de demandas</li>
+              <li>Atendimento assistido</li>
+              <li>Workflows com decisão apoiada por modelo</li>
+              <li>Análise de dados e apoio à decisão</li>
+              <li>Integração com os sistemas que já estão em uso</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           AUTOMAÇÕES E INTEGRAÇÕES
+           ================================================================== -->
+      <section class="section" id="integracoes" aria-labelledby="integracoes-title">
+        <div class="container">
+          <header class="section__head section__head--center reveal">
+            <p class="eyebrow">Automações e integrações</p>
+            <h2 class="section__title" id="integracoes-title">
+              Sistemas conectados. Processos automatizados. Informação fluindo.
+            </h2>
+          </header>
+
+          <div
+            class="flow reveal reveal--fade"
+            role="img"
+            aria-label="Fluxo: do ERP para a camada de API, dela para a automação, e daí para CRM, inteligência artificial e BI."
+          >
+            <span class="flow__item">
+              <span class="flow__node">ERP</span>
+              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+            </span>
+            <span class="flow__item">
+              <span class="flow__node flow__node--active">API</span>
+              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+            </span>
+            <span class="flow__item">
+              <span class="flow__node flow__node--active">Automation</span>
+              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+            </span>
+            <span class="flow__item">
+              <span class="flow__node">CRM</span>
+              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+            </span>
+            <span class="flow__item">
+              <span class="flow__node flow__node--active">IA</span>
+              <svg class="flow__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-right" /></svg>
+            </span>
+            <span class="flow__item">
+              <span class="flow__node">BI</span>
+            </span>
+          </div>
+
+          <p class="flow-caption reveal">
+            Em destaque, a camada que construímos e mantemos.
+          </p>
+
+          <ul class="chip-list reveal u-center-x u-stack-md">
+            <li class="chip chip--mono">API</li>
+            <li class="chip chip--mono">Webhook</li>
+            <li class="chip chip--mono">Workflow</li>
+            <li class="chip chip--mono">Data</li>
+            <li class="chip chip--mono">Automation</li>
+            <li class="chip chip--mono">AI</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           DIFERENCIAIS
+           ================================================================== -->
+      <section class="section section--alt" id="diferenciais" aria-labelledby="diferenciais-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Por que LabMídia</p>
+            <h2 class="section__title" id="diferenciais-title">
+              Não somos apenas mais um fornecedor de tecnologia.
+            </h2>
+          </header>
+
+          <ul class="grid grid--cards stagger">
+            <li class="card reveal">
+              <h3 class="card__title">Visão de negócio</h3>
+              <p class="card__text">
+                Tecnologia subordinada ao objetivo empresarial.
+              </p>
+            </li>
+            <li class="card reveal">
+              <h3 class="card__title">Independência tecnológica</h3>
+              <p class="card__text">Não começamos escolhendo ferramenta.</p>
+            </li>
+            <li class="card reveal">
+              <h3 class="card__title">Execução</h3>
+              <p class="card__text">
+                Não entregamos apenas apresentações e recomendações.
+              </p>
+            </li>
+            <li class="card reveal">
+              <h3 class="card__title">Senioridade</h3>
+              <p class="card__text">
+                Gestão, arquitetura e liderança tecnológica.
+              </p>
+            </li>
+            <li class="card reveal">
+              <h3 class="card__title">Especialistas sob demanda</h3>
+              <p class="card__text">
+                Construção de equipes adequadas a cada iniciativa.
+              </p>
+            </li>
+            <li class="card reveal">
+              <h3 class="card__title">Resultado mensurável</h3>
+              <p class="card__text">
+                Priorização baseada em impacto, esforço e retorno.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CTA
+           ================================================================== -->
+      <section class="section section--tight cta-band" aria-labelledby="cta-title">
+        <div class="container">
+          <div class="cta-band__inner reveal">
+            <h2 class="cta-band__title" id="cta-title">
+              Onde a tecnologia está limitando o crescimento da sua operação?
+            </h2>
+            <p class="cta-band__text lead">
+              Uma conversa inicial pode ser suficiente para identificar onde
+              começar.
+            </p>
+            <div class="btn-group cta-band__actions">
+              <a class="btn btn--primary btn--lg" href="#contato">
+                Conversar com a LabMídia TechOps
+                <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                  <use href="#i-arrow-right" />
+                </svg>
+              </a>
+              <a class="btn btn--ghost btn--lg" href="#contato">
+                Solicitar diagnóstico
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           CONTATO
+           ================================================================== -->
+      <section class="section" id="contato" aria-labelledby="contato-title">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Contato</p>
+            <h2 class="section__title" id="contato-title">
+              Conte como sua operação funciona hoje.
+            </h2>
+            <p class="section__lead lead">
+              Quanto mais contexto, mais objetiva é a primeira conversa. Todos os
+              campos abaixo servem para chegarmos preparados.
+            </p>
+          </header>
+
+          <div class="contact__grid">
+            <form class="form reveal" id="form-contato" method="post" action="#">
+              <div class="form__grid">
+                <p class="field field--full">
+                  <label class="field__label" for="nome">Nome</label>
+                  <input
+                    class="field__control"
+                    id="nome"
+                    name="nome"
+                    type="text"
+                    autocomplete="name"
+                    data-validate="required"
+                    aria-describedby="nome-error"
+                    required
+                  />
+                  <span class="field__error" id="nome-error" aria-live="polite"></span>
+                </p>
+
+                <p class="field">
+                  <label class="field__label" for="empresa">Empresa</label>
+                  <input
+                    class="field__control"
+                    id="empresa"
+                    name="empresa"
+                    type="text"
+                    autocomplete="organization"
+                    data-validate="required"
+                    aria-describedby="empresa-error"
+                    required
+                  />
+                  <span class="field__error" id="empresa-error" aria-live="polite"></span>
+                </p>
+
+                <p class="field">
+                  <label class="field__label" for="cargo">
+                    Cargo <span class="field__optional">(opcional)</span>
+                  </label>
+                  <input
+                    class="field__control"
+                    id="cargo"
+                    name="cargo"
+                    type="text"
+                    autocomplete="organization-title"
+                  />
+                </p>
+
+                <p class="field">
+                  <label class="field__label" for="email">E-mail</label>
+                  <input
+                    class="field__control"
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    data-validate="required email"
+                    aria-describedby="email-error"
+                    required
+                  />
+                  <span class="field__error" id="email-error" aria-live="polite"></span>
+                </p>
+
+                <p class="field">
+                  <label class="field__label" for="telefone">
+                    Telefone / WhatsApp <span class="field__optional">(opcional)</span>
+                  </label>
+                  <input
+                    class="field__control"
+                    id="telefone"
+                    name="telefone"
+                    type="tel"
+                    autocomplete="tel"
+                    inputmode="tel"
+                  />
+                </p>
+
+                <p class="field">
+                  <label class="field__label" for="funcionarios">
+                    Número de funcionários <span class="field__optional">(opcional)</span>
+                  </label>
+                  <select class="field__control" id="funcionarios" name="funcionarios">
+                    <option value="">Selecione</option>
+                    <option>Até 10</option>
+                    <option>11 a 50</option>
+                    <option>51 a 200</option>
+                    <option>201 a 500</option>
+                    <option>Mais de 500</option>
+                  </select>
+                </p>
+
+                <p class="field">
+                  <label class="field__label" for="unidades">
+                    Número de unidades <span class="field__optional">(se aplicável)</span>
+                  </label>
+                  <select class="field__control" id="unidades" name="unidades">
+                    <option value="">Selecione</option>
+                    <option>Não se aplica</option>
+                    <option>1 unidade</option>
+                    <option>2 a 5</option>
+                    <option>6 a 20</option>
+                    <option>21 a 50</option>
+                    <option>Mais de 50</option>
+                  </select>
+                </p>
+
+                <p class="field field--full">
+                  <label class="field__label" for="desafio">Principal desafio</label>
+                  <select
+                    class="field__control"
+                    id="desafio"
+                    name="desafio"
+                    data-validate="required"
+                    aria-describedby="desafio-error"
+                    required
+                  >
+                    <option value="">Selecione</option>
+                    <option>Automação</option>
+                    <option>Integração de sistemas</option>
+                    <option>Inteligência Artificial</option>
+                    <option>Gestão de tecnologia</option>
+                    <option>Projetos</option>
+                    <option>Estruturação de equipe</option>
+                    <option>Dados / BI</option>
+                    <option>Ainda não sei por onde começar</option>
+                  </select>
+                  <span class="field__error" id="desafio-error" aria-live="polite"></span>
+                </p>
+
+                <p class="field field--full">
+                  <label class="field__label" for="contexto">
+                    Contexto <span class="field__optional">(opcional)</span>
+                  </label>
+                  <textarea
+                    class="field__control"
+                    id="contexto"
+                    name="contexto"
+                    rows="4"
+                    aria-describedby="contexto-hint"
+                  ></textarea>
+                  <span class="field__hint" id="contexto-hint">
+                    Sistemas em uso, o que trava hoje, o que já tentaram.
+                  </span>
+                </p>
+              </div>
+
+              <!-- Honeypot: invisível para pessoas, atrativo para robôs. -->
+              <p class="form__trap" aria-hidden="true">
+                <label for="_gotcha">Não preencha este campo</label>
+                <input id="_gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+              </p>
+
+              <div class="form__foot">
+                <button class="btn btn--primary btn--lg" type="submit">
+                  Enviar
+                  <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                    <use href="#i-arrow-right" />
+                  </svg>
+                </button>
+
+                <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+
+                <p class="form__privacy">
+                  Usamos estes dados apenas para retornar o seu contato. Não
+                  compartilhamos com terceiros e não utilizamos cookies de
+                  rastreamento neste site.
+                </p>
+              </div>
+            </form>
+
+            <aside class="contact__aside reveal" aria-label="Outros canais e atendimento">
+              <div class="contact__block">
+                <h3 class="contact__block-title">Canais diretos</h3>
+                <ul class="contact__channels">
+                  <li data-channel-item>
+                    <a class="contact__channel" data-channel="whatsapp" href="#contato">
+                      <svg aria-hidden="true" focusable="false"><use href="#i-whatsapp" /></svg>
+                      WhatsApp
                     </a>
-                    <!--Logo End-->
-
-
-                    <!--Menu Start-->
-                    <ul class="nav">
-                        <li><a href="#servicos">Serviços</a></li>
-                        <li><a href="#clientes">Clientes</a></li>
-                        <li><a href="#parceiros">Parceiros</a></li>
-                        <li><a href="profile.html">Contato<img src="assets/images/profile-header.jpg" alt=""></a></li>
-                    </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
+                  </li>
+                  <li data-channel-item>
+                    <a class="contact__channel" data-channel="email" href="#contato">
+                      <svg aria-hidden="true" focusable="false"><use href="#i-mail" /></svg>
+                      <span data-channel-value>E-mail</span>
                     </a>
-                    <!--Menu End-->
-                </nav>
-            </div>
+                  </li>
+                  <li data-channel-item>
+                    <a class="contact__channel" data-channel="linkedin" href="#contato">
+                      <svg aria-hidden="true" focusable="false"><use href="#i-linkedin" /></svg>
+                      LinkedIn
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="contact__block">
+                <h3 class="contact__block-title">Atendimento</h3>
+                <p class="contact__channel u-align-start">
+                  <svg aria-hidden="true" focusable="false"><use href="#i-pin" /></svg>
+                  <span>
+                    Presencial em São José do Rio Preto e região.<br />
+                    Remoto para todo o Brasil.
+                  </span>
+                </p>
+              </div>
+
+              <div class="contact__block">
+                <h3 class="contact__block-title">Como funciona</h3>
+                <ul class="list-check">
+                  <li>Conversa inicial para entender a operação</li>
+                  <li>Recorte do problema e do retorno esperado</li>
+                  <li>Proposta de diagnóstico ou de sprint</li>
+                </ul>
+              </div>
+            </aside>
+          </div>
         </div>
-    </div>
-  </header>
-  <!--Header Area End-->
+      </section>
+    </main>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-content">
-
-          <!-- ***** Banner Start ***** -->
-          <div class="main-banner">
-            <div class="row">
-              <div class="col-lg-7">
-                <div class="header-text">
-                  <h6>Bem-Vindo!</h6>
-                  <h4><em>LabMídia</em></h4>
-                  <h3>Tecnologia e Comunicação</h3>
-                </div>
-              </div>
-            </div>
+    <!-- ====================================================================
+         FOOTER
+         ==================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <p class="brand">
+              <span class="brand__text">
+                <span class="brand__name">LabMídia</span>
+                <span class="brand__suffix">TechOps</span>
+              </span>
+            </p>
+            <p class="footer__signature">Technology Operations</p>
+            <p class="footer__pillars">
+              Estratégia • Automação • Integrações • IA
+            </p>
           </div>
-          <!-- ***** Banner End ***** -->
 
-          <!-- ***** Gaming Library Start ***** -->
-          <div class="gaming-library" id="servicos">
-            <div class="col-lg-12">
-              <div class="heading-section">
-                <h4><em>Nossos</em> Serviços</h4>
-              </div>
-              <div class="item">
-                <ul>
-                  <li><img src="assets/images/game-01.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Dota 2</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>24/08/2036</span></li>
-                  <li><h4>Hours Played</h4><span>634 H 22 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">Donwload</a></div></li>
-                </ul>
-              </div>
-              <div class="item">
-                <ul>
-                  <li><img src="assets/images/game-02.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Fortnite</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>22/06/2036</span></li>
-                  <li><h4>Hours Played</h4><span>740 H 52 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">Donwload</a></div></li>
-                </ul>
-              </div>
-              <div class="item last-item">
-                <ul>
-                  <li><img src="assets/images/game-03.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>CS-GO</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>21/04/2036</span></li>
-                  <li><h4>Hours Played</h4><span>892 H 14 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">Donwload</a></div></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="main-button">
-                <a href="#firstcharge">Voltar ao Topo</a>
-              </div>
-            </div>
+          <div>
+            <h2 class="footer__col-title">Navegação</h2>
+            <ul class="footer__list">
+              <li><a href="#proposta">O que fazemos</a></li>
+              <li><a href="#solucoes">Soluções</a></li>
+              <li><a href="#para-quem">Para quem</a></li>
+              <li><a href="#metodologia">Metodologia</a></li>
+              <li><a href="#contato">Contato</a></li>
+            </ul>
           </div>
-          <!-- ***** Gaming Library End ***** -->          
 
-          <!-- ***** Most Popular Start ***** -->
-          <div class="most-popular" id="clientes">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Nossos</em> Clientes</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-01.jpg" alt="">
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-02.jpg" alt="">
-                      <h4>PubG<br><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-03.jpg" alt="">
-                      <h4>Dota2<br><span>Steam-X</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-04.jpg" alt="">
-                      <h4>CS-GO<br><span>Legendary</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="item">
-                      <div class="row">
-                        <div class="col-lg-6 col-sm-6">
-                          <div class="item inner-item">
-                            <img src="assets/images/popular-05.jpg" alt="">
-                            <h4>Mini Craft<br><span>Legendary</span></h4>
-                            <ul>
-                              <li><i class="fa fa-star"></i> 4.8</li>
-                              <li><i class="fa fa-download"></i> 2.3M</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                          <div class="item">
-                            <img src="assets/images/popular-06.jpg" alt="">
-                            <h4>Eagles Fly<br><span>Matrix Games</span></h4>
-                            <ul>
-                              <li><i class="fa fa-star"></i> 4.8</li>
-                              <li><i class="fa fa-download"></i> 2.3M</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-07.jpg" alt="">
-                      <h4>Warface<br><span>Max 3D</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-08.jpg" alt="">
-                      <h4>Warcraft<br><span>Legend</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#firstcharge">Voltar ao Topo</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <h2 class="footer__col-title">Contato</h2>
+            <ul class="footer__list">
+              <li data-channel-item>
+                <a data-channel="email" href="#contato">
+                  <span data-channel-value>E-mail</span>
+                </a>
+              </li>
+              <li data-channel-item>
+                <a data-channel="linkedin" href="#contato">LinkedIn</a>
+              </li>
+              <li data-channel-item>
+                <a data-channel="whatsapp" href="#contato">WhatsApp</a>
+              </li>
+            </ul>
+            <p class="footer__pillars u-stack-xs">
+              São José do Rio Preto e região<br />
+              Atendimento remoto em todo o Brasil
+            </p>
           </div>
-          <!-- ***** Most Popular End ***** -->
+        </div>
 
-          <!-- ***** Most Popular Start ***** -->
-          <div class="most-popular" id="parceiros">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Nossos</em> Parceiros</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-01.jpg" alt="">
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-02.jpg" alt="">
-                      <h4>PubG<br><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-03.jpg" alt="">
-                      <h4>Dota2<br><span>Steam-X</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-04.jpg" alt="">
-                      <h4>CS-GO<br><span>Legendary</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="item">
-                      <div class="row">
-                        <div class="col-lg-6 col-sm-6">
-                          <div class="item inner-item">
-                            <img src="assets/images/popular-05.jpg" alt="">
-                            <h4>Mini Craft<br><span>Legendary</span></h4>
-                            <ul>
-                              <li><i class="fa fa-star"></i> 4.8</li>
-                              <li><i class="fa fa-download"></i> 2.3M</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                          <div class="item">
-                            <img src="assets/images/popular-06.jpg" alt="">
-                            <h4>Eagles Fly<br><span>Matrix Games</span></h4>
-                            <ul>
-                              <li><i class="fa fa-star"></i> 4.8</li>
-                              <li><i class="fa fa-download"></i> 2.3M</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-07.jpg" alt="">
-                      <h4>Warface<br><span>Max 3D</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-08.jpg" alt="">
-                      <h4>Warcraft<br><span>Legend</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#firstcharge">Voltar ao Topo</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Most Popular End ***** -->
-
+        <div class="footer__bottom">
+          <p>© 2026 LabMídia TechOps</p>
+          <p>Tecnologia que faz a operação escalar.</p>
         </div>
       </div>
-    </div>
-  </div>
-  
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>Copyright © 2020 <a href="#">LabMídia</a> Tecnologia e Comunicação 
-        </div>
-      </div>
-    </div>
-  </footer>
-
-
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-  <script src="assets/js/isotope.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/tabs.js"></script>
-  <script src="assets/js/popup.js"></script>
-  <script src="assets/js/custom.js"></script>
-
-
+    </footer>
   </body>
-
 </html>

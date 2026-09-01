@@ -1,0 +1,168 @@
+/* ==========================================================================
+   base/typography.css — Escala tipográfica e elementos de texto
+   ========================================================================== */
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+  background-color: var(--bg-primary);
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   Títulos
+   -------------------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-snug);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
+
+h4 {
+  font-size: var(--fs-h4);
+  letter-spacing: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Parágrafos
+   -------------------------------------------------------------------------- */
+
+p {
+  text-wrap: pretty;
+}
+
+.lead {
+  font-size: var(--fs-lg);
+  color: var(--text-secondary);
+  max-width: 62ch;
+}
+
+.text-muted {
+  color: var(--text-tertiary);
+}
+
+/* Ênfase dentro de títulos: destaca sem virar outra cor de marca. */
+h1 em,
+h2 em,
+h3 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Eyebrow — rótulo pequeno acima do título de seção
+   -------------------------------------------------------------------------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.eyebrow::before {
+  content: "";
+  inline-size: 1.75rem;
+  block-size: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* --------------------------------------------------------------------------
+   Subtítulo de bloco — rótulo curto acima de um agrupamento dentro de uma
+   seção que já tem h2. Puramente tipográfico, sem dono de componente.
+   -------------------------------------------------------------------------- */
+
+.subhead {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* --------------------------------------------------------------------------
+   Links em texto corrido
+   -------------------------------------------------------------------------- */
+
+.link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   Listas com marcador próprio
+   -------------------------------------------------------------------------- */
+
+.list-check {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.list-check li {
+  position: relative;
+  padding-inline-start: 1.5rem;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+.list-check li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0.55em;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   Números de etapa / card
+   -------------------------------------------------------------------------- */
+
+.numeral {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}

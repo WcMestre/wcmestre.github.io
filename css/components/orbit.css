@@ -1,0 +1,152 @@
+/* ==========================================================================
+   components/orbit.css — Diagrama de sistemas conectados (hero)
+
+   Geometria: os nós são posicionados em porcentagem via --x/--y definidos
+   no HTML; o SVG usa o mesmo sistema 0–100 com preserveAspectRatio="none",
+   de modo que linha e nó coincidem em qualquer proporção. vector-effect
+   mantém a espessura do traço constante apesar do esticamento.
+
+   Abaixo de 45rem o SVG é ocultado e os nós voltam ao fluxo normal —
+   traço fino em tela pequena vira ruído.
+   ========================================================================== */
+
+.orbit {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 32rem;
+  margin-inline: auto;
+  aspect-ratio: 1 / 0.9;
+}
+
+.orbit__lines {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.orbit__line {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Pulso viajando pela linha. pathLength="100" normaliza o comprimento de
+   cada caminho para que um único dasharray sirva para todos. */
+.orbit__pulse {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 10 90;
+  stroke-dashoffset: 100;
+  opacity: 0.9;
+  animation: orbit-pulse 3.6s var(--ease-in-out) infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes orbit-pulse {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit__pulse {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Nós
+   -------------------------------------------------------------------------- */
+
+.orbit__node {
+  position: absolute;
+  inset-inline-start: var(--x);
+  inset-block-start: var(--y);
+  translate: -50% -50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4375rem 0.875rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+
+.orbit__node--core {
+  padding: 0.875rem 1.375rem;
+  border-color: var(--accent);
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--brand) 30%, var(--bg-elevated)),
+    var(--bg-elevated)
+  );
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-accent), 0 0 0 6px var(--accent-soft);
+}
+
+.orbit__core-label {
+  display: grid;
+  gap: 2px;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.orbit__core-sub {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Fallback compacto
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 45rem) {
+  .orbit {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xs);
+    max-inline-size: 26rem;
+  }
+
+  .orbit__lines {
+    display: none;
+  }
+
+  .orbit__node {
+    position: static;
+    translate: none;
+    inline-size: 100%;
+  }
+
+  .orbit__node--core {
+    grid-column: 1 / -1;
+    margin-block-end: var(--space-2xs);
+  }
+
+  /* O quinto nó fica sozinho na última linha — que ocupe a largura toda. */
+  .orbit__node:last-child {
+    grid-column: 1 / -1;
+  }
+}

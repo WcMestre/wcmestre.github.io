@@ -1,0 +1,127 @@
+/* ==========================================================================
+   components/score-meter.css — Barras do Technology Efficiency Score
+
+   Acessibilidade: o valor numérico é texto visível ao lado do rótulo, então
+   a barra é puramente decorativa e recebe aria-hidden no HTML. Nada de
+   role="meter" — o número já está no conteúdo.
+
+   Sem JS as barras nascem no valor final. Com JS (.js) elas partem de zero
+   e animam quando o bloco entra na viewport.
+   ========================================================================== */
+
+.meters {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.meter {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.meter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.meter__label {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.meter__value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.meter__track {
+  block-size: 6px;
+  border-radius: var(--radius-full);
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.meter__fill {
+  block-size: 100%;
+  inline-size: calc(var(--value, 0) * 1%);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--brand), var(--accent));
+}
+
+.js .meter__fill {
+  inline-size: 0;
+  transition: inline-size var(--dur-slow) var(--ease-out);
+  transition-delay: var(--delay, 0ms);
+}
+
+.js .meters.is-visible .meter__fill {
+  inline-size: calc(var(--value, 0) * 1%);
+}
+
+/* --------------------------------------------------------------------------
+   Painel que embala o score
+   -------------------------------------------------------------------------- */
+
+.panel {
+  display: grid;
+  gap: var(--space-md);
+  align-content: start;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+}
+
+.panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-sm);
+  padding-block-end: var(--space-sm);
+  border-block-end: 1px solid var(--border);
+}
+
+.panel__title {
+  font-size: var(--fs-h4);
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Lista de iniciativas priorizadas (impacto × esforço)
+   -------------------------------------------------------------------------- */
+
+.priority-list {
+  display: grid;
+  gap: var(--space-2xs);
+  margin: 0;
+}
+
+.priority-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-sm);
+  padding-block: var(--space-2xs);
+  border-block-end: 1px solid var(--border);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.priority-list li:last-child {
+  border-block-end: 0;
+  padding-block-end: 0;
+}
+
+.priority-list__name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+}

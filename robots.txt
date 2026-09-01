@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://labmidia.tec.br/sitemap.xml

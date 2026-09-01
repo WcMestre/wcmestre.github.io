@@ -1,0 +1,30 @@
+/* ==========================================================================
+   utilities/helpers.css — Ajustes pontuais de layout
+
+   Conjunto deliberadamente pequeno. Existe para que o index.html não precise
+   de atributos style="", não para virar um framework de utilitárias: se uma
+   regra aqui começar a se repetir em muitos lugares, ela pertence a um
+   componente.
+   ========================================================================== */
+
+.u-stack-xs {
+  margin-block-start: var(--space-xs);
+}
+
+.u-stack-sm {
+  margin-block-start: var(--space-sm);
+}
+
+.u-stack-md {
+  margin-block-start: var(--space-md);
+}
+
+/* Centraliza os itens no eixo inline — vale para flex e para grid. */
+.u-center-x {
+  justify-content: center;
+}
+
+/* Ícone alinhado ao topo de um texto de várias linhas, em vez de centralizado. */
+.u-align-start {
+  align-items: flex-start;
+}

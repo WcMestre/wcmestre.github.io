@@ -1,0 +1,76 @@
+/* ==========================================================================
+   sections/contact.css — Formulário + canais diretos
+   ========================================================================== */
+
+.contact__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+}
+
+@media (min-width: 62rem) {
+  .contact__grid {
+    grid-template-columns: 1.25fr 0.75fr;
+  }
+}
+
+.contact__aside {
+  display: grid;
+  gap: var(--space-md);
+  align-content: start;
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+}
+
+.section--alt .contact__aside {
+  background: var(--bg-elevated);
+}
+
+.contact__block {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.contact__block-title {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.contact__channels {
+  display: grid;
+  gap: var(--space-2xs);
+  margin: 0;
+}
+
+.contact__channel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.contact__channel:hover {
+  color: var(--accent);
+}
+
+.contact__channel svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+  flex: none;
+  color: var(--accent);
+}
+
+/* Canal ainda não configurado em js/config.js — vira texto, não link morto.
+   Aplicado por js/modules/contact-links.js. */
+.contact__channel.is-unconfigured {
+  color: var(--text-tertiary);
+  pointer-events: none;
+  cursor: default;
+}

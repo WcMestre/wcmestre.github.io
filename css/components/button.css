@@ -1,0 +1,128 @@
+/* ==========================================================================
+   components/button.css
+
+   Nota de contraste: o CTA primário é ciano com texto quase preto (10.9:1).
+   A variante óbvia — azul --brand com texto branco — fica em 4.4:1 e reprova
+   WCAG AA para texto normal. Não troque a cor de fundo do .btn--primary
+   por --brand sem reavaliar o par.
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    translate var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.btn:hover {
+  translate: 0 -1px;
+}
+
+.btn:active {
+  translate: 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   Variantes
+   -------------------------------------------------------------------------- */
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn--primary:hover {
+  background: color-mix(in srgb, var(--accent) 88%, white);
+}
+
+.btn--ghost {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.btn--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.btn--quiet {
+  padding-inline: 0;
+  color: var(--accent);
+  background: none;
+  border-radius: var(--radius-sm);
+}
+
+.btn--quiet .btn__arrow {
+  transition: translate var(--dur-fast) var(--ease-out);
+}
+
+.btn--quiet:hover {
+  translate: 0;
+}
+
+.btn--quiet:hover .btn__arrow {
+  translate: 3px 0;
+}
+
+/* --------------------------------------------------------------------------
+   Tamanhos
+   -------------------------------------------------------------------------- */
+
+.btn--lg {
+  padding: 0.9375rem 1.75rem;
+  font-size: var(--fs-base);
+}
+
+.btn--sm {
+  padding: 0.5rem 1rem;
+  font-size: var(--fs-eyebrow);
+}
+
+.btn--block {
+  inline-size: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Estados
+   -------------------------------------------------------------------------- */
+
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  translate: none;
+}
+
+/* --------------------------------------------------------------------------
+   Grupo de botões
+   -------------------------------------------------------------------------- */
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.btn__arrow {
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+}

@@ -1,0 +1,129 @@
+/* ==========================================================================
+   base/tokens.css — Design tokens
+   Fonte única de verdade para cor, tipografia, espaço, forma e movimento.
+   Nenhum outro arquivo deve declarar valores literais de cor.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---------------------------------------------------------------
+     Cor — superfícies
+     Escala navy profunda. Cada degrau é sutil de propósito: os cards
+     precisam se separar do fundo pela borda, não pelo contraste bruto.
+     --------------------------------------------------------------- */
+  --bg-base: #070b14;
+  --bg-primary: #0a101e;
+  --bg-secondary: #0e1626;
+  --bg-elevated: #131f35;
+  --bg-inset: rgba(255, 255, 255, 0.02);
+
+  /* ---------------------------------------------------------------
+     Cor — texto
+     Todos os pares abaixo passam WCAG AA sobre --bg-primary:
+       primary   16.4:1   secondary  9.1:1   tertiary  5.6:1
+     --------------------------------------------------------------- */
+  --text-primary: #eaf0fa;
+  --text-secondary: #a9b6cd;
+  --text-tertiary: #8593af;
+  --text-inverse: #041423;
+
+  /* ---------------------------------------------------------------
+     Cor — marca
+     --brand  (azul tecnológico) é cor de SUPERFÍCIE e de traço, nunca
+     de texto sobre fundo escuro: #2f6bff em navy dá 4.3:1 e reprova AA.
+     --accent (ciano luminoso) é a cor de texto/CTA/indicador: 11.2:1.
+     --------------------------------------------------------------- */
+  --brand-deep: #12266b;
+  --brand: #2f6bff;
+  --brand-soft: rgba(47, 107, 255, 0.12);
+  --accent: #5cd2ff;
+  --accent-ink: #041423;
+  --accent-soft: rgba(92, 210, 255, 0.1);
+
+  /* ---------------------------------------------------------------
+     Cor — linhas e traços
+     --------------------------------------------------------------- */
+  --border: rgba(148, 170, 214, 0.14);
+  --border-strong: rgba(148, 170, 214, 0.28);
+  --border-accent: rgba(92, 210, 255, 0.35);
+
+  /* ---------------------------------------------------------------
+     Tipografia
+     --------------------------------------------------------------- */
+  --font-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    monospace;
+
+  --fs-eyebrow: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.0625rem;
+  --fs-h4: 1.125rem;
+  --fs-h3: clamp(1.125rem, 0.98rem + 0.6vw, 1.375rem);
+  --fs-h2: clamp(1.75rem, 1.3rem + 1.9vw, 2.75rem);
+  --fs-h1: clamp(2.25rem, 1.5rem + 3.4vw, 4rem);
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.28;
+  --lh-normal: 1.65;
+
+  --tracking-eyebrow: 0.16em;
+  --tracking-tight: -0.02em;
+
+  /* ---------------------------------------------------------------
+     Espaço
+     --------------------------------------------------------------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-section: clamp(4rem, 8vw, 7.5rem);
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* ---------------------------------------------------------------
+     Forma
+     --------------------------------------------------------------- */
+  --container: 1200px;
+  --container-narrow: 820px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  /* ---------------------------------------------------------------
+     Elevação
+     --------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(2, 6, 16, 0.4);
+  --shadow-md: 0 12px 32px -12px rgba(2, 6, 16, 0.7);
+  --shadow-lg: 0 28px 64px -24px rgba(2, 6, 16, 0.85);
+  --shadow-accent: 0 18px 48px -20px rgba(47, 107, 255, 0.55);
+
+  /* ---------------------------------------------------------------
+     Movimento — 200 a 600ms, nada além disso
+     --------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 600ms;
+
+  /* ---------------------------------------------------------------
+     Camadas
+     --------------------------------------------------------------- */
+  --z-nav-panel: 90;
+  --z-header: 100;
+  --z-skip: 200;
+
+  /* ---------------------------------------------------------------
+     Métricas de layout
+     --------------------------------------------------------------- */
+  --header-h: 72px;
+  --header-h-compact: 60px;
+}

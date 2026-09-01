@@ -1,0 +1,209 @@
+/* ==========================================================================
+   components/navigation.css — Navegação desktop + painel mobile
+
+   Progressive enhancement: sem JS a classe .no-js permanece no <html>,
+   o botão hamburger some e a navegação vira uma lista estática sempre
+   visível. Nada de menu inacessível.
+   ========================================================================== */
+
+.header__collapse {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  /* No DOM o botão vem ANTES do painel, para que Tab caia dentro do painel
+     assim que ele abre. A ordem visual (botão à direita) é restaurada aqui. */
+  order: 2;
+}
+
+.nav-toggle {
+  order: 3;
+}
+
+.brand {
+  order: 1;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.nav__link {
+  position: relative;
+  display: inline-block;
+  padding-block: var(--space-3xs);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.nav__link:hover {
+  color: var(--text-primary);
+}
+
+/* Sublinhado do link ativo — desenhado com pseudo para não deslocar texto. */
+.nav__link::after {
+  content: "";
+  position: absolute;
+  inset-block-end: -2px;
+  inset-inline: 0;
+  block-size: 2px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  scale: 0 1;
+  transform-origin: left center;
+  transition: scale var(--dur-base) var(--ease-out);
+}
+
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  scale: 1 1;
+}
+
+.nav__link.is-active {
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Botão hamburger
+   -------------------------------------------------------------------------- */
+
+.nav-toggle {
+  display: none;
+  flex: none;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.nav-toggle:hover {
+  border-color: var(--border-strong);
+}
+
+.nav-toggle__box {
+  display: grid;
+  gap: 4px;
+  inline-size: 1.125rem;
+}
+
+.nav-toggle__bar {
+  block-size: 2px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  transition: translate var(--dur-fast) var(--ease-out),
+    rotate var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  translate: 0 6px;
+  rotate: 45deg;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  translate: 0 -6px;
+  rotate: -45deg;
+}
+
+/* --------------------------------------------------------------------------
+   Abaixo de 64rem: painel deslizante
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 63.999rem) {
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .header__collapse {
+    position: fixed;
+    inset-block-start: var(--header-h);
+    inset-inline: 0;
+    z-index: var(--z-nav-panel);
+    display: grid;
+    gap: var(--space-md);
+    align-content: start;
+    padding: var(--space-lg) var(--gutter) var(--space-xl);
+    max-block-size: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border-block-end: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+
+    /* visibility (e não display) para que a transição rode e para que o
+       painel fechado saia da ordem de tabulação e da árvore de acessibilidade. */
+    visibility: hidden;
+    opacity: 0;
+    translate: 0 -0.75rem;
+    transition: opacity var(--dur-base) var(--ease-out),
+      translate var(--dur-base) var(--ease-out),
+      visibility 0s linear var(--dur-base);
+  }
+
+  .header__collapse.is-open {
+    visibility: visible;
+    opacity: 1;
+    translate: 0 0;
+    transition-delay: 0s, 0s, 0s;
+  }
+
+  .nav__list {
+    display: grid;
+    gap: 0;
+  }
+
+  .nav__list li + li {
+    border-block-start: 1px solid var(--border);
+  }
+
+  .nav__link {
+    display: block;
+    padding-block: var(--space-sm);
+    font-size: var(--fs-lg);
+  }
+
+  .nav__link::after {
+    display: none;
+  }
+
+  .header__cta {
+    justify-content: center;
+    inline-size: 100%;
+  }
+
+  /* Fallback sem JavaScript: painel estático dentro do fluxo. */
+  .no-js .nav-toggle {
+    display: none;
+  }
+
+  .no-js .header__collapse {
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    translate: none;
+    box-shadow: none;
+    padding-inline: 0;
+    padding-block: 0 var(--space-md);
+    background: transparent;
+    border: 0;
+    max-block-size: none;
+  }
+
+  .no-js .header__inner {
+    flex-wrap: wrap;
+    block-size: auto;
+    padding-block: var(--space-sm);
+  }
+}

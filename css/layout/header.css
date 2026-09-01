@@ -1,0 +1,92 @@
+/* ==========================================================================
+   layout/header.css — Header sticky e marca
+   O comportamento de navegação (painel mobile) vive em components/navigation.css.
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  background: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+  border-block-end: 1px solid transparent;
+  transition: background var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+/* backdrop-filter só onde é suportado — sem ele o fundo sólido acima já
+   garante legibilidade. */
+@supports (backdrop-filter: blur(1px)) {
+  .site-header {
+    backdrop-filter: saturate(140%) blur(14px);
+  }
+}
+
+/* Estado aplicado por js/modules/header-scroll.js após sair do topo. */
+.site-header.is-scrolled {
+  background: color-mix(in srgb, var(--bg-base) 92%, transparent);
+  border-block-end-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  block-size: var(--header-h);
+  transition: block-size var(--dur-base) var(--ease-out);
+}
+
+.site-header.is-scrolled .header__inner {
+  block-size: var(--header-h-compact);
+}
+
+/* --------------------------------------------------------------------------
+   Marca
+   -------------------------------------------------------------------------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-inline-end: auto;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.brand__mark {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  flex: none;
+  color: var(--accent);
+}
+
+.brand__name {
+  font-weight: 700;
+}
+
+.brand__suffix {
+  font-weight: 500;
+  color: var(--text-tertiary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.brand:hover .brand__suffix {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Sentinela de scroll
+   Um alvo de 1px logo abaixo do topo. IntersectionObserver observando esta
+   div é mais barato que um listener de scroll e não dispara layout.
+   -------------------------------------------------------------------------- */
+
+.scroll-sentinel {
+  position: absolute;
+  inset-block-start: 0;
+  inline-size: 100%;
+  block-size: 1px;
+  pointer-events: none;
+}

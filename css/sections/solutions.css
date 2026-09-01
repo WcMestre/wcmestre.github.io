@@ -1,0 +1,29 @@
+/* ==========================================================================
+   sections/solutions.css — Os três produtos
+   O terceiro card (Technology Office) ganha uma fração de largura a mais
+   além do tratamento visual, porque é a solução recorrente principal.
+   ========================================================================== */
+
+.solutions__grid {
+  display: grid;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+@media (min-width: 58rem) {
+  .solutions__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 75rem) {
+  .solutions__grid {
+    grid-template-columns: 1fr 1fr 1.14fr;
+  }
+}
+
+/* Cada card é uma coluna completa: o CTA cola no rodapé mesmo com textos
+   de alturas diferentes. */
+.solutions__grid > .card {
+  grid-template-rows: auto auto auto 1fr auto;
+}

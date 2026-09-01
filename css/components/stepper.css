@@ -1,0 +1,91 @@
+/* ==========================================================================
+   components/stepper.css — TEO Framework (5 etapas)
+   Vertical no mobile, horizontal a partir de 62rem. O conector é desenhado
+   com pseudo-elemento no vão entre os cards, então não há elemento extra
+   no DOM só para decorar.
+   ========================================================================== */
+
+.stepper {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+  counter-reset: teo-step;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  gap: var(--space-2xs);
+  align-content: start;
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+.section--alt .step {
+  background: var(--bg-elevated);
+}
+
+.step:hover {
+  border-color: var(--border-accent);
+}
+
+.step__num {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.step__title {
+  font-size: var(--fs-h4);
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+}
+
+.step__text {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   Conector — seta entre etapas
+   -------------------------------------------------------------------------- */
+
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  background: var(--border-strong);
+  pointer-events: none;
+}
+
+/* Vertical (mobile): fio descendo do card para o próximo. */
+.step:not(:last-child)::after {
+  inset-inline-start: calc(var(--space-md) + 0.375rem);
+  inset-block-start: 100%;
+  inline-size: 1px;
+  block-size: var(--space-md);
+}
+
+@media (min-width: 62rem) {
+  .stepper {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-lg);
+  }
+
+  /* Horizontal: fio atravessando o vão entre colunas. */
+  .step:not(:last-child)::after {
+    inset-inline-start: 100%;
+    inset-block-start: 50%;
+    inline-size: var(--space-lg);
+    block-size: 1px;
+    translate: 0 -50%;
+  }
+}

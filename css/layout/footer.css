@@ -1,0 +1,76 @@
+/* ==========================================================================
+   layout/footer.css
+   ========================================================================== */
+
+.site-footer {
+  background: var(--bg-base);
+  border-block-start: 1px solid var(--border);
+  padding-block: var(--space-2xl) var(--space-lg);
+  font-size: var(--fs-sm);
+}
+
+.footer__grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+@media (min-width: 48rem) {
+  .footer__grid {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+}
+
+.footer__brand {
+  display: grid;
+  gap: var(--space-xs);
+  max-inline-size: 32ch;
+}
+
+.footer__signature {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.footer__pillars {
+  color: var(--text-tertiary);
+}
+
+.footer__col-title {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-block-end: var(--space-xs);
+}
+
+.footer__list {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.footer__list a {
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footer__list a:hover {
+  color: var(--accent);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-md);
+  align-items: center;
+  justify-content: space-between;
+  margin-block-start: var(--space-2xl);
+  padding-block-start: var(--space-md);
+  border-block-start: 1px solid var(--border);
+  color: var(--text-tertiary);
+  font-size: var(--fs-eyebrow);
+}

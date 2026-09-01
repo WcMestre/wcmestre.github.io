@@ -1,0 +1,177 @@
+/* ==========================================================================
+   components/card.css — Card base e variantes
+   Cards discretos: separados do fundo pela borda de 1px, não por sombra.
+   ========================================================================== */
+
+.card {
+  display: grid;
+  gap: var(--space-2xs);
+  align-content: start;
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  transition: border-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    translate var(--dur-base) var(--ease-out);
+}
+
+/* Em seções com fundo --bg-secondary o card sobe um degrau. */
+.section--alt .card {
+  background: var(--bg-elevated);
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  translate: 0 -2px;
+}
+
+.card__icon {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  display: grid;
+  place-items: center;
+  margin-block-end: var(--space-2xs);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.card__icon svg {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+}
+
+.card__title {
+  color: var(--text-primary);
+}
+
+.card__text {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   card--numbered — sintomas e diferenciais
+   -------------------------------------------------------------------------- */
+
+.card--numbered .card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.card--numbered:hover .card__eyebrow {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   card--pillar — blocos curtos de "como atuamos"
+   -------------------------------------------------------------------------- */
+
+.card--pillar {
+  gap: var(--space-3xs);
+  padding: var(--space-sm);
+  background: transparent;
+  border-color: var(--border);
+  border-inline-start: 2px solid var(--accent);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.section--alt .card--pillar {
+  background: transparent;
+}
+
+.card--pillar:hover {
+  background: var(--bg-inset);
+  translate: none;
+}
+
+.card--pillar .card__title {
+  font-size: var(--fs-h4);
+}
+
+/* --------------------------------------------------------------------------
+   card--solution — os três produtos
+   -------------------------------------------------------------------------- */
+
+.card--solution {
+  gap: var(--space-sm);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--radius-lg);
+}
+
+.card--solution .card__head {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.card--solution .card__title {
+  font-size: var(--fs-h3);
+}
+
+.card__deliverables-title {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-block-end: var(--space-2xs);
+}
+
+.card--solution .card__foot {
+  margin-block-start: auto;
+  padding-block-start: var(--space-2xs);
+}
+
+/* Destaque do Technology Office — solução recorrente principal. */
+.card--featured {
+  border-color: var(--border-accent);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--brand) 12%, var(--bg-elevated)) 0%,
+    var(--bg-elevated) 55%
+  );
+  box-shadow: var(--shadow-md);
+}
+
+.section--alt .card--featured {
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--brand) 14%, var(--bg-elevated)) 0%,
+    var(--bg-elevated) 55%
+  );
+}
+
+.card--featured:hover {
+  border-color: var(--accent);
+}
+
+.card__badge {
+  position: absolute;
+  inset-block-start: var(--space-sm);
+  inset-inline-end: var(--space-sm);
+}
+
+.card--solution {
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   card--audience — "para quem"
+   -------------------------------------------------------------------------- */
+
+.card--audience {
+  gap: var(--space-3xs);
+}
+
+.card--audience .card__title {
+  font-size: var(--fs-h4);
+}
