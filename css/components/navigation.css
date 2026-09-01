@@ -129,14 +129,16 @@
 
   .header__collapse {
     position: fixed;
-    inset-block-start: var(--header-h);
+    /* --header-h-now acompanha a compactação do header (layout/header.css).
+       Com --header-h fixo o painel descolava 11px da barra depois da rolagem. */
+    inset-block-start: var(--header-h-now);
     inset-inline: 0;
     z-index: var(--z-nav-panel);
     display: grid;
     gap: var(--space-md);
     align-content: start;
     padding: var(--space-lg) var(--gutter) var(--space-xl);
-    max-block-size: calc(100dvh - var(--header-h));
+    max-block-size: calc(100dvh - var(--header-h-now));
     overflow-y: auto;
     background: var(--bg-secondary);
     border-block-end: 1px solid var(--border);
@@ -205,5 +207,12 @@
     flex-wrap: wrap;
     block-size: auto;
     padding-block: var(--space-sm);
+  }
+
+  /* Sem JS o header passa a conter o menu inteiro — cerca de 450px. Grudado
+     no topo, ele comeria dois terços de uma tela de celular. Sem JS também não
+     existe .is-scrolled nem sentinela ativa, então nada se perde ao soltá-lo. */
+  .no-js .site-header {
+    position: static;
   }
 }

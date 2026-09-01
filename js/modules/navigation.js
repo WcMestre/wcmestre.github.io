@@ -10,6 +10,7 @@
  */
 
 import { $, $$, on } from "../utils/dom.js";
+import { lockScroll, unlockScroll } from "../utils/scroll-lock.js";
 
 const DESKTOP_QUERY = "(min-width: 64rem)";
 
@@ -22,6 +23,7 @@ export function initNavigation() {
   let isOpen = false;
 
   const setState = (open) => {
+    const changed = open !== isOpen;
     isOpen = open;
     panel.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", String(open));
@@ -29,8 +31,12 @@ export function initNavigation() {
       "aria-label",
       open ? "Fechar menu de navegação" : "Abrir menu de navegação"
     );
-    // Trava o scroll do fundo enquanto o painel cobre a tela.
-    document.body.style.overflow = open ? "hidden" : "";
+    // Trava contada: um diálogo pode estar segurando a mesma trava.
+    // Só transiciona, para não desbalancear o contador.
+    if (changed) {
+      if (open) lockScroll();
+      else unlockScroll();
+    }
   };
 
   const close = ({ restoreFocus = false } = {}) => {

@@ -37,7 +37,9 @@
   background: var(--bg-elevated);
 }
 
-.compare__panel--highlight {
+/* Dois nomes de classe de propósito: `.section--alt .compare__panel` (0,2,0)
+   venceria uma regra de classe única e apagaria este gradiente. */
+.compare__panel.compare__panel--highlight {
   border-color: var(--border-accent);
   background: linear-gradient(
     155deg,
@@ -209,12 +211,15 @@
     gap: var(--space-sm);
   }
 
-  /* Barra horizontal ligando as três unidades, do centro da 1ª ao centro da 3ª. */
+  /* Barra horizontal ligando as três unidades, do centro da 1ª ao centro da 3ª.
+     Com gap g e três colunas, cada coluna mede (100% - 2g)/3 e o centro da
+     primeira cai em 100%/6 - g/3 — não em 16,667%, que deixaria a barra
+     descolada das pernas verticais. */
   .org-tree__branches::before {
     content: "";
     position: absolute;
     inset-block-start: calc(var(--space-lg) / -2);
-    inset-inline: 16.667%;
+    inset-inline: calc(100% / 6 - var(--space-sm) / 3);
     block-size: 1px;
     background: var(--border-strong);
   }

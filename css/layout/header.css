@@ -12,6 +12,12 @@
   transition: background var(--dur-base) var(--ease-out),
     border-color var(--dur-base) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out);
+
+  /* Altura VIGENTE do header, incluindo a borda inferior. O painel mobile
+     ancora nesta variável em vez de --header-h fixo; sem isso, com o header
+     compactado o painel abria 11px abaixo da barra e deixava o conteúdo da
+     página aparecendo pela fresta. */
+  --header-h-now: var(--header-h);
 }
 
 /* backdrop-filter só onde é suportado — sem ele o fundo sólido acima já
@@ -27,6 +33,7 @@
   background: color-mix(in srgb, var(--bg-base) 92%, transparent);
   border-block-end-color: var(--border);
   box-shadow: var(--shadow-sm);
+  --header-h-now: calc(var(--header-h-compact) + 1px);
 }
 
 .header__inner {
@@ -43,38 +50,33 @@
 
 /* --------------------------------------------------------------------------
    Marca
+
+   Lockup horizontal compacto (erlenmeyer + LABMÍDIA TECHOPS). A versão
+   completa, com as duas linhas de assinatura, vive no rodapé: a 36px de
+   altura aquelas linhas viram borrão.
    -------------------------------------------------------------------------- */
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2xs);
   margin-inline-end: auto;
-  font-size: 1.0625rem;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  white-space: nowrap;
-}
-
-.brand__mark {
-  inline-size: 1.75rem;
-  block-size: 1.75rem;
   flex: none;
-  color: var(--accent);
 }
 
-.brand__name {
-  font-weight: 700;
+.brand__logo {
+  block-size: 36px;
+  inline-size: auto;
+  transition: block-size var(--dur-base) var(--ease-out);
 }
 
-.brand__suffix {
-  font-weight: 500;
-  color: var(--text-tertiary);
-  transition: color var(--dur-fast) var(--ease-out);
+.site-header.is-scrolled .brand__logo {
+  block-size: 30px;
 }
 
-.brand:hover .brand__suffix {
-  color: var(--accent);
+@media (max-width: 26rem) {
+  .brand__logo {
+    block-size: 30px;
+  }
 }
 
 /* --------------------------------------------------------------------------

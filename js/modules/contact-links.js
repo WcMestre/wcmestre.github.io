@@ -6,10 +6,11 @@
  * config.js ser preenchido, o visitante vê uma página coerente — só com menos
  * canais — e o desenvolvedor recebe um aviso no console.
  *
+ * Coerência inclui não deixar cabeçalho órfão: quando TODOS os canais de uma
+ * lista somem, o bloco (ou o título + a lista) sai junto.
+ *
  * Marcação esperada:
- *   <a data-channel="whatsapp" href="#contato">WhatsApp</a>
- *   <a data-channel="email"    href="#contato">E-mail</a>
- *   <a data-channel="linkedin" href="#contato">LinkedIn</a>
+ *   <li data-channel-item><a data-channel="whatsapp" href="#contato">WhatsApp</a></li>
  */
 
 import { $$ } from "../utils/dom.js";
@@ -28,10 +29,43 @@ function whatsappUrl(raw, message) {
   return `https://wa.me/${digits}${query}`;
 }
 
-/** @param {Element} el */
+/**
+ * Remove o item do canal e devolve a lista que o continha, para que o
+ * chamador possa decidir depois se a lista ficou vazia.
+ * @param {Element} el
+ * @returns {Element|null}
+ */
 function removeChannel(el) {
-  const container = el.closest("[data-channel-item]") || el.closest("li") || el;
-  container.remove();
+  const item = el.closest("[data-channel-item]") || el.closest("li") || el;
+  const list = item.parentElement;
+  item.remove();
+  return list;
+}
+
+/**
+ * Tira da página listas de canais que ficaram sem nenhum item.
+ * Só recebe listas que de fato tinham [data-channel-item] — a lista de
+ * navegação do rodapé usa a mesma classe .footer__list e nunca é tocada.
+ * @param {Set<Element>} lists
+ */
+function pruneEmptyLists(lists) {
+  for (const list of lists) {
+    if (!list || !list.isConnected) continue;
+    if (list.querySelector("li")) continue;
+
+    // No aside de contato o bloco só contém título + lista: sai inteiro.
+    const block = list.closest(".contact__block");
+    if (block) {
+      block.remove();
+      continue;
+    }
+
+    // No rodapé a coluna também carrega a localidade de atendimento, que deve
+    // permanecer. Remove apenas o título imediatamente anterior e a lista.
+    const heading = list.previousElementSibling;
+    if (heading && /^H[1-6]$/.test(heading.tagName)) heading.remove();
+    list.remove();
+  }
 }
 
 export function initContactLinks() {
@@ -44,16 +78,19 @@ export function initContactLinks() {
     linkedin: () => CONFIG.linkedin || null,
   };
 
+  /** @type {Set<Element>} listas que perderam ao menos um item */
+  const touched = new Set();
+
   for (const el of $$("[data-channel]")) {
     const kind = el.dataset.channel;
     const resolve = resolvers[kind];
-
     if (!resolve) continue;
 
     const href = resolve();
 
     if (!href) {
-      removeChannel(el);
+      const list = removeChannel(el);
+      if (list) touched.add(list);
       continue;
     }
 
@@ -69,6 +106,8 @@ export function initContactLinks() {
     const label = el.querySelector("[data-channel-value]");
     if (label && kind === "email") label.textContent = CONFIG.email;
   }
+
+  pruneEmptyLists(touched);
 
   const missing = missingConfigKeys();
   if (missing.length) {

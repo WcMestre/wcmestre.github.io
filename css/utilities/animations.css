@@ -6,31 +6,40 @@
    prefers-reduced-motion neutraliza tudo — ver base/accessibility.css.
    ========================================================================== */
 
+/* O deslocamento usa `transform`, NÃO a propriedade individual `translate`.
+   Motivo: quase todo .reveal é também um .card ou .step, cujo hover anima
+   `translate`. Como `.js .reveal` (0,2,0) tem especificidade maior que
+   `.card` (0,1,0), usar `translate` aqui sequestrava o hover e sobrescrevia
+   a lista de `transition` do componente. Em `transform` as duas coisas
+   convivem — e `transform: none` da regra de prefers-reduced-motion em
+   base/accessibility.css passa a de fato zerar o deslocamento. */
 .js .reveal {
   opacity: 0;
-  translate: 0 14px;
+  transform: translateY(14px);
   transition: opacity var(--dur-slow) var(--ease-out),
-    translate var(--dur-slow) var(--ease-out);
+    transform var(--dur-slow) var(--ease-out);
   transition-delay: var(--delay, 0ms);
 }
 
 .js .reveal.is-visible {
   opacity: 1;
-  translate: 0 0;
+  transform: none;
 }
 
 /* Rede de segurança: se os módulos não carregarem (404, CSP, rede), o
-   temporizador no <head> marca .js-boot-failed e o conteúdo reaparece.
-   Sem isto, uma falha de JS deixaria a página em branco. */
+   temporizador no <head> devolve o documento ao estado .no-js — o que já
+   reativa TODOS os fallbacks escritos para esse estado (navegação estática,
+   barras do diagnóstico cheias, diálogos no fluxo), e não só este bloco.
+   A regra abaixo fica como cinto e suspensório. */
 .js-boot-failed .reveal {
   opacity: 1 !important;
-  translate: none !important;
+  transform: none !important;
 }
 
 /* Variante sem deslocamento — para blocos grandes onde o movimento
    vertical seria perceptível demais. */
 .js .reveal--fade {
-  translate: none;
+  transform: none;
 }
 
 /* --------------------------------------------------------------------------

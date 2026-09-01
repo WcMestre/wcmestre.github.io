@@ -22,11 +22,19 @@ const MESSAGES = {
     "Recebemos seu contato. Retornaremos em breve para agendar a conversa.",
   networkError:
     "Não foi possível enviar agora. Tente novamente em instantes ou fale conosco por outro canal.",
-  mailtoOpened:
-    "Abrimos seu programa de e-mail com a mensagem pronta. Basta enviar para concluir.",
   notConfigured:
-    "O envio ainda não está disponível. Fale conosco pelos canais ao lado.",
+    "O envio automático ainda não está disponível neste site. Tente novamente mais tarde.",
 };
+
+/**
+ * O texto do fallback por e-mail precisa citar o endereço: se o visitante não
+ * tiver cliente de e-mail registrado, nada abre — e sem o endereço na tela ele
+ * fica sem para onde escrever.
+ * @returns {string}
+ */
+function mailtoMessage() {
+  return `Abrimos seu programa de e-mail com a mensagem pronta — basta enviar. Se nada abriu, escreva para ${CONFIG.email}.`;
+}
 
 // Aceita a grande maioria dos endereços reais sem rejeitar casos válidos
 // incomuns. A validação definitiva é sempre do servidor.
@@ -43,8 +51,7 @@ const controlsOf = (form) => $$("[data-validate]", form);
  * @param {string} message
  */
 function setError(control, message) {
-  const errorId = `${control.id}-error`;
-  const errorEl = document.getElementById(errorId);
+  const errorEl = document.getElementById(`${control.id}-error`);
   control.setAttribute("aria-invalid", "true");
   if (errorEl) errorEl.textContent = message;
 }
@@ -123,14 +130,18 @@ function buildMailto(payload, form) {
     const control = form.elements.namedItem(name);
     if (!control || !control.id) return name;
     const label = $(`label[for="${control.id}"]`, form);
-    return label ? label.textContent.replace(/\s*\(opcional\)\s*/i, "").trim() : name;
+    return label
+      ? label.textContent.replace(/\s*\((opcional|se aplicável)\)\s*/i, "").trim()
+      : name;
   };
 
   const body = Object.entries(payload)
     .map(([key, value]) => `${labelOf(key)}: ${value}`)
     .join("\r\n");
 
-  const subject = `Contato pelo site — ${payload.empresa || payload.nome || "novo lead"}`;
+  const subject = `Contato pelo site — ${
+    payload.empresa || payload.nome || "novo lead"
+  }`;
 
   return `mailto:${CONFIG.email}?subject=${encodeURIComponent(
     subject
@@ -145,6 +156,7 @@ function buildMailto(payload, form) {
 function setStatus(statusEl, message, tone = "pending") {
   statusEl.textContent = message;
   statusEl.classList.toggle("form__status--ok", tone === "ok");
+  statusEl.classList.toggle("form__status--error", tone === "error");
 }
 
 export function initForm() {
@@ -172,13 +184,22 @@ export function initForm() {
     });
   }
 
+  /**
+   * aria-disabled em vez de disabled: desabilitar o elemento que está com o
+   * foco joga o foco para o <body>, e quem navega por teclado perde a posição
+   * no meio do envio. Com aria-disabled o botão continua focável e a guarda
+   * abaixo impede o envio duplicado.
+   */
+  let sending = false;
   const setBusy = (busy) => {
-    submitButton.disabled = busy;
+    sending = busy;
+    submitButton.setAttribute("aria-disabled", String(busy));
     submitButton.setAttribute("aria-busy", String(busy));
   };
 
   on(form, "submit", async (event) => {
     event.preventDefault();
+    if (sending) return;
 
     // Honeypot: preenchido só por robô. Responde como sucesso e não envia.
     const trap = form.elements.namedItem("_gotcha");
@@ -209,8 +230,8 @@ export function initForm() {
 
     // --- Caminho 2: fallback por e-mail ---------------------------------
     if (!endpoint) {
+      setStatus(statusEl, mailtoMessage(), "ok");
       window.location.href = buildMailto(payload, form);
-      setStatus(statusEl, MESSAGES.mailtoOpened, "ok");
       return;
     }
 

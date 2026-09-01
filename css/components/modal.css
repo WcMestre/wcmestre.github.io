@@ -1,0 +1,231 @@
+/* ==========================================================================
+   components/modal.css — Diálogos de detalhe das soluções
+
+   Usa o elemento <dialog> nativo, que entrega de graça o que uma reimplementação
+   erraria: armadilha de foco, fechamento por Escape, inerte no resto da página
+   e devolução do foco ao gatilho. O JS só decide QUANDO abrir e fechar.
+
+   Progressive enhancement: <dialog> sem [open] é display:none, então sem
+   JavaScript o conteúdo sumiria. Sob .no-js os diálogos voltam ao fluxo como
+   seções normais e os gatilhos funcionam como âncoras comuns — ver o fim
+   deste arquivo.
+   ========================================================================== */
+
+.modal {
+  /* Reset do user-agent: <dialog> nasce com border, padding e cores próprias. */
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+
+  inline-size: min(60rem, calc(100vw - 2 * var(--gutter)));
+  max-inline-size: none;
+  max-block-size: min(88dvh, 60rem);
+  margin: auto;
+  overflow: visible;
+}
+
+.modal::backdrop {
+  background: rgba(3, 6, 14, 0.78);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .modal::backdrop {
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Painel
+   -------------------------------------------------------------------------- */
+
+.modal__panel {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  max-block-size: min(88dvh, 60rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.modal__head {
+  position: relative;
+  display: grid;
+  gap: var(--space-2xs);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  padding-inline-end: calc(var(--space-lg) + 3rem);
+  border-block-end: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.modal__title {
+  font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+  max-inline-size: 26ch;
+}
+
+.modal__body {
+  padding: var(--space-lg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  gap: var(--space-md);
+  align-content: start;
+}
+
+.modal__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs) var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-block-start: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.modal__note {
+  font-size: var(--fs-eyebrow);
+  color: var(--text-tertiary);
+  max-inline-size: 46ch;
+}
+
+/* --------------------------------------------------------------------------
+   Botão de fechar
+   -------------------------------------------------------------------------- */
+
+.modal__close {
+  position: absolute;
+  inset-block-start: var(--space-md);
+  inset-inline-end: var(--space-md);
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.modal__close:hover {
+  color: var(--accent);
+  border-color: var(--border-accent);
+}
+
+.modal__close svg {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+}
+
+/* --------------------------------------------------------------------------
+   Entrada e saída
+   As durações caem para ~0 sob prefers-reduced-motion (base/accessibility.css),
+   e js/modules/modal.js usa um timeout de guarda, então o fechamento nunca
+   fica preso esperando um animationend que não vem.
+   -------------------------------------------------------------------------- */
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+}
+
+@keyframes modal-out {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.modal[open] {
+  animation: modal-in var(--dur-base) var(--ease-out);
+}
+
+.modal[open]::backdrop {
+  animation: modal-backdrop-in var(--dur-base) var(--ease-out);
+}
+
+.modal.is-closing {
+  animation: modal-out var(--dur-fast) var(--ease-out) forwards;
+}
+
+/* --------------------------------------------------------------------------
+   Conteúdo interno — ajustes para blocos que vieram de seções
+   -------------------------------------------------------------------------- */
+
+.modal .panel {
+  background: var(--bg-elevated);
+}
+
+.modal__grid {
+  display: grid;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+@media (min-width: 52rem) {
+  .modal__grid--two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 40rem) {
+  .modal__head,
+  .modal__body,
+  .modal__foot {
+    padding-inline: var(--space-md);
+  }
+
+  .modal__head {
+    padding-inline-end: calc(var(--space-md) + 3rem);
+  }
+
+  .modal__foot {
+    justify-content: stretch;
+  }
+
+  .modal__foot .btn {
+    inline-size: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Fallback sem JavaScript
+   Os diálogos voltam a ser seções empilhadas no fluxo e os gatilhos
+   (que são <a href="#id">) passam a funcionar como âncoras comuns.
+   -------------------------------------------------------------------------- */
+
+.no-js .modal {
+  display: block;
+  position: static;
+  inline-size: auto;
+  max-block-size: none;
+  margin-block: var(--space-xl);
+  padding-inline: var(--gutter);
+  scroll-margin-block-start: var(--header-h);
+}
+
+.no-js .modal__panel {
+  max-block-size: none;
+  max-inline-size: var(--container);
+  margin-inline: auto;
+}
+
+.no-js .modal__body {
+  overflow: visible;
+}
+
+.no-js .modal__close {
+  display: none;
+}

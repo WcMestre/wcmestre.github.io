@@ -67,10 +67,7 @@
   color: var(--accent);
 }
 
-/* Canal ainda não configurado em js/config.js — vira texto, não link morto.
-   Aplicado por js/modules/contact-links.js. */
-.contact__channel.is-unconfigured {
-  color: var(--text-tertiary);
-  pointer-events: none;
-  cursor: default;
-}
+/* Canal não configurado em js/config.js é REMOVIDO do DOM por
+   js/modules/contact-links.js — não existe estado "desabilitado" a estilizar.
+   Quando a lista inteira fica vazia, o módulo remove também o bloco e o
+   título, para não sobrar um cabeçalho órfão sobre uma lista vazia. */

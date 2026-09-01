@@ -41,12 +41,26 @@
   --accent-ink: #041423;
   --accent-soft: rgba(92, 210, 255, 0.1);
 
+  /* Único matiz semântico fora da família azul, e existe por necessidade:
+     erro de formulário pintado com --accent ficaria idêntico ao CTA, dizendo
+     "sucesso" onde há falha. 8.8:1 sobre --bg-primary. */
+  --danger: #ff8fa3;
+  --danger-soft: rgba(255, 143, 163, 0.12);
+  --danger-border: rgba(255, 143, 163, 0.45);
+
   /* ---------------------------------------------------------------
      Cor — linhas e traços
      --------------------------------------------------------------- */
   --border: rgba(148, 170, 214, 0.14);
   --border-strong: rgba(148, 170, 214, 0.28);
   --border-accent: rgba(92, 210, 255, 0.35);
+
+  /* Borda de controle interativo (campo de formulário, botão outline).
+     WCAG 1.4.11 exige 3:1 entre o limite do componente e o fundo adjacente.
+     --border-strong composta sobre --bg-primary dá apenas 1.68:1 — suficiente
+     para um fio divisório, insuficiente para delimitar um controle.
+     O valor abaixo resolve em 3.29:1. Não reduza a opacidade. */
+  --border-control: rgba(148, 170, 214, 0.55);
 
   /* ---------------------------------------------------------------
      Tipografia

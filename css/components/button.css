@@ -50,8 +50,10 @@
   background: color-mix(in srgb, var(--accent) 88%, white);
 }
 
+/* --border-control, e não --border-strong: o limite de um controle precisa de
+   3:1 contra o fundo adjacente (WCAG 1.4.11). Ver base/tokens.css. */
 .btn--ghost {
-  border-color: var(--border-strong);
+  border-color: var(--border-control);
   color: var(--text-primary);
   background: transparent;
 }

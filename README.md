@@ -25,9 +25,8 @@ repositório é exatamente o que o navegador recebe.
 
 ```
 /
-├── index.html                  Página única — todas as seções
-├── favicon.svg                 Ícone principal (navegadores modernos)
-├── favicon.ico                 Fallback 16/32/48
+├── index.html                  Página única — seções + 4 diálogos
+├── favicon.ico                 16/32/48 — o erlenmeyer da marca sobre navy
 ├── robots.txt
 ├── sitemap.xml
 ├── CNAME                       labmidia.tec.br — NÃO REMOVER
@@ -52,7 +51,8 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── stepper.css         TEO Framework
 │   │   ├── flow.css            Cadeia ERP → API → … → BI
 │   │   ├── diagram.css         Comparação + árvore matriz/unidades
-│   │   └── form.css
+│   │   ├── form.css
+│   │   └── modal.css           Diálogos das soluções
 │   ├── sections/               Composição específica de cada seção
 │   │   ├── hero.css
 │   │   ├── solutions.css
@@ -60,7 +60,8 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── cta.css
 │   │   └── contact.css
 │   └── utilities/
-│       └── animations.css      Reveal, stagger, rede de segurança do boot
+│       ├── animations.css      Reveal, stagger, rede de segurança do boot
+│       └── helpers.css         Ajustes pontuais (u-stack-*, u-center-x…)
 │
 ├── js/
 │   ├── main.js                 Entrada — só orquestra
@@ -68,39 +69,61 @@ repositório é exatamente o que o navegador recebe.
 │   ├── modules/                Um concern por arquivo
 │   │   ├── navigation.js       Menu mobile + acessibilidade
 │   │   ├── header-scroll.js    Header compacto ao rolar
-│   │   ├── scroll-spy.js       Link ativo na navegação
+│   │   ├── modal.js            Diálogos das soluções
 │   │   ├── smooth-scroll.js    Foco de teclado ao pular para âncora
+│   │   ├── scroll-spy.js       Link ativo na navegação
 │   │   ├── reveal.js           Animação de entrada
 │   │   ├── score-meter.js      Animação das barras do diagnóstico
 │   │   ├── contact-links.js    Aplica config.js aos canais de contato
 │   │   └── form.js             Validação e envio
 │   └── utils/
 │       ├── dom.js              $, $$, on, observeOnce
-│       └── motion.js           prefers-reduced-motion em JS
+│       ├── motion.js           prefers-reduced-motion em JS
+│       └── scroll-lock.js      Trava de rolagem com contagem de referência
 │
-└── assets/
-    ├── images/
-    │   └── og-cover.png        1200×630 — Open Graph / Twitter Card
-    ├── logo/
-    │   └── apple-touch-icon.png
-    └── icons/                  (vazio — os ícones são um sprite SVG inline)
+├── assets/
+│   ├── images/
+│   │   └── og-cover.png        1200×630 — Open Graph / Twitter Card
+│   ├── logo/
+│   │   ├── labmidia-techops.png          Lockup completo (rodapé)
+│   │   ├── labmidia-techops-compact.png  Lockup horizontal (header)
+│   │   └── apple-touch-icon.png
+│   └── icons/                  (vazio — os ícones são um sprite SVG inline)
+│
+└── img/                        Arte original da marca, fora do site
 ```
 
-### Duas decisões de arquitetura que valem explicação
+### Decisões de arquitetura que valem explicação
 
 **1. Os CSS são carregados em `<link>` paralelos, não com `@import`.**
 `@import` encadeia requisições em série — o navegador só descobre o segundo
 arquivo depois de baixar o primeiro — e o Lighthouse penaliza isso como
 *critical request chain*. Sobre HTTP/2, que é o que o GitHub Pages serve, N
 arquivos pequenos do mesmo domínio são multiplexados na mesma conexão e custam
-praticamente o mesmo que um arquivo único. Assim dá para ter estrutura real sem
-pagar em performance. **A ordem dos `<link>` no `index.html` é a cascata** —
-não reordene sem verificar.
+praticamente o mesmo que um arquivo único. **A ordem dos `<link>` no
+`index.html` é a cascata** — não reordene sem verificar. `helpers.css` é a
+última folha, de propósito.
 
 **2. Os ícones são um sprite SVG inline no topo do `<body>`.**
 Zero requisições, herdam `currentColor` e não dependem de fonte de ícones.
 Por isso `assets/icons/` está vazia: existe pela estrutura pedida no briefing,
 mas nada precisa ir para lá.
+
+**3. Os detalhes das soluções são `<dialog>` nativos, não seções na rolagem.**
+O elemento nativo entrega armadilha de foco, fechamento por `Escape`,
+inertização do resto da página e devolução do foco ao gatilho — tudo o que uma
+reimplementação em JavaScript costuma errar. `js/modules/modal.js` só decide
+quando abrir e fechar.
+
+**4. Duas versões do logo, por legibilidade.**
+O header usa o lockup **compacto** (erlenmeyer + LABMÍDIA TECHOPS) a 36px; a
+36px as linhas "Technology Operations" e "PROCESSES | AUTOMATION…" do lockup
+completo viram borrão. O completo fica no rodapé, com 200px de largura.
+
+> O lockup compacto foi **derivado** do arquivo original em `img/`, escalando a
+> marca até a altura do bloco do wordmark. É a derivação conservadora padrão,
+> mas se o designer da marca tiver uma versão horizontal oficial, substitua
+> `assets/logo/labmidia-techops-compact.png` por ela.
 
 ---
 
@@ -125,8 +148,8 @@ instalado (só para desenvolvimento — o site em si não usa Node).
 
 ## ⚠️ Antes de publicar: preencher `js/config.js`
 
-Este é o **único** arquivo que precisa ser editado. Nenhum outro módulo tem
-dado de contato embutido.
+Este é o **único** arquivo que precisa ser editado para colocar os canais de
+contato no ar. Nenhum outro módulo tem dado de contato embutido.
 
 ```javascript
 export const CONFIG = {
@@ -139,9 +162,14 @@ export const CONFIG = {
     accessKey: "",                        // só para Web3Forms
     redirectOnSuccess: "",
   },
-  siteUrl: "https://labmidia.tec.br",
+  siteUrl: "https://labmidia.tec.br",     // documental — ver nota abaixo
 };
 ```
+
+> `siteUrl` **não é lida por nenhum módulo**. Canonical, Open Graph, JSON-LD e
+> sitemap usam URL absoluta escrita à mão. Trocar de domínio exige editar, além
+> dessa chave: o `<head>` do `index.html`, `sitemap.xml`, `robots.txt` e o
+> arquivo `CNAME`.
 
 ### Comportamento com campos vazios
 
@@ -153,8 +181,10 @@ export const CONFIG = {
 | `form.endpoint` | formulário usa `email` como fallback (abre o cliente de e-mail do visitante) | envia POST JSON de verdade |
 
 Canal não configurado é **removido** da página — nunca aparece como link morto
-ou texto "preencher aqui". Se o site subir antes da configuração, o visitante vê
-uma página coerente com menos canais, e o console mostra o que falta.
+ou texto "preencher aqui". Se **todos** os canais de uma lista somem, o bloco e
+o seu título saem junto, para não sobrar cabeçalho órfão sobre lista vazia.
+Se o site subir antes da configuração, o visitante vê uma página coerente com
+menos canais, e o console mostra o que falta.
 
 > **Nunca coloque segredo em `config.js`.** O arquivo é servido publicamente.
 > IDs de Formspree e chaves de Web3Forms são públicos por design — isso é
@@ -187,15 +217,14 @@ não em subdiretório.
 2. Commit e push:
    ```bash
    git add .
-   git commit -m "Nova landing page LabMídia TechOps"
+   git commit -m "Descrição da mudança"
    git push origin main
    ```
 3. No GitHub: **Settings → Pages**
    - *Source*: `Deploy from a branch`
    - *Branch*: `main` / `/ (root)`
 4. Ainda em **Settings → Pages**, confira que *Custom domain* está como
-   `labmidia.tec.br` e marque **Enforce HTTPS** assim que o certificado for
-   emitido (leva alguns minutos na primeira vez).
+   `labmidia.tec.br` e marque **Enforce HTTPS**.
 5. No DNS do domínio, os registros devem apontar para o GitHub Pages:
    ```
    A     @    185.199.108.153
@@ -221,18 +250,20 @@ O deploy leva de alguns segundos a poucos minutos após o push.
 | WhatsApp, e-mail, LinkedIn, endpoint do formulário | `js/config.js` |
 | Qualquer cor, espaçamento, raio, duração de animação | `css/base/tokens.css` |
 | Textos, títulos, cards, opções do formulário | `index.html` |
+| Conteúdo dos 4 diálogos | `index.html`, blocos `<dialog class="modal">` |
 | Título, descrição, Open Graph, JSON-LD | `<head>` do `index.html` |
 | Imagem de compartilhamento | `assets/images/og-cover.png` (1200×630) |
+| Logo do header / do rodapé | `assets/logo/*.png` |
 | Ícones | sprite `<svg>` no topo do `<body>` |
 | Valores do Technology Efficiency Score | `index.html`, atributo `style="--value: NN"` |
 
 ### Sobre os números do diagnóstico
 
-Os valores da seção **Technology Efficiency Score** e a lista **Impacto ×
-Esforço** são **simulados** e existem só para mostrar o formato da entrega.
-Cada bloco carrega o selo `Exemplo ilustrativo` e a seção tem uma nota
-explícita ao final. Se trocar os números, **mantenha os selos** — a menos que
-passem a ser dados reais de um cliente com autorização de divulgação.
+Os valores do **Technology Efficiency Score** e a lista **Impacto × Esforço**
+(dentro do diálogo `#diagnostico`) são **simulados** e existem só para mostrar o
+formato da entrega. Cada bloco carrega o selo `Exemplo ilustrativo` e o rodapé
+do diálogo tem uma nota explícita. Se trocar os números, **mantenha os selos** —
+a menos que passem a ser dados reais de um cliente com autorização de divulgação.
 
 ---
 
@@ -243,18 +274,22 @@ Implementado:
 - HTML semântico, hierarquia de headings correta, um único `<h1>`
 - Skip link, foco visível em tudo que é focável, navegação completa por teclado
 - Menu mobile com `aria-expanded` real, fechamento por `Escape` com retorno de foco
+- Diálogos `<dialog>` nativos: foco preso, `Escape`, retorno ao gatilho
 - Todos os campos do formulário com `<label>`; erros anunciados via `aria-live`
+  (as regiões nascem na árvore de acessibilidade, sem `display:none`)
+- Botão de envio usa `aria-disabled`, não `disabled` — desabilitar o elemento
+  focado jogaria o foco no `<body>` no meio do envio
 - Diagramas com `role="img"` e `aria-label` descritivo
 - `prefers-reduced-motion` respeitado em CSS **e** em JS
-- Contraste: todos os pares de texto passam WCAG AA sobre o fundo escuro
-  (o CTA primário é ciano com texto escuro justamente porque azul com texto
-  branco ficaria em 4.4:1 e reprovaria)
+- Contraste: todos os pares de texto passam WCAG AA sobre o fundo escuro, e as
+  bordas de controle (campo, botão outline) usam `--border-control`, que atinge
+  os 3:1 exigidos pelo critério 1.4.11
 
 Performance:
 
 - Sem biblioteca externa, sem vídeo de fundo, sem imagem pesada acima da dobra
 - O diagrama do hero é SVG + CSS, não imagem
-- Animações apenas em `opacity`, `translate` e `stroke-dashoffset`
+- Animações apenas em `opacity`, `transform` e `stroke-dashoffset`
 - `IntersectionObserver` em vez de listeners de scroll
 - Módulos ES são deferidos por padrão — não bloqueiam a renderização
 
@@ -263,10 +298,15 @@ Performance:
 A página é totalmente legível sem JavaScript:
 
 - Todo o conteúdo está no HTML, nada é montado por script
-- Sem JS a classe `.no-js` mantém a navegação como lista estática visível
-- Sem JS os blocos com animação de entrada nascem visíveis
-- Se os módulos falharem ao carregar, um temporizador no `<head>` devolve a
-  visibilidade de tudo em 2,5s (`.js-boot-failed`)
+- Sem JS a classe `.no-js` mantém a navegação como lista estática visível e o
+  header deixa de ser sticky (senão o menu aberto comeria a tela no celular)
+- Sem JS os `<dialog>` voltam ao fluxo como seções normais, e os gatilhos —
+  que são âncoras de verdade — funcionam como links comuns
+- Sem JS os blocos com animação de entrada nascem visíveis e as barras do
+  diagnóstico já vêm preenchidas
+- Se os módulos falharem ao carregar, um temporizador no `<head>` **desfaz** a
+  troca de classe e devolve o documento ao estado `.no-js` em 2,5s — o que
+  reativa todos os fallbacks acima de uma vez
 
 ---
 
@@ -285,8 +325,9 @@ consentimento adequado antes de carregá-lo.
 ## Pendências conhecidas
 
 - [ ] Preencher `js/config.js` com WhatsApp, e-mail, LinkedIn e endpoint do formulário
-- [ ] Substituir a marca provisória (`.brand__mark` no `index.html` e `favicon.svg`)
-      pela identidade definitiva da LabMídia TechOps, se houver
+- [ ] Marcar **Enforce HTTPS** em Settings → Pages
+- [ ] Substituir `assets/logo/labmidia-techops-compact.png` pela versão
+      horizontal oficial da marca, se o designer tiver uma
 - [ ] Validar os textos com a área comercial
-- [ ] Rodar Lighthouse depois do primeiro deploy e conferir as metas
+- [ ] Rodar Lighthouse depois do deploy e conferir as metas
       (Performance 90+, Accessibility / Best Practices / SEO 95+)

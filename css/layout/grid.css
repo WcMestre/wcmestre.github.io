@@ -25,8 +25,9 @@
 .section {
   padding-block: var(--space-section);
   position: relative;
-  /* Reforça o scroll-padding do html para navegadores que ignoram o global. */
-  scroll-margin-block-start: var(--header-h);
+  /* Sem scroll-margin aqui: `scroll-padding-top` no <html> (base/reset.css) já
+     recua a zona de pouso das âncoras. Os dois mecanismos são independentes por
+     especificação e SOMAM — juntos empurravam a seção 168px abaixo do topo. */
 }
 
 .section--alt {

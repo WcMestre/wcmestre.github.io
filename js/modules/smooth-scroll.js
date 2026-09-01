@@ -17,10 +17,17 @@ export function initSmoothScroll() {
     const hash = link.getAttribute("href");
     if (!hash || hash === "#") continue;
 
-    on(link, "click", () => {
+    on(link, "click", (event) => {
+      // Gatilho de modal: modules/modal.js já cancelou o evento e cuidou do
+      // foco. Mover o foco aqui roubaria a posição de dentro do diálogo.
+      if (event.defaultPrevented) return;
+
       const id = decodeURIComponent(hash.slice(1));
       const target = document.getElementById(id);
       if (!target) return;
+
+      // Diálogo fechado não é destino de rolagem.
+      if (target.tagName === "DIALOG" && !target.open) return;
 
       // Elementos como <section> não são focáveis por padrão. tabindex="-1"
       // permite foco programático sem entrar na ordem de tabulação.

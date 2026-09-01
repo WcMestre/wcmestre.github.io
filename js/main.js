@@ -15,6 +15,7 @@ import { initScrollSpy } from "./modules/scroll-spy.js";
 import { initSmoothScroll } from "./modules/smooth-scroll.js";
 import { initReveal } from "./modules/reveal.js";
 import { initScoreMeters } from "./modules/score-meter.js";
+import { initModals } from "./modules/modal.js";
 import { initContactLinks } from "./modules/contact-links.js";
 import { initForm } from "./modules/form.js";
 
@@ -26,6 +27,11 @@ const MODULES = [
   ["reveal", initReveal],
   ["navigation", initNavigation],
   ["header-scroll", initHeaderScroll],
+  // modal ANTES de smooth-scroll: os gatilhos são âncoras, e os dois módulos
+  // escutam o mesmo clique. Quem registra primeiro roda primeiro — o modal
+  // precisa cancelar o evento (ou fechar o diálogo) antes que o smooth-scroll
+  // tente mover o foco para o alvo.
+  ["modal", initModals],
   ["smooth-scroll", initSmoothScroll],
   ["scroll-spy", initScrollSpy],
   ["score-meter", initScoreMeters],

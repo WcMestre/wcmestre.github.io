@@ -48,7 +48,10 @@
   inline-size: 100%;
   padding: 0.6875rem 0.875rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-strong);
+  /* --border-control, e não --border-strong: o preenchimento do campo é igual
+     ao fundo da seção, então a borda é a ÚNICA pista de que existe um controle
+     ali. WCAG 1.4.11 pede 3:1. Ver base/tokens.css. */
+  border: 1px solid var(--border-control);
   background: var(--bg-primary);
   color: var(--text-primary);
   font-size: var(--fs-sm);
@@ -117,17 +120,21 @@ select.field__control option {
 .field__error {
   font-size: var(--fs-eyebrow);
   font-weight: 500;
-  color: var(--accent);
-  min-block-size: 0;
+  color: var(--danger);
 }
 
+/* NÃO troque por display:none. Uma região aria-live precisa já existir na
+   árvore de acessibilidade quando o texto chega; se o elemento só passa a ser
+   renderizado no mesmo instante da mutação, o leitor de tela não anuncia.
+   Zerar a altura esconde visualmente sem tirar da árvore. */
 .field__error:empty {
-  display: none;
+  block-size: 0;
+  overflow: hidden;
 }
 
 .field__control[aria-invalid="true"] {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
 }
 
 /* --------------------------------------------------------------------------
@@ -155,13 +162,25 @@ select.field__control option {
   color: var(--text-secondary);
 }
 
+/* Mesmo motivo de .field__error:empty — a região aria-live tem de permanecer
+   na árvore de acessibilidade antes de receber a mensagem. */
 .form__status:empty {
-  display: none;
+  block-size: 0;
+  padding-block: 0;
+  border-width: 0;
+  background: none;
+  overflow: hidden;
 }
 
 .form__status--ok {
   border-color: var(--border-accent);
   background: var(--accent-soft);
+  color: var(--text-primary);
+}
+
+.form__status--error {
+  border-color: var(--danger-border);
+  background: var(--danger-soft);
   color: var(--text-primary);
 }
 

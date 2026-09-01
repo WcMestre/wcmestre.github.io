@@ -58,7 +58,12 @@ export const CONFIG = {
     redirectOnSuccess: "",
   },
 
-  /** Usado em canonical, Open Graph e no sitemap. Sem barra no final. */
+  /**
+   * Domínio de referência, apenas documental. NENHUM módulo lê esta chave:
+   * canonical, Open Graph, JSON-LD e sitemap usam URL absoluta escrita à mão.
+   * Trocar de domínio exige editar, além daqui: o <head> de index.html,
+   * sitemap.xml, robots.txt e o arquivo CNAME.
+   */
   siteUrl: "https://labmidia.tec.br",
 };
 

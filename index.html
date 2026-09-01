@@ -48,9 +48,8 @@
     />
     <meta name="twitter:image" content="https://labmidia.tec.br/assets/images/og-cover.png" />
 
-    <!-- Ícones -->
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="./favicon.ico" sizes="32x32" />
+    <!-- Ícones. O erlenmeyer da marca, sobre o navy do site. -->
+    <link rel="icon" href="./favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="apple-touch-icon" href="./assets/logo/apple-touch-icon.png" />
 
     <!-- Tipografia -->
@@ -88,6 +87,7 @@
     <link rel="stylesheet" href="./css/components/flow.css" />
     <link rel="stylesheet" href="./css/components/diagram.css" />
     <link rel="stylesheet" href="./css/components/form.css" />
+    <link rel="stylesheet" href="./css/components/modal.css" />
     <!-- sections -->
     <link rel="stylesheet" href="./css/sections/hero.css" />
     <link rel="stylesheet" href="./css/sections/solutions.css" />
@@ -103,7 +103,10 @@
       1. Troca .no-js por .js ANTES da primeira pintura, para que os blocos
          com animação de entrada já nasçam invisíveis (sem piscar).
       2. Arma uma rede de segurança: se os módulos não carregarem em 2,5s,
-         .js-boot-failed devolve a visibilidade de tudo. main.js cancela o
+         DESFAZ a troca. Voltar ao estado .no-js reativa de uma vez todos os
+         fallbacks já escritos para ele — navegação estática, barras do
+         diagnóstico cheias, diálogos de volta ao fluxo — em vez de exigir uma
+         regra .js-boot-failed nova a cada componente. main.js cancela o
          temporizador ao iniciar.
     -->
     <script>
@@ -112,7 +115,8 @@
         root.classList.remove("no-js");
         root.classList.add("js");
         window.__labmidiaBootTimer = window.setTimeout(function () {
-          root.classList.add("js-boot-failed");
+          root.classList.remove("js");
+          root.classList.add("no-js", "js-boot-failed");
         }, 2500);
       })();
     </script>
@@ -128,13 +132,42 @@
         "url": "https://labmidia.tec.br/",
         "description": "Consultoria e gestão tecnológica que transforma processos, automação e inteligência artificial em eficiência operacional e capacidade de escala.",
         "areaServed": ["São José do Rio Preto", "Brasil"],
-        "serviceType": [
-          "Consultoria em Tecnologia",
-          "Automação de Processos",
-          "Integração de Sistemas",
-          "Inteligência Artificial",
-          "Technology Operations"
-        ]
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "São José do Rio Preto",
+          "addressRegion": "SP",
+          "addressCountry": "BR"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Serviços LabMídia TechOps",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Diagnóstico de Eficiência Tecnológica",
+                "serviceType": "Consultoria em Tecnologia"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Sprint de Eficiência Operacional",
+                "serviceType": "Automação de Processos"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Technology Office",
+                "serviceType": "Gestão de Tecnologia"
+              }
+            }
+          ]
+        }
       }
     </script>
   </head>
@@ -201,6 +234,9 @@
       <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
         <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3zM10 9h3.8v1.65h.05A4.17 4.17 0 0 1 17.6 8.7c3.9 0 4.62 2.5 4.62 5.76V21h-4v-5.66c0-1.35-.02-3.09-1.9-3.09-1.9 0-2.19 1.47-2.19 3v5.75h-4z" />
       </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </symbol>
       <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z" />
         <circle cx="12" cy="10" r="2.5" />
@@ -213,38 +249,14 @@
     <header class="site-header">
       <div class="container header__inner">
         <a class="brand" href="#top" aria-label="LabMídia TechOps — início">
-          <svg
-            class="brand__mark"
-            viewBox="0 0 32 32"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <rect
-              x="1"
-              y="1"
-              width="30"
-              height="30"
-              rx="9"
-              stroke="currentColor"
-              stroke-opacity=".4"
-            />
-            <circle cx="16" cy="16" r="3.4" fill="currentColor" />
-            <circle cx="16" cy="7.5" r="1.9" fill="currentColor" fill-opacity=".65" />
-            <circle cx="23.5" cy="20" r="1.9" fill="currentColor" fill-opacity=".65" />
-            <circle cx="8.5" cy="20" r="1.9" fill="currentColor" fill-opacity=".65" />
-            <path
-              d="M16 12.6V9.4M18.6 17.8l3.1 1.4M13.4 17.8l-3.1 1.4"
-              stroke="currentColor"
-              stroke-opacity=".55"
-              stroke-width="1.3"
-              stroke-linecap="round"
-            />
-          </svg>
-          <span class="brand__text">
-            <span class="brand__name">LabMídia</span>
-            <span class="brand__suffix">TechOps</span>
-          </span>
+          <img
+            class="brand__logo"
+            src="./assets/logo/labmidia-techops-compact.png"
+            alt="LabMídia TechOps"
+            width="596"
+            height="153"
+            decoding="async"
+          />
         </a>
 
         <!-- O botão vem antes do painel no DOM para que Tab entre no painel
@@ -481,7 +493,7 @@
               <strong>Não começamos pela ferramenta. Começamos pelo problema.</strong>
               APIs, desenvolvimento próprio, IA, RPA, ERP, CRM, n8n, Make, Power
               Automate, cloud, BI ou o que já existe dentro do cliente — a
-              escolha depende do problema e do retorno esperado, nunca do
+              escolha depende do problema e do retorno esperado, nunca o
               contrário.
             </p>
           </div>
@@ -554,7 +566,7 @@
                 </ul>
               </div>
               <div class="card__foot">
-                <a class="btn btn--quiet" href="#diagnostico">
+                <a class="btn btn--quiet" href="#diagnostico" data-modal-open>
                   Conhecer o diagnóstico
                   <svg class="btn__arrow" aria-hidden="true" focusable="false">
                     <use href="#i-arrow-right" />
@@ -585,7 +597,7 @@
                 </ul>
               </div>
               <div class="card__foot">
-                <a class="btn btn--quiet" href="#metodologia">
+                <a class="btn btn--quiet" href="#sprint" data-modal-open>
                   Conhecer os Sprints
                   <svg class="btn__arrow" aria-hidden="true" focusable="false">
                     <use href="#i-arrow-right" />
@@ -618,8 +630,8 @@
                 </ul>
               </div>
               <div class="card__foot">
-                <a class="btn btn--quiet" href="#tech-office">
-                  Conhecer o Tech Office
+                <a class="btn btn--quiet" href="#tech-office" data-modal-open>
+                  Conhecer o Technology Office
                   <svg class="btn__arrow" aria-hidden="true" focusable="false">
                     <use href="#i-arrow-right" />
                   </svg>
@@ -631,267 +643,432 @@
       </section>
 
       <!-- ==================================================================
-           TECHNOLOGY EFFICIENCY SCORE
-           Todos os números desta seção são simulados. O selo
-           "Exemplo ilustrativo" é obrigatório — ver §41 do briefing.
+           DIÁLOGOS DAS SOLUÇÕES
+
+           <dialog> nativo: armadilha de foco, Escape e inertização da página
+           vêm de graça. Fechados são display:none, então ficam fora da
+           rolagem — que é o comportamento pedido. Sob .no-js voltam ao fluxo
+           como seções normais e os gatilhos viram âncoras comuns.
+
+           Os números do bloco de diagnóstico são simulados e carregam o selo
+           "Exemplo ilustrativo" — ver §41 do briefing. Não remova o selo.
            ================================================================== -->
-      <section class="section" id="diagnostico" aria-labelledby="diagnostico-title">
-        <div class="container">
-          <header class="section__head reveal">
-            <p class="eyebrow">Diagnóstico</p>
-            <h2 class="section__title" id="diagnostico-title">
-              Transformamos ineficiência em um roadmap de execução.
+
+      <dialog class="modal" id="diagnostico" aria-labelledby="diagnostico-title">
+        <article class="modal__panel">
+          <header class="modal__head">
+            <p class="eyebrow">Solução 01</p>
+            <h2 class="modal__title" id="diagnostico-title">
+              Diagnóstico de Eficiência Tecnológica
             </h2>
-            <p class="section__lead lead">
-              O diagnóstico atribui uma nota a cada dimensão da operação e cruza
-              as oportunidades encontradas por impacto e esforço. O resultado é
-              uma fila de execução, não um relatório.
+            <button class="modal__close" type="button" data-modal-close aria-label="Fechar">
+              <svg aria-hidden="true" focusable="false"><use href="#i-close" /></svg>
+            </button>
+          </header>
+
+          <div class="modal__body">
+            <p class="lead">
+              Avaliamos processos, sistemas, integrações, dados, automações, IA
+              e estrutura tecnológica. O diagnóstico atribui uma nota a cada
+              dimensão da operação e cruza as oportunidades encontradas por
+              impacto e esforço. O resultado é uma fila de execução, não um
+              relatório.
             </p>
-          </header>
 
-          <div class="efficiency__grid">
-            <div class="panel reveal">
-              <div class="panel__head">
-                <h3 class="panel__title">Technology Efficiency Score</h3>
-                <span class="illustrative-badge">
-                  <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
-                  Exemplo ilustrativo
-                </span>
+            <div class="modal__grid modal__grid--two">
+              <div class="panel">
+                <div class="panel__head">
+                  <h3 class="panel__title">Technology Efficiency Score</h3>
+                  <span class="illustrative-badge">
+                    <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
+                    Exemplo ilustrativo
+                  </span>
+                </div>
+
+                <div class="meters">
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">Processos</span>
+                      <span class="meter__value">64</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 64"></div>
+                    </div>
+                  </div>
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">Sistemas</span>
+                      <span class="meter__value">72</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 72"></div>
+                    </div>
+                  </div>
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">Integrações</span>
+                      <span class="meter__value">41</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 41"></div>
+                    </div>
+                  </div>
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">Automação</span>
+                      <span class="meter__value">35</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 35"></div>
+                    </div>
+                  </div>
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">IA</span>
+                      <span class="meter__value">28</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 28"></div>
+                    </div>
+                  </div>
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">Dados</span>
+                      <span class="meter__value">56</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 56"></div>
+                    </div>
+                  </div>
+                  <div class="meter">
+                    <div class="meter__head">
+                      <span class="meter__label">Gestão</span>
+                      <span class="meter__value">68</span>
+                    </div>
+                    <div class="meter__track" aria-hidden="true">
+                      <div class="meter__fill" style="--value: 68"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="efficiency__legend">
+                  <span class="efficiency__scale">Escala de 0 a 100 por dimensão</span>
+                </p>
               </div>
 
-              <div class="meters">
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">Processos</span>
-                    <span class="meter__value">64</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 64"></div>
-                  </div>
+              <div class="panel">
+                <div class="panel__head">
+                  <h3 class="panel__title">Impacto × Esforço</h3>
+                  <span class="illustrative-badge">
+                    <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
+                    Exemplo ilustrativo
+                  </span>
                 </div>
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">Sistemas</span>
-                    <span class="meter__value">72</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 72"></div>
-                  </div>
-                </div>
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">Integrações</span>
-                    <span class="meter__value">41</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 41"></div>
-                  </div>
-                </div>
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">Automação</span>
-                    <span class="meter__value">35</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 35"></div>
-                  </div>
-                </div>
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">IA</span>
-                    <span class="meter__value">28</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 28"></div>
-                  </div>
-                </div>
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">Dados</span>
-                    <span class="meter__value">56</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 56"></div>
-                  </div>
-                </div>
-                <div class="meter">
-                  <div class="meter__head">
-                    <span class="meter__label">Gestão</span>
-                    <span class="meter__value">68</span>
-                  </div>
-                  <div class="meter__track" aria-hidden="true">
-                    <div class="meter__fill" style="--value: 68"></div>
-                  </div>
-                </div>
-              </div>
 
-              <p class="efficiency__legend">
-                <span class="efficiency__scale">Escala de 0 a 100 por dimensão</span>
-              </p>
+                <ul class="priority-list">
+                  <li>
+                    <span class="priority-list__name">CRM ↔ ERP</span>
+                    <span class="chip chip--priority-high">Prioridade alta</span>
+                  </li>
+                  <li>
+                    <span class="priority-list__name">Automação financeira</span>
+                    <span class="chip chip--priority-high">Prioridade alta</span>
+                  </li>
+                  <li>
+                    <span class="priority-list__name">IA no atendimento</span>
+                    <span class="chip chip--priority-medium">Prioridade média</span>
+                  </li>
+                  <li>
+                    <span class="priority-list__name">BI executivo</span>
+                    <span class="chip chip--priority-medium">Prioridade média</span>
+                  </li>
+                </ul>
+
+                <p class="card__text">
+                  A priorização considera retorno esperado, esforço de
+                  implantação e dependência entre iniciativas — para que a
+                  primeira entrega já sustente as seguintes.
+                </p>
+              </div>
             </div>
 
-            <div class="panel reveal">
-              <div class="panel__head">
-                <h3 class="panel__title">Impacto × Esforço</h3>
-                <span class="illustrative-badge">
-                  <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
-                  Exemplo ilustrativo
-                </span>
-              </div>
-
-              <ul class="priority-list">
-                <li>
-                  <span class="priority-list__name">CRM ↔ ERP</span>
-                  <span class="chip chip--priority-high">Prioridade alta</span>
-                </li>
-                <li>
-                  <span class="priority-list__name">Automação financeira</span>
-                  <span class="chip chip--priority-high">Prioridade alta</span>
-                </li>
-                <li>
-                  <span class="priority-list__name">IA no atendimento</span>
-                  <span class="chip chip--priority-medium">Prioridade média</span>
-                </li>
-                <li>
-                  <span class="priority-list__name">BI executivo</span>
-                  <span class="chip chip--priority-medium">Prioridade média</span>
-                </li>
+            <div>
+              <h3 class="subhead">Entregáveis</h3>
+              <ul class="list-check u-stack-sm">
+                <li>Diagnóstico executivo</li>
+                <li>Mapa tecnológico</li>
+                <li>Oportunidades priorizadas</li>
+                <li>Technology Efficiency Score</li>
+                <li>Roadmap</li>
+                <li>Recomendações</li>
               </ul>
-
-              <p class="card__text">
-                A priorização considera retorno esperado, esforço de implantação
-                e dependência entre iniciativas — para que a primeira entrega já
-                sustente as seguintes.
-              </p>
-
-              <div>
-                <a class="btn btn--ghost" href="#contato">Solicitar diagnóstico</a>
-              </div>
             </div>
           </div>
 
-          <p class="section__note">
-            Os valores acima são um exemplo de como o diagnóstico é apresentado.
-            Não representam resultado de cliente.
-          </p>
-        </div>
-      </section>
+          <footer class="modal__foot">
+            <p class="modal__note">
+              Os valores acima são um exemplo de como o diagnóstico é
+              apresentado. Não representam resultado de cliente.
+            </p>
+            <a class="btn btn--primary" href="#contato" data-modal-close>
+              Solicitar diagnóstico
+              <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                <use href="#i-arrow-right" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+      </dialog>
 
-      <!-- ==================================================================
-           TECHNOLOGY OFFICE
-           ================================================================== -->
-      <section class="section section--alt" id="tech-office" aria-labelledby="tech-office-title">
-        <div class="container">
-          <header class="section__head reveal">
-            <p class="eyebrow">Technology Office</p>
-            <h2 class="section__title" id="tech-office-title">
-              Uma estrutura executiva de tecnologia sem precisar montar toda uma
-              estrutura interna.
+      <dialog class="modal" id="sprint" aria-labelledby="sprint-title">
+        <article class="modal__panel">
+          <header class="modal__head">
+            <p class="eyebrow">Solução 02</p>
+            <h2 class="modal__title" id="sprint-title">
+              Sprint de Eficiência Operacional
             </h2>
+            <button class="modal__close" type="button" data-modal-close aria-label="Fechar">
+              <svg aria-hidden="true" focusable="false"><use href="#i-close" /></svg>
+            </button>
           </header>
 
-          <div class="compare reveal reveal--fade">
-            <div class="compare__panel">
-              <p class="compare__label">Modelo tradicional</p>
-              <ul class="compare__stack">
-                <li class="compare__box">CTO</li>
-                <li class="compare__box">Gerente</li>
-                <li class="compare__box">Arquiteto</li>
-                <li class="compare__box">PM</li>
-                <li class="compare__box">Especialista IA</li>
-                <li class="compare__box">DevOps</li>
-                <li class="compare__box">Desenvolvedores</li>
-                <li class="compare__box">Fornecedores</li>
-              </ul>
-              <p class="compare__note">
-                Oito frentes para contratar, coordenar e manter — cada uma com
-                custo fixo e curva própria de maturidade.
-              </p>
-            </div>
+          <div class="modal__body">
+            <p class="lead">
+              Selecionamos as iniciativas com maior potencial de retorno e
+              conduzimos sua implantação em ciclos estruturados. Cada ciclo
+              parte de uma iniciativa já priorizada, com escopo fechado e
+              responsável definido.
+            </p>
 
-            <p class="compare__versus" aria-hidden="true">vs</p>
+            <div class="modal__grid modal__grid--two">
+              <div class="panel">
+                <h3 class="panel__title">O que entra em um sprint</h3>
+                <ul class="list-check">
+                  <li>Integrações entre sistemas que hoje não conversam</li>
+                  <li>Automações de processos manuais e repetitivos</li>
+                  <li>IA aplicada onde existe retorno claro</li>
+                  <li>Dashboards e visão executiva sobre os dados</li>
+                  <li>Melhoria de processos</li>
+                  <li>Aplicações e fluxos corporativos</li>
+                </ul>
+              </div>
 
-            <div class="compare__panel compare__panel--highlight">
-              <p class="compare__label">Technology Office</p>
-              <ul class="compare__blocks">
-                <li class="compare__block">Estratégia</li>
-                <li class="compare__block">Gestão</li>
-                <li class="compare__block">Arquitetura</li>
-                <li class="compare__block">Especialistas sob demanda</li>
-              </ul>
-              <p class="compare__note">
-                O Tech Office conecta direção, times e fornecedores, garantindo
-                que investimentos tecnológicos estejam alinhados às prioridades
-                da empresa.
-              </p>
+              <div class="panel">
+                <h3 class="panel__title">Como o ciclo funciona</h3>
+                <p class="card__text">
+                  O sprint executa as três últimas etapas do
+                  <strong>TEO Framework</strong> sobre uma iniciativa que já
+                  passou por Discover e Measure no diagnóstico.
+                </p>
+                <ol class="stepper">
+                  <li class="step">
+                    <p class="step__num">03</p>
+                    <h4 class="step__title">Design</h4>
+                    <p class="step__text">
+                      Desenhamos processo, arquitetura e integrações.
+                    </p>
+                  </li>
+                  <li class="step">
+                    <p class="step__num">04</p>
+                    <h4 class="step__title">Execute</h4>
+                    <p class="step__text">
+                      Coordenamos fornecedores e implementamos, com escopo
+                      fechado.
+                    </p>
+                  </li>
+                  <li class="step">
+                    <p class="step__num">05</p>
+                    <h4 class="step__title">Optimize</h4>
+                    <p class="step__text">
+                      Medimos o resultado contra a linha de base levantada no
+                      diagnóstico.
+                    </p>
+                  </li>
+                </ol>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- ==================================================================
-           OPERAÇÕES MULTIUNIDADES
-           ================================================================== -->
-      <section class="section" id="multiunidades" aria-labelledby="multiunidades-title">
-        <div class="container split split--visual-lead">
-          <div class="split__body reveal">
+          <footer class="modal__foot">
+            <p class="modal__note">
+              O sprint pressupõe iniciativas priorizadas. Quando ainda não
+              existe diagnóstico, começamos por ele.
+            </p>
+            <a class="btn btn--primary" href="#contato" data-modal-close>
+              Conversar sobre minha operação
+              <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                <use href="#i-arrow-right" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+      </dialog>
+
+      <dialog class="modal" id="tech-office" aria-labelledby="tech-office-title">
+        <article class="modal__panel">
+          <header class="modal__head">
+            <p class="eyebrow">Solução 03 · Recorrente</p>
+            <h2 class="modal__title" id="tech-office-title">Technology Office</h2>
+            <button class="modal__close" type="button" data-modal-close aria-label="Fechar">
+              <svg aria-hidden="true" focusable="false"><use href="#i-close" /></svg>
+            </button>
+          </header>
+
+          <div class="modal__body">
+            <p class="lead">
+              Uma estrutura executiva de tecnologia sem precisar montar toda uma
+              estrutura interna. Gestão tecnológica sob demanda para empresas
+              que precisam de liderança, estratégia e capacidade técnica.
+            </p>
+
+            <div class="compare">
+              <div class="compare__panel">
+                <p class="compare__label">Modelo tradicional</p>
+                <ul class="compare__stack">
+                  <li class="compare__box">CTO</li>
+                  <li class="compare__box">Gerente</li>
+                  <li class="compare__box">Arquiteto</li>
+                  <li class="compare__box">PM</li>
+                  <li class="compare__box">Especialista IA</li>
+                  <li class="compare__box">DevOps</li>
+                  <li class="compare__box">Desenvolvedores</li>
+                  <li class="compare__box">Fornecedores</li>
+                </ul>
+                <p class="compare__note">
+                  Oito frentes para contratar, coordenar e manter — cada uma com
+                  custo fixo e curva própria de maturidade.
+                </p>
+              </div>
+
+              <p class="compare__versus" aria-hidden="true">vs</p>
+
+              <div class="compare__panel compare__panel--highlight">
+                <p class="compare__label">Technology Office</p>
+                <ul class="compare__blocks">
+                  <li class="compare__block">Estratégia</li>
+                  <li class="compare__block">Gestão</li>
+                  <li class="compare__block">Arquitetura</li>
+                  <li class="compare__block">Especialistas sob demanda</li>
+                </ul>
+                <p class="compare__note">
+                  O Technology Office conecta direção, times e fornecedores,
+                  garantindo que investimentos tecnológicos estejam alinhados às
+                  prioridades da empresa.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="subhead">Pode incluir</h3>
+              <ul class="list-check u-stack-sm">
+                <li>Fractional CTO</li>
+                <li>Gestão de projetos e de fornecedores</li>
+                <li>Arquitetura</li>
+                <li>IA e automação</li>
+                <li>Estruturação de times</li>
+                <li>Planejamento tecnológico</li>
+              </ul>
+            </div>
+          </div>
+
+          <footer class="modal__foot">
+            <a class="btn btn--quiet" href="#multiunidades" data-modal-open>
+              Ver como funciona em operações multiunidades
+              <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                <use href="#i-arrow-right" />
+              </svg>
+            </a>
+            <a class="btn btn--primary" href="#contato" data-modal-close>
+              Conversar sobre minha operação
+              <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                <use href="#i-arrow-right" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+      </dialog>
+
+      <dialog class="modal" id="multiunidades" aria-labelledby="multiunidades-title">
+        <article class="modal__panel">
+          <header class="modal__head">
             <p class="eyebrow">Operação distribuída</p>
-            <h2 id="multiunidades-title">
+            <h2 class="modal__title" id="multiunidades-title">
               Quanto mais distribuída a operação, maior o desafio de manter
               tecnologia, processos e dados conectados.
             </h2>
+            <button class="modal__close" type="button" data-modal-close aria-label="Fechar">
+              <svg aria-hidden="true" focusable="false"><use href="#i-close" /></svg>
+            </button>
+          </header>
+
+          <div class="modal__body">
             <p class="lead">
               Atuamos especialmente em organizações nas quais matriz, unidades,
               franquias ou empresas do mesmo grupo precisam compartilhar
               tecnologia, dados e processos com eficiência.
             </p>
+
+            <div
+              class="org-tree"
+              role="img"
+              aria-label="Diagrama: a matriz se conecta ao Technology Office, que por sua vez coordena sistemas, dados e processos de cada unidade."
+            >
+              <div class="org-tree__level">
+                <span class="org-node org-node--root">Matriz</span>
+              </div>
+              <div class="org-tree__level">
+                <span class="org-node org-node--hub">Technology Office</span>
+              </div>
+              <ul class="org-tree__branches">
+                <li class="org-branch">
+                  <span class="org-node">Unidade 01</span>
+                  <ul class="org-branch__leaves">
+                    <li>Sistemas</li>
+                    <li>Dados</li>
+                    <li>Processos</li>
+                  </ul>
+                </li>
+                <li class="org-branch">
+                  <span class="org-node">Unidade 02</span>
+                  <ul class="org-branch__leaves">
+                    <li>Sistemas</li>
+                    <li>Dados</li>
+                    <li>Processos</li>
+                  </ul>
+                </li>
+                <li class="org-branch">
+                  <span class="org-node">Unidade 03</span>
+                  <ul class="org-branch__leaves">
+                    <li>Sistemas</li>
+                    <li>Dados</li>
+                    <li>Processos</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div
-            class="org-tree reveal reveal--fade"
-            role="img"
-            aria-label="Diagrama: a matriz se conecta ao Technology Office, que por sua vez coordena sistemas, dados e processos de cada unidade."
-          >
-            <div class="org-tree__level">
-              <span class="org-node org-node--root">Matriz</span>
-            </div>
-            <div class="org-tree__level">
-              <span class="org-node org-node--hub">Technology Office</span>
-            </div>
-            <ul class="org-tree__branches">
-              <li class="org-branch">
-                <span class="org-node">Unidade 01</span>
-                <ul class="org-branch__leaves">
-                  <li>Sistemas</li>
-                  <li>Dados</li>
-                  <li>Processos</li>
-                </ul>
-              </li>
-              <li class="org-branch">
-                <span class="org-node">Unidade 02</span>
-                <ul class="org-branch__leaves">
-                  <li>Sistemas</li>
-                  <li>Dados</li>
-                  <li>Processos</li>
-                </ul>
-              </li>
-              <li class="org-branch">
-                <span class="org-node">Unidade 03</span>
-                <ul class="org-branch__leaves">
-                  <li>Sistemas</li>
-                  <li>Dados</li>
-                  <li>Processos</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+          <footer class="modal__foot">
+            <a class="btn btn--quiet" href="#tech-office" data-modal-open>
+              Voltar ao Technology Office
+            </a>
+            <a class="btn btn--primary" href="#contato" data-modal-close>
+              Conversar sobre minha operação
+              <svg class="btn__arrow" aria-hidden="true" focusable="false">
+                <use href="#i-arrow-right" />
+              </svg>
+            </a>
+          </footer>
+        </article>
+      </dialog>
+
+
+
 
       <!-- ==================================================================
            PARA QUEM
            ================================================================== -->
-      <section class="section section--alt" id="para-quem" aria-labelledby="para-quem-title">
+      <section class="section" id="para-quem" aria-labelledby="para-quem-title">
         <div class="container">
           <header class="section__head reveal">
             <p class="eyebrow">Para quem</p>
@@ -945,7 +1122,7 @@
       <!-- ==================================================================
            METODOLOGIA — TEO FRAMEWORK
            ================================================================== -->
-      <section class="section" id="metodologia" aria-labelledby="metodologia-title">
+      <section class="section section--alt" id="metodologia" aria-labelledby="metodologia-title">
         <div class="container">
           <header class="section__head reveal">
             <p class="eyebrow">TEO Framework</p>
@@ -1001,7 +1178,7 @@
       <!-- ==================================================================
            INTELIGÊNCIA ARTIFICIAL
            ================================================================== -->
-      <section class="section section--alt" id="ia" aria-labelledby="ia-title">
+      <section class="section" id="ia" aria-labelledby="ia-title">
         <div class="container split split--text-lead">
           <div class="split__body reveal">
             <p class="eyebrow">Inteligência Artificial</p>
@@ -1034,7 +1211,7 @@
       <!-- ==================================================================
            AUTOMAÇÕES E INTEGRAÇÕES
            ================================================================== -->
-      <section class="section" id="integracoes" aria-labelledby="integracoes-title">
+      <section class="section section--alt" id="integracoes" aria-labelledby="integracoes-title">
         <div class="container">
           <header class="section__head section__head--center reveal">
             <p class="eyebrow">Automações e integrações</p>
@@ -1046,7 +1223,7 @@
           <div
             class="flow reveal reveal--fade"
             role="img"
-            aria-label="Fluxo: do ERP para a camada de API, dela para a automação, e daí para CRM, inteligência artificial e BI."
+            aria-label="Cadeia em seis etapas, nesta ordem: ERP, API, Automation, CRM, IA e BI. As etapas API, Automation e IA são a camada que a LabMídia TechOps constrói e mantém."
           >
             <span class="flow__item">
               <span class="flow__node">ERP</span>
@@ -1091,7 +1268,7 @@
       <!-- ==================================================================
            DIFERENCIAIS
            ================================================================== -->
-      <section class="section section--alt" id="diferenciais" aria-labelledby="diferenciais-title">
+      <section class="section" id="diferenciais" aria-labelledby="diferenciais-title">
         <div class="container">
           <header class="section__head reveal">
             <p class="eyebrow">Por que LabMídia</p>
@@ -1409,13 +1586,15 @@
       <div class="container">
         <div class="footer__grid">
           <div class="footer__brand">
-            <p class="brand">
-              <span class="brand__text">
-                <span class="brand__name">LabMídia</span>
-                <span class="brand__suffix">TechOps</span>
-              </span>
-            </p>
-            <p class="footer__signature">Technology Operations</p>
+            <img
+              class="footer__logo"
+              src="./assets/logo/labmidia-techops.png"
+              alt="LabMídia TechOps — Technology Operations"
+              width="650"
+              height="251"
+              loading="lazy"
+              decoding="async"
+            />
             <p class="footer__pillars">
               Estratégia • Automação • Integrações • IA
             </p>
