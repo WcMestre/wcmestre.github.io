@@ -75,7 +75,7 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── scroll-spy.js       Link ativo na navegação
 │   │   ├── reveal.js           Animação de entrada
 │   │   ├── score-meter.js      Animação das barras do diagnóstico
-│   │   ├── logo-marquee.js     Faixa de logos (clona a trilha, botão de pausa)
+│   │   ├── logo-marquee.js     Faixa de logos (clona a trilha para o laço)
 │   │   ├── contact-links.js    Aplica config.js aos canais de contato
 │   │   └── form.js             Validação e envio
 │   └── utils/

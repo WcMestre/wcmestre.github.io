@@ -2,10 +2,9 @@
    components/logo-marquee.css — Faixa rolante de logos de clientes
 
    O movimento só existe sob `.is-animated`, classe que js/modules/logo-marquee.js
-   aplica depois de clonar a trilha e revelar o botão de pausa. A ordem importa:
-   WCAG 2.2.2 exige um mecanismo de pausa para conteúdo que se move sozinho por
-   mais de 5s. Sem JavaScript não há botão — então também não pode haver
-   movimento, e a faixa vira uma grade estática centralizada.
+   aplica depois de clonar a trilha — o laço contínuo precisa de uma segunda
+   trilha idêntica. Sem JavaScript não há clone, então também não há movimento:
+   a faixa fica como uma grade estática centralizada.
    ========================================================================== */
 
 .logo-strip__head {
@@ -17,30 +16,8 @@
   margin-block-end: var(--space-lg);
 }
 
-.logo-strip__title {
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
-
-.logo-strip__toggle {
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-control);
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: var(--fs-eyebrow);
-  font-weight: 500;
-  transition: color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
-}
-
-.logo-strip__toggle:hover {
-  color: var(--accent);
-  border-color: var(--border-accent);
-}
+/* O rótulo da seção usa a classe .eyebrow (base/typography.css), a mesma de
+   "Para quem" e das demais seções — ciano com o fio à esquerda. */
 
 /* --------------------------------------------------------------------------
    Trilha
@@ -129,14 +106,14 @@
 
 /* --------------------------------------------------------------------------
    Pausa
-   Três caminhos: ponteiro, teclado e o botão explícito. O botão é o que
-   satisfaz WCAG 2.2.2 — hover não serve para quem navega por teclado, e as
-   logos não são focáveis, então :focus-within sozinho também não bastaria.
+   Restaram o ponteiro e o foco. O botão explícito, que era o que atendia o
+   WCAG 2.2.2 (conteúdo em movimento automático por mais de 5s precisa de
+   mecanismo de pausa), foi removido a pedido do cliente em 2026-09-02.
+   prefers-reduced-motion continua desligando a animação por completo.
    -------------------------------------------------------------------------- */
 
 .logo-marquee.is-animated:hover .logo-marquee__track,
-.logo-marquee.is-animated:focus-within .logo-marquee__track,
-.logo-marquee.is-animated.is-paused .logo-marquee__track {
+.logo-marquee.is-animated:focus-within .logo-marquee__track {
   animation-play-state: paused;
 }
 
@@ -162,10 +139,6 @@
 
   /* A trilha clonada é decorativa; sem rolagem ela só duplicaria as logos. */
   .logo-marquee__track[aria-hidden="true"] {
-    display: none;
-  }
-
-  .logo-strip__toggle {
     display: none;
   }
 }

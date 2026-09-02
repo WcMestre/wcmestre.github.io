@@ -108,10 +108,17 @@ Hero → Problema → Proposta → Soluções → Para quem → Clientes
 ```
 
 A faixa de logos (`#clientes`) só se move sob a classe `.is-animated`, que
-`js/modules/logo-marquee.js` aplica depois de clonar a trilha e revelar o botão
-de pausa. Isso é proposital: WCAG 2.2.2 exige mecanismo de pausa para conteúdo
-que se move sozinho por mais de 5s, e o botão depende de JavaScript — então o
-movimento também precisa depender. Sem JS a faixa é uma grade estática.
+`js/modules/logo-marquee.js` aplica depois de clonar a trilha — o laço contínuo
+precisa de uma segunda trilha idêntica. Sem JS não há clone, e a faixa fica
+como a grade estática que o HTML entrega.
+
+> **Dívida de acessibilidade conhecida.** A faixa tinha um botão de pausa,
+> removido a pedido do cliente em 2026-09-02. Ele era o que atendia o
+> **WCAG 2.2.2**: conteúdo que se move sozinho por mais de 5s precisa de um
+> mecanismo de pausa, e hover não serve para quem navega por teclado. Restaram
+> a pausa no ponteiro/foco e o `prefers-reduced-motion`, que desliga a animação
+> por completo. Lighthouse não testa esse critério, então o número não cai —
+> a lacuna é real mesmo assim. **Não recoloque o botão sem falar com o cliente.**
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
@@ -143,6 +150,7 @@ página com o briefing.
 | 2026-09-02 | CTA final (`cta-band`) | Dois botões (§28) | Só o primário; "Solicitar diagnóstico" removido |
 | 2026-09-02 | Localidade | "São José do Rio Preto e região" no aside de contato e no rodapé (§33) | Removida da página |
 | 2026-09-02 | Título da seção Contato | "Conte como sua operação funciona hoje." + parágrafo de apoio | "Como sua operação funciona hoje?" — sem parágrafo |
+| 2026-09-02 | Faixa de clientes | Botão "Pausar" + rótulo em cinza | Sem botão; rótulo "Clientes" com a classe `.eyebrow`, igual às demais seções |
 
 Ao aplicar um pedido destes, verifique se o mesmo texto se repete em outro
 lugar — vários CTAs compartilham rótulo — e **pergunte** antes de propagar,
