@@ -217,7 +217,21 @@ export function initForm() {
     }
 
     const payload = collectPayload(form);
-    const { endpoint, accessKey, redirectOnSuccess } = CONFIG.form;
+    const { accessKey, redirectOnSuccess } = CONFIG.form;
+
+    // O Web3Forms rejeita qualquer POST sem `access_key`. Endpoint preenchido
+    // e chave vazia é meio-caminho: sem esta guarda o visitante receberia um
+    // erro de rede em vez de cair no fallback por e-mail, que funciona.
+    const web3formsSemChave =
+      CONFIG.form.endpoint.includes("api.web3forms.com") && !accessKey;
+
+    if (web3formsSemChave) {
+      console.error(
+        "[LabMídia TechOps] Endpoint do Web3Forms configurado sem accessKey em js/config.js. Envio desativado; usando o fallback por e-mail."
+      );
+    }
+
+    const endpoint = web3formsSemChave ? "" : CONFIG.form.endpoint;
 
     // --- Caminho 3: nada configurado ------------------------------------
     if (!endpoint && !CONFIG.email) {

@@ -36,21 +36,37 @@ export const CONFIG = {
   /**
    * Formulário de contato.
    *
-   * O GitHub Pages não tem backend. Enquanto `endpoint` estiver vazio, o
-   * formulário usa o e-mail de CONFIG.email como fallback (abre o cliente de
-   * e-mail do visitante com os dados preenchidos).
+   * O GitHub Pages não tem backend. Enquanto o envio não estiver configurado,
+   * o formulário usa CONFIG.email como fallback: abre o cliente de e-mail do
+   * visitante com os dados já preenchidos.
    *
-   * Para envio real, cole aqui a URL do serviço escolhido:
-   *   Formspree   https://formspree.io/f/SEU_ID
-   *   Web3Forms   https://api.web3forms.com/submit   (+ accessKey abaixo)
-   *   API própria https://sua-api.com/leads
+   * >>> SERVIÇO ESCOLHIDO: Web3Forms (decisão de 2026-09-02) <<<
+   *
+   * Falta apenas a chave. Para obtê-la:
+   *   1. entre em https://web3forms.com
+   *   2. informe o e-mail que deve receber os leads
+   *   3. a Access Key chega por e-mail
+   *   4. cole a chave em `accessKey` e a URL em `endpoint`:
+   *
+   *        endpoint: "https://api.web3forms.com/submit",
+   *        accessKey: "cole-a-chave-aqui",
+   *
+   * Não é preciso criar conta e o plano é gratuito e ilimitado.
+   *
+   * Outras opções, caso mude de ideia:
+   *   Formspree   endpoint: "https://formspree.io/f/SEU_ID"   (sem accessKey)
+   *   API própria endpoint: "https://sua-api.com/leads"       (aceita POST JSON)
    */
   form: {
     endpoint: "",
 
     /**
-     * Chave pública do Web3Forms, se for esse o serviço. Enviada junto do
-     * payload como `access_key`. É pública por design.
+     * Chave pública do Web3Forms. Vai no payload como `access_key` e é
+     * pública por design — pode ficar no repositório sem risco.
+     *
+     * Com `endpoint` do Web3Forms preenchido e esta chave vazia, o envio é
+     * bloqueado de propósito: o serviço rejeitaria o POST e o visitante veria
+     * um erro de rede em vez do fallback por e-mail. Ver js/modules/form.js.
      */
     accessKey: "",
 

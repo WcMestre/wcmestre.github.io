@@ -51,7 +51,7 @@ Vieram do briefing do cliente, não são preferência de implementação:
 
 ## Arquitetura — o que quebra se você mexer sem pensar
 
-**25 arquivos CSS, carregados em 25 `<link>` paralelos.** Não use `@import`:
+**27 arquivos CSS, carregados em 27 `<link>` paralelos.** Não use `@import`:
 encadeia requisições em série e o Lighthouse penaliza como *critical request
 chain*. **A ordem dos `<link>` no `index.html` é a cascata** — `helpers.css` é
 a última de propósito. Reordenar sem verificar quebra sobrescritas.
@@ -67,7 +67,7 @@ de contraste registrada em comentário e não devem ser afrouxados:
 
 **`.reveal` usa `transform`, não `translate`.** A propriedade individual tem
 especificidade que sequestra o hover dos cards e sobrescreve as `transition`
-deles. Se voltar a `translate`, 25 cards perdem o hover silenciosamente.
+deles. Se voltar a `translate`, os cards perdem o hover silenciosamente.
 
 **Âncoras: só `scroll-padding-top` no `<html>`.** `scroll-padding` e
 `scroll-margin` são independentes por especificação e **somam** — juntos
@@ -185,6 +185,8 @@ página com o briefing.
 | 2026-09-02 | Título da seção Contato | "Conte como sua operação funciona hoje." + parágrafo de apoio | "Como sua operação funciona hoje?" — sem parágrafo |
 | 2026-09-02 | Faixa de clientes | Botão "Pausar" + rótulo em cinza | Sem botão; rótulo "Clientes" com a classe `.eyebrow`, igual às demais seções |
 | 2026-09-02 | Aside da seção Contato | "Atendimento" + "Como funciona" ao lado do formulário | Removidos; formulário centralizado, canais diretos em linha abaixo dele |
+| 2026-09-02 | CTA final (`cta-band`) | "Conversar com a LabMídia TechOps" (§28) | "Começar uma conversa" — sem o nome da empresa |
+| 2026-09-02 | H2 da Proposta de valor | "…para o empresário administrar" (§18) | "…para você administrar" — segunda pessoa, coerente com o lead |
 
 Ao aplicar um pedido destes, verifique se o mesmo texto se repete em outro
 lugar — vários CTAs compartilham rótulo — e **pergunte** antes de propagar,
@@ -217,9 +219,11 @@ diagnostique "deploy quebrado" antes de sondar algumas vezes.
 Dependem do cliente, não de código:
 
 - [ ] **`js/config.js` está vazio.** Em produção, agora, os canais WhatsApp,
-      e-mail e LinkedIn são removidos da página e o bloco "Canais diretos" some
-      inteiro — comportamento correto por design, mas é conteúdo comercial
-      fora do ar. O formulário está sem destino.
+      e-mail e LinkedIn são removidos da página — comportamento correto por
+      design, mas é conteúdo comercial fora do ar. Falta: número do WhatsApp,
+      e-mail comercial, URL do LinkedIn e a Access Key do **Web3Forms**
+      (serviço escolhido em 2026-09-02; ver as instruções no próprio
+      `config.js`).
 - [ ] **Enforce HTTPS** desmarcado em Settings → Pages: `http://labmidia.tec.br/`
       responde 200 direto em vez de redirecionar.
 - [x] ~~`address` no JSON-LD~~ — **resolvido em 2026-09-02.** Removido. Ele
@@ -232,10 +236,10 @@ Dependem do cliente, não de código:
       a rich result de negócio local.
 - [ ] **As logos de clientes estão abaixo da resolução ideal.** Os arquivos
       vieram num canvas de 144×144 px, então o desenho útil tem entre 30 e 91
-      px de altura — menos de 2× o tamanho de exibição. Em tela retina ficam
-      levemente moles. Pedir reexportação com **o desenho** (não o canvas) a
-      pelo menos 300 px de altura, ou em SVG. A troca é drop-in: mesmos nomes
-      de arquivo, mesmo `--logo-h`.
+      px de altura — menos de 2× o tamanho de exibição. O cliente vai
+      reexportar os PNG maiores (decisão de 2026-09-02): **o desenho**, não o
+      canvas, a pelo menos 300 px de altura. A troca é drop-in — mesmos nomes
+      de arquivo, mesmo `--logo-h`, nada de HTML ou CSS muda.
 - [ ] **Logo compacto do header é derivado.** `labmidia-techops-compact.png`
       foi montado a partir do original escalando a marca até a altura do
       wordmark. Se o designer entregar uma versão horizontal oficial, basta
