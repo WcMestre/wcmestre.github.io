@@ -69,20 +69,28 @@
   align-items: center;
 }
 
-/* Logos entram dessaturadas e discretas; a cor real aparece no hover.
-   Placeholder ou logo definitiva, o tratamento é o mesmo. */
+/* Todas as logos são renderizadas em branco puro.
+   `brightness(0)` zera o RGB e `invert(1)` leva ao branco; o canal alfa não é
+   tocado, então o recorte de cada marca continua íntegro.
+
+   Não é escolha estética: três das sete logos entregues (Informa Solutions,
+   FORP e CS Energia Solar) têm luminância média em torno de 95/255 e ficam
+   em ~3:1 contra o fundo --bg-base. Sob a opacidade da faixa cairiam para
+   menos de 2:1 e sumiriam. Forçar branco também dispensa pedir a versão
+   monocromática clara a cada cliente novo.
+
+   Por isso o hover NÃO revela a cor original: nas três acima isso as faria
+   desaparecer. O hover só sobe a opacidade. */
 .logo-marquee__item img {
-  block-size: 3rem;
+  block-size: var(--logo-h, 3rem);
   inline-size: auto;
-  opacity: 0.62;
-  filter: grayscale(100%);
-  transition: opacity var(--dur-base) var(--ease-out),
-    filter var(--dur-base) var(--ease-out);
+  opacity: 0.7;
+  filter: brightness(0) invert(1);
+  transition: opacity var(--dur-base) var(--ease-out);
 }
 
 .logo-marquee__item img:hover {
   opacity: 1;
-  filter: grayscale(0%);
 }
 
 /* --------------------------------------------------------------------------

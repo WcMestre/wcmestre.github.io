@@ -28,13 +28,12 @@ Vieram do briefing do cliente, não são preferência de implementação:
   Impacto × Esforço (no diálogo `#diagnostico`) são fictícios e carregam
   `Exemplo ilustrativo`, mais uma nota no rodapé do diálogo. **Não remova os
   selos** enquanto os números não forem reais e autorizados.
-- **Logos de clientes: só as reais.** A seção `#clientes` existe a pedido do
-  cliente (2026-09-02), com sete espaços reservados até os arquivos chegarem.
-  Os placeholders são molduras tracejadas escritas `LOGO NN` — deliberadamente
-  não são marcas plausíveis, porque uma logo inventada afirmaria uma relação
-  comercial que não existe. A seção carrega o selo `Logos de exemplo`. **Nunca
-  substitua os placeholders por marcas fictícias de aparência real**; ou entram
-  as logos verdadeiras (e o selo sai), ou a seção sai.
+- **Logos de clientes: só as reais.** A seção `#clientes` traz sete logos
+  fornecidas pelo cliente em 2026-09-02 — Sicoob Frutal, O Boticário, Informa
+  Solutions, FORP, Flora Néctar, CS Energia Solar e Vittia. Se um dia faltar
+  arquivo, **não invente uma marca de aparência plausível** para preencher: ou
+  entra a logo verdadeira, ou o espaço fica vazio. Logo fabricada afirma uma
+  relação comercial que não existe, e o site está no ar.
 - **Sem tracker e sem cookie.** Nada de Analytics, Pixel, Hotjar. Nada em
   `localStorage` ou `sessionStorage`. Se um dia entrar tracker, entra junto o
   consentimento.
@@ -189,10 +188,12 @@ Dependem do cliente, não de código:
       não adicionar endereço. `areaServed` continua, porque está literal no
       briefing. Consequência aceita: o `ProfessionalService` não fica elegível
       a rich result de negócio local.
-- [ ] **As 7 logos de clientes são espaços reservados.** Trocar
-      `assets/logos-clientes/placeholder-NN.svg` pelos arquivos reais, escrever
-      o nome de cada empresa no `alt` e remover o selo `Logos de exemplo` do
-      cabeçalho da seção. Enquanto o selo estiver lá, a seção não afirma nada.
+- [ ] **As logos de clientes estão abaixo da resolução ideal.** Os arquivos
+      vieram num canvas de 144×144 px, então o desenho útil tem entre 30 e 91
+      px de altura — menos de 2× o tamanho de exibição. Em tela retina ficam
+      levemente moles. Pedir reexportação com **o desenho** (não o canvas) a
+      pelo menos 300 px de altura, ou em SVG. A troca é drop-in: mesmos nomes
+      de arquivo, mesmo `--logo-h`.
 - [ ] **Logo compacto do header é derivado.** `labmidia-techops-compact.png`
       foi montado a partir do original escalando a marca até a altura do
       wordmark. Se o designer entregar uma versão horizontal oficial, basta

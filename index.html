@@ -1197,14 +1197,13 @@
       <!-- ==================================================================
            CLIENTES
 
-           ATENÇÃO: as sete logos abaixo são ESPAÇOS RESERVADOS, não clientes.
-           O briefing (§41) proíbe publicar logo de cliente que não exista, por
-           isso os arquivos são molduras tracejadas com "LOGO NN" e a seção
-           carrega o selo de exemplo.
+           Logos reais, fornecidas pelo cliente. Renderizadas em branco puro
+           pelo CSS: tres delas tem luminancia baixa e sumiriam no fundo
+           escuro. Ver a justificativa em css/components/logo-marquee.css.
 
-           Ao receber os arquivos reais: troque os src, escreva o NOME DA
-           EMPRESA no alt de cada um e REMOVA o selo `illustrative-badge`.
-           Enquanto o selo estiver aqui, a seção não afirma nada.
+           A altura de cada uma vem no --logo-h inline, e nao e a mesma para
+           todas de proposito: normalizar pela altura faria a marca quadrada
+           parecer menor que o wordmark largo, porque o olho compara area.
            ================================================================== -->
       <section
         class="section section--tight section--deep"
@@ -1214,10 +1213,6 @@
         <div class="container">
           <header class="logo-strip__head reveal">
             <h2 class="logo-strip__title" id="clientes-title">Clientes</h2>
-            <span class="illustrative-badge">
-              <svg aria-hidden="true" focusable="false"><use href="#i-info" /></svg>
-              Logos de exemplo
-            </span>
             <button
               class="logo-strip__toggle"
               type="button"
@@ -1231,72 +1226,72 @@
 
           <div class="logo-marquee reveal reveal--fade" data-marquee>
             <ul class="logo-marquee__track">
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 46px">
                 <img
-                  src="./assets/logos-clientes/placeholder-01.svg"
-                  alt="Espaço reservado para a logo do cliente 01"
-                  width="160"
+                  src="./assets/logos-clientes/sicoob-frutal.png"
+                  alt="Sicoob Frutal"
+                  width="144"
                   height="48"
                   loading="lazy"
                   decoding="async"
                 />
               </li>
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 54px">
                 <img
-                  src="./assets/logos-clientes/placeholder-02.svg"
-                  alt="Espaço reservado para a logo do cliente 02"
-                  width="138"
-                  height="48"
+                  src="./assets/logos-clientes/o-boticario.png"
+                  alt="O Boticário"
+                  width="118"
+                  height="70"
                   loading="lazy"
                   decoding="async"
                 />
               </li>
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 48px">
                 <img
-                  src="./assets/logos-clientes/placeholder-03.svg"
-                  alt="Espaço reservado para a logo do cliente 03"
-                  width="176"
-                  height="48"
+                  src="./assets/logos-clientes/informa-solutions.png"
+                  alt="Informa Solutions"
+                  width="144"
+                  height="51"
                   loading="lazy"
                   decoding="async"
                 />
               </li>
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 58px">
                 <img
-                  src="./assets/logos-clientes/placeholder-04.svg"
-                  alt="Espaço reservado para a logo do cliente 04"
-                  width="150"
-                  height="48"
+                  src="./assets/logos-clientes/forp.png"
+                  alt="FORP"
+                  width="86"
+                  height="83"
                   loading="lazy"
                   decoding="async"
                 />
               </li>
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 50px">
                 <img
-                  src="./assets/logos-clientes/placeholder-05.svg"
-                  alt="Espaço reservado para a logo do cliente 05"
-                  width="166"
-                  height="48"
+                  src="./assets/logos-clientes/flora-nectar.png"
+                  alt="Flora Néctar"
+                  width="144"
+                  height="60"
                   loading="lazy"
                   decoding="async"
                 />
               </li>
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 58px">
                 <img
-                  src="./assets/logos-clientes/placeholder-06.svg"
-                  alt="Espaço reservado para a logo do cliente 06"
-                  width="132"
-                  height="48"
+                  src="./assets/logos-clientes/cs-energia-solar.png"
+                  alt="CS Energia Solar"
+                  width="99"
+                  height="91"
                   loading="lazy"
                   decoding="async"
                 />
               </li>
-              <li class="logo-marquee__item">
+              <li class="logo-marquee__item" style="--logo-h: 40px">
                 <img
-                  src="./assets/logos-clientes/placeholder-07.svg"
-                  alt="Espaço reservado para a logo do cliente 07"
-                  width="158"
-                  height="48"
+                  src="./assets/logos-clientes/vittia.png"
+                  alt="Vittia"
+                  width="144"
+                  height="30"
                   loading="lazy"
                   decoding="async"
                 />

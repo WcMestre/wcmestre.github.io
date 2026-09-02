@@ -86,7 +86,7 @@ repositório é exatamente o que o navegador recebe.
 ├── assets/
 │   ├── images/
 │   │   └── og-cover.png        1200×630 — Open Graph / Twitter Card
-│   ├── logos-clientes/         ⚠️ placeholders — ver Pendências
+│   ├── logos-clientes/         7 logos de clientes (PNG com alfa, recortadas)
 │   ├── logo/
 │   │   ├── labmidia-techops.png          Lockup completo (rodapé)
 │   │   ├── labmidia-techops-compact.png  Lockup horizontal (header)
@@ -131,7 +131,21 @@ IA foi para o diagnóstico porque *onde a IA tem retorno* é uma das perguntas
 que o diagnóstico responde; integrações foram para o sprint porque são o
 conteúdo típico de um ciclo de implantação.
 
-**4. Duas versões do logo, por legibilidade.**
+**4. As logos de clientes são renderizadas em branco puro.**
+`filter: brightness(0) invert(1)` zera o RGB e leva tudo ao branco, preservando
+o canal alfa. Não é escolha estética: três das sete logos (Informa Solutions,
+FORP e CS Energia Solar) têm luminância média em torno de 95/255 e ficam em
+~3:1 contra o fundo escuro — sob a opacidade da faixa, sumiriam. Forçar branco
+também dispensa pedir a versão monocromática clara a cada cliente novo. Por
+isso o hover **não** revela a cor original: nessas três, revelar a cor seria
+fazê-las desaparecer.
+
+A altura de exibição é definida por logo, no `--logo-h` inline de cada `<li>`,
+e não é a mesma para todas: normalizar pela altura faria a marca quadrada
+(FORP, CS) parecer bem menor que o wordmark largo (Vittia), porque o olho
+compara área, não altura.
+
+**5. Duas versões do logo, por legibilidade.**
 O header usa o lockup **compacto** (erlenmeyer + LABMÍDIA TECHOPS) a 36px; a
 36px as linhas "Technology Operations" e "PROCESSES | AUTOMATION…" do lockup
 completo viram borrão. O completo fica no rodapé, com 200px de largura.
@@ -342,10 +356,11 @@ consentimento adequado antes de carregá-lo.
 ## Pendências conhecidas
 
 - [ ] Preencher `js/config.js` com WhatsApp, e-mail, LinkedIn e endpoint do formulário
-- [ ] **Substituir as 7 logos de clientes.** Hoje são espaços reservados
-      (`assets/logos-clientes/placeholder-NN.svg`). Ao trocar pelos arquivos
-      reais, escreva o nome da empresa no `alt` de cada `<img>` e remova o
-      selo `Logos de exemplo` do cabeçalho da seção `#clientes`.
+- [ ] **Reexportar as logos de clientes em resolução maior.** Os arquivos
+      atuais vieram num canvas de 144×144 px, então o desenho útil tem de 30 a
+      91 px de altura — abaixo de 2× o tamanho de exibição, o que deixa a faixa
+      levemente mole em tela retina. Peça o **desenho** (não o canvas) com pelo
+      menos 300 px de altura, ou em SVG. A troca é drop-in.
 - [ ] Marcar **Enforce HTTPS** em Settings → Pages
 - [ ] Substituir `assets/logo/labmidia-techops-compact.png` pela versão
       horizontal oficial da marca, se o designer tiver uma
