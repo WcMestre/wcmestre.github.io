@@ -40,7 +40,13 @@ VOID = {
 }
 
 # Custom properties definidas inline no HTML ou por JavaScript, não no CSS.
-RUNTIME_TOKENS = {"--value", "--delay", "--x", "--y"}
+RUNTIME_TOKENS = {
+    "--value",  # score-meter, inline no HTML
+    "--delay",  # animations / orbit, inline e por JS
+    "--x",      # orbit, inline no HTML
+    "--y",      # orbit, inline no HTML
+    "--marquee-duration",  # logo-marquee.js, calculado pelo nº de logos
+}
 
 problems = []
 

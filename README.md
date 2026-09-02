@@ -52,7 +52,8 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── flow.css            Cadeia ERP → API → … → BI
 │   │   ├── diagram.css         Comparação + árvore matriz/unidades
 │   │   ├── form.css
-│   │   └── modal.css           Diálogos das soluções
+│   │   ├── modal.css           Diálogos das soluções
+│   │   └── logo-marquee.css    Faixa rolante de logos de clientes
 │   ├── sections/               Composição específica de cada seção
 │   │   ├── hero.css
 │   │   ├── solutions.css
@@ -74,6 +75,7 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── scroll-spy.js       Link ativo na navegação
 │   │   ├── reveal.js           Animação de entrada
 │   │   ├── score-meter.js      Animação das barras do diagnóstico
+│   │   ├── logo-marquee.js     Faixa de logos (clona a trilha, botão de pausa)
 │   │   ├── contact-links.js    Aplica config.js aos canais de contato
 │   │   └── form.js             Validação e envio
 │   └── utils/
@@ -84,6 +86,7 @@ repositório é exatamente o que o navegador recebe.
 ├── assets/
 │   ├── images/
 │   │   └── og-cover.png        1200×630 — Open Graph / Twitter Card
+│   ├── logos-clientes/         ⚠️ placeholders — ver Pendências
 │   ├── logo/
 │   │   ├── labmidia-techops.png          Lockup completo (rodapé)
 │   │   ├── labmidia-techops-compact.png  Lockup horizontal (header)
@@ -115,7 +118,7 @@ inertização do resto da página e devolução do foco ao gatilho — tudo o qu
 reimplementação em JavaScript costuma errar. `js/modules/modal.js` só decide
 quando abrir e fechar.
 
-A rolagem ficou com 9 seções; o material de aprofundamento vive nos diálogos:
+A rolagem ficou com 10 seções; o material de aprofundamento vive nos diálogos:
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
@@ -267,6 +270,7 @@ O deploy leva de alguns segundos a poucos minutos após o push.
 | Título, descrição, Open Graph, JSON-LD | `<head>` do `index.html` |
 | Imagem de compartilhamento | `assets/images/og-cover.png` (1200×630) |
 | Logo do header / do rodapé | `assets/logo/*.png` |
+| Logos de clientes | `assets/logos-clientes/` + os `src`/`alt` na seção `#clientes` |
 | Ícones | sprite `<svg>` no topo do `<body>` |
 | Valores do Technology Efficiency Score | `index.html`, atributo `style="--value: NN"` |
 
@@ -338,6 +342,10 @@ consentimento adequado antes de carregá-lo.
 ## Pendências conhecidas
 
 - [ ] Preencher `js/config.js` com WhatsApp, e-mail, LinkedIn e endpoint do formulário
+- [ ] **Substituir as 7 logos de clientes.** Hoje são espaços reservados
+      (`assets/logos-clientes/placeholder-NN.svg`). Ao trocar pelos arquivos
+      reais, escreva o nome da empresa no `alt` de cada `<img>` e remova o
+      selo `Logos de exemplo` do cabeçalho da seção `#clientes`.
 - [ ] Marcar **Enforce HTTPS** em Settings → Pages
 - [ ] Substituir `assets/logo/labmidia-techops-compact.png` pela versão
       horizontal oficial da marca, se o designer tiver uma

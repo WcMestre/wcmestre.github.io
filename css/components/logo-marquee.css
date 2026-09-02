@@ -1,0 +1,163 @@
+/* ==========================================================================
+   components/logo-marquee.css — Faixa rolante de logos de clientes
+
+   O movimento só existe sob `.is-animated`, classe que js/modules/logo-marquee.js
+   aplica depois de clonar a trilha e revelar o botão de pausa. A ordem importa:
+   WCAG 2.2.2 exige um mecanismo de pausa para conteúdo que se move sozinho por
+   mais de 5s. Sem JavaScript não há botão — então também não pode haver
+   movimento, e a faixa vira uma grade estática centralizada.
+   ========================================================================== */
+
+.logo-strip__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs) var(--space-sm);
+  margin-block-end: var(--space-lg);
+}
+
+.logo-strip__title {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.logo-strip__toggle {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-control);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.logo-strip__toggle:hover {
+  color: var(--accent);
+  border-color: var(--border-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Trilha
+   -------------------------------------------------------------------------- */
+
+.logo-marquee {
+  display: flex;
+  gap: var(--gap, 3rem);
+  /* Sem JS: grade estática que quebra em linhas e centraliza. */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-marquee__track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap, 3rem);
+  margin: 0;
+}
+
+.logo-marquee__item {
+  display: flex;
+  align-items: center;
+}
+
+/* Logos entram dessaturadas e discretas; a cor real aparece no hover.
+   Placeholder ou logo definitiva, o tratamento é o mesmo. */
+.logo-marquee__item img {
+  block-size: 3rem;
+  inline-size: auto;
+  opacity: 0.62;
+  filter: grayscale(100%);
+  transition: opacity var(--dur-base) var(--ease-out),
+    filter var(--dur-base) var(--ease-out);
+}
+
+.logo-marquee__item img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+
+/* --------------------------------------------------------------------------
+   Estado animado — aplicado por JS
+   -------------------------------------------------------------------------- */
+
+.logo-marquee.is-animated {
+  --gap: clamp(2.5rem, 6vw, 4.5rem);
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow: hidden;
+  /* Esmaece as duas pontas para o corte não parecer defeito. */
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+.logo-marquee.is-animated .logo-marquee__track {
+  flex: none;
+  flex-wrap: nowrap;
+  min-inline-size: max-content;
+  animation: logo-marquee-scroll var(--marquee-duration, 42s) linear infinite;
+}
+
+/* Deslocar por 100% + o gap faz a segunda trilha assumir exatamente a posição
+   da primeira: o laço fecha sem salto. */
+@keyframes logo-marquee-scroll {
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Pausa
+   Três caminhos: ponteiro, teclado e o botão explícito. O botão é o que
+   satisfaz WCAG 2.2.2 — hover não serve para quem navega por teclado, e as
+   logos não são focáveis, então :focus-within sozinho também não bastaria.
+   -------------------------------------------------------------------------- */
+
+.logo-marquee.is-animated:hover .logo-marquee__track,
+.logo-marquee.is-animated:focus-within .logo-marquee__track,
+.logo-marquee.is-animated.is-paused .logo-marquee__track {
+  animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   prefers-reduced-motion
+   O módulo JS consulta a mesma media query e nem chega a animar; esta regra é
+   a rede de segurança caso a preferência mude com a página já aberta.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee.is-animated {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .logo-marquee.is-animated .logo-marquee__track {
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: none;
+  }
+
+  /* A trilha clonada é decorativa; sem rolagem ela só duplicaria as logos. */
+  .logo-marquee__track[aria-hidden="true"] {
+    display: none;
+  }
+
+  .logo-strip__toggle {
+    display: none;
+  }
+}

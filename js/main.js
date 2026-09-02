@@ -15,6 +15,7 @@ import { initScrollSpy } from "./modules/scroll-spy.js";
 import { initSmoothScroll } from "./modules/smooth-scroll.js";
 import { initReveal } from "./modules/reveal.js";
 import { initScoreMeters } from "./modules/score-meter.js";
+import { initLogoMarquee } from "./modules/logo-marquee.js";
 import { initModals } from "./modules/modal.js";
 import { initContactLinks } from "./modules/contact-links.js";
 import { initForm } from "./modules/form.js";
@@ -35,6 +36,7 @@ const MODULES = [
   ["smooth-scroll", initSmoothScroll],
   ["scroll-spy", initScrollSpy],
   ["score-meter", initScoreMeters],
+  ["logo-marquee", initLogoMarquee],
   ["contact-links", initContactLinks],
   ["form", initForm],
 ];

@@ -28,6 +28,13 @@ Vieram do briefing do cliente, não são preferência de implementação:
   Impacto × Esforço (no diálogo `#diagnostico`) são fictícios e carregam
   `Exemplo ilustrativo`, mais uma nota no rodapé do diálogo. **Não remova os
   selos** enquanto os números não forem reais e autorizados.
+- **Logos de clientes: só as reais.** A seção `#clientes` existe a pedido do
+  cliente (2026-09-02), com sete espaços reservados até os arquivos chegarem.
+  Os placeholders são molduras tracejadas escritas `LOGO NN` — deliberadamente
+  não são marcas plausíveis, porque uma logo inventada afirmaria uma relação
+  comercial que não existe. A seção carrega o selo `Logos de exemplo`. **Nunca
+  substitua os placeholders por marcas fictícias de aparência real**; ou entram
+  as logos verdadeiras (e o selo sai), ou a seção sai.
 - **Sem tracker e sem cookie.** Nada de Analytics, Pixel, Hotjar. Nada em
   `localStorage` ou `sessionStorage`. Se um dia entrar tracker, entra junto o
   consentimento.
@@ -35,6 +42,11 @@ Vieram do briefing do cliente, não são preferência de implementação:
   duplicada"), não em tecnologia ("implementamos integração via APIs").
   Proibido: "soluções disruptivas", "revolucionar", "transformação 360",
   "tecnologia de ponta".
+- **Primeira pessoa do plural, sempre.** "Funcionamos como o braço
+  estratégico", não "A LabMídia TechOps funciona como…". O nome da empresa não
+  se repete no corpo do texto — ele já está no logo, no título e no rodapé.
+  Vale também para o leitor: é "na sua operação", nunca "no cliente" ou "na
+  empresa". Regra dada pelo cliente em 2026-09-02.
 
 ---
 
@@ -89,12 +101,18 @@ travam a mesma rolagem; sem o contador, fechar um destrava com o outro aberto.
 
 ## Estado atual
 
-9 seções na rolagem, 4 diálogos:
+10 seções na rolagem, 4 diálogos:
 
 ```
-Hero → Problema → Proposta → Soluções → Para quem
+Hero → Problema → Proposta → Soluções → Para quem → Clientes
      → Metodologia → Diferenciais → CTA → Contato
 ```
+
+A faixa de logos (`#clientes`) só se move sob a classe `.is-animated`, que
+`js/modules/logo-marquee.js` aplica depois de clonar a trilha e revelar o botão
+de pausa. Isso é proposital: WCAG 2.2.2 exige mecanismo de pausa para conteúdo
+que se move sozinho por mais de 5s, e o botão depende de JavaScript — então o
+movimento também precisa depender. Sem JS a faixa é uma grade estática.
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
@@ -121,7 +139,11 @@ página com o briefing.
 
 | Data | Onde | Antes (briefing) | Agora |
 |---|---|---|---|
-| 2026-09-02 | CTA primário do hero | "Conversar sobre minha operação" (§15) | "Fale com um de nossos especialistas" |
+| 2026-09-02 | CTA do hero e dos 3 rodapés de diálogo | "Conversar sobre minha operação" (§15) | "Falar com um especialista" — unificado com o CTA do header (§14) |
+| 2026-09-02 | Lead da Proposta de valor | "A LabMídia TechOps funciona como um braço estratégico… dentro do cliente" (§18) | "Funcionamos como o braço estratégico… na sua operação" |
+| 2026-09-02 | CTA final (`cta-band`) | Dois botões (§28) | Só o primário; "Solicitar diagnóstico" removido |
+| 2026-09-02 | Localidade | "São José do Rio Preto e região" no aside de contato e no rodapé (§33) | Removida da página |
+| 2026-09-02 | Título da seção Contato | "Conte como sua operação funciona hoje." + parágrafo de apoio | "Como sua operação funciona hoje?" — sem parágrafo |
 
 Ao aplicar um pedido destes, verifique se o mesmo texto se repete em outro
 lugar — vários CTAs compartilham rótulo — e **pergunte** antes de propagar,
@@ -159,11 +181,18 @@ Dependem do cliente, não de código:
       fora do ar. O formulário está sem destino.
 - [ ] **Enforce HTTPS** desmarcado em Settings → Pages: `http://labmidia.tec.br/`
       responde 200 direto em vez de redirecionar.
-- [ ] **`address` no JSON-LD** — foi adicionado com apenas cidade/estado/país,
-      porque sem ele a marcação `LocalBusiness` fica inelegível no Rich
-      Results. O briefing dizia para não adicionar endereço; a cidade já
-      aparece duas vezes na página, então nada novo é afirmado. Aguarda o aval
-      do cliente; se ele recusar, remover o bloco `address`.
+- [x] ~~`address` no JSON-LD~~ — **resolvido em 2026-09-02.** Removido. Ele
+      tinha sido adicionado para a marcação `LocalBusiness` ser elegível no
+      Rich Results, sob o argumento de que a cidade já aparecia duas vezes na
+      página e portanto nada novo era afirmado. Quando o cliente mandou tirar a
+      localidade da página, o argumento caiu — e o briefing (§36) já dizia para
+      não adicionar endereço. `areaServed` continua, porque está literal no
+      briefing. Consequência aceita: o `ProfessionalService` não fica elegível
+      a rich result de negócio local.
+- [ ] **As 7 logos de clientes são espaços reservados.** Trocar
+      `assets/logos-clientes/placeholder-NN.svg` pelos arquivos reais, escrever
+      o nome de cada empresa no `alt` e remover o selo `Logos de exemplo` do
+      cabeçalho da seção. Enquanto o selo estiver lá, a seção não afirma nada.
 - [ ] **Logo compacto do header é derivado.** `labmidia-techops-compact.png`
       foi montado a partir do original escalando a marca até a altura do
       wordmark. Se o designer entregar uma versão horizontal oficial, basta

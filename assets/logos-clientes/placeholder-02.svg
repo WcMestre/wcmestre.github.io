@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138 48" width="138" height="48">
+  <title>Espaço reservado para a logo do cliente 02</title>
+  <rect x="1" y="1" width="136" height="46" rx="8"
+        fill="none" stroke="#8593af" stroke-opacity=".5" stroke-dasharray="5 4"/>
+  <text x="69" y="29" text-anchor="middle"
+        font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+        font-size="12" letter-spacing="1.6" fill="#8593af">LOGO 02</text>
+</svg>

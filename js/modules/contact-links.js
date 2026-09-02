@@ -60,11 +60,18 @@ function pruneEmptyLists(lists) {
       continue;
     }
 
-    // No rodapé a coluna também carrega a localidade de atendimento, que deve
-    // permanecer. Remove apenas o título imediatamente anterior e a lista.
+    // No rodapé, remove o título imediatamente anterior e a lista.
+    const column = list.parentElement;
     const heading = list.previousElementSibling;
     if (heading && /^H[1-6]$/.test(heading.tagName)) heading.remove();
     list.remove();
+
+    // Se a coluna ficou sem conteúdo nenhum, ela sai também — senão o grid do
+    // rodapé abre uma coluna vazia. A checagem é por conteúdo remanescente, e
+    // não incondicional, para que a coluna sobreviva caso volte a ter texto.
+    if (column && !column.querySelector("h1,h2,h3,h4,h5,h6,p,ul,ol,a,img")) {
+      column.remove();
+    }
   }
 }
 
