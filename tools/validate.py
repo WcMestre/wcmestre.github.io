@@ -12,7 +12,7 @@ Verifica, no index.html e nos CSS:
   3. aria-controls / aria-labelledby / aria-describedby apontando para id real
   4. âncoras href="#x" com destino existente
   5. label[for] com campo correspondente
-  6. <use href="#i-x"> com <symbol> correspondente
+  6. <use href="#i-x"> com <symbol>, e <symbol> sem nenhum <use>
   7. <img> sem alt
   8. hierarquia de headings (um único h1, sem salto de nível)
   9. gatilhos data-modal-open com <dialog> correspondente

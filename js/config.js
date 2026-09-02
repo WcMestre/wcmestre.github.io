@@ -17,7 +17,7 @@ export const CONFIG = {
    * Exemplo: "5517900000000"
    * Vazio => o canal de WhatsApp é ocultado da página.
    */
-  whatsapp: "",
+  whatsapp: "5534991116004",
 
   /** Mensagem que já vem preenchida ao abrir a conversa no WhatsApp. */
   whatsappMessage:
@@ -25,13 +25,17 @@ export const CONFIG = {
 
   /**
    * E-mail comercial.
-   * Vazio => o canal de e-mail é ocultado e o fallback do formulário
-   * (envio por mailto) fica indisponível.
+   *
+   * NÃO é mais um canal exibido: o cliente removeu o e-mail dos botões sociais
+   * em 2026-09-02, e não há `[data-channel="email"]` no HTML. Esta chave
+   * sobrevive apenas como REDE DE SEGURANÇA do formulário — se algum dia
+   * `form.endpoint` for esvaziado, o envio cai no cliente de e-mail do
+   * visitante em vez de simplesmente falhar. Com o Web3Forms ativo, não é lida.
    */
   email: "",
 
   /** URL completa da página da empresa no LinkedIn. Vazio => canal oculto. */
-  linkedin: "",
+  linkedin: "https://www.linkedin.com/company/labmidiatechops",
 
   /**
    * Formulário de contato.
@@ -78,15 +82,22 @@ export const CONFIG = {
 };
 
 /**
- * Lista os campos ainda não preenchidos. Usado no console em ambiente de
- * desenvolvimento para lembrar o que falta antes de publicar.
+ * Lista o que realmente falta configurar, e só isso — avisar sobre uma chave
+ * que o site não usa treina quem desenvolve a ignorar o console.
+ *
+ * `email` não entra na lista por estar vazia: ela deixou de ser um canal
+ * exibido. Só vira pendência se o formulário também ficar sem endpoint, caso
+ * em que passaria a ser o único destino possível.
+ *
  * @returns {string[]}
  */
 export function missingConfigKeys() {
   const missing = [];
   if (!CONFIG.whatsapp) missing.push("whatsapp");
-  if (!CONFIG.email) missing.push("email");
   if (!CONFIG.linkedin) missing.push("linkedin");
-  if (!CONFIG.form.endpoint) missing.push("form.endpoint");
+  if (!CONFIG.form.endpoint) {
+    missing.push("form.endpoint");
+    if (!CONFIG.email) missing.push("email (sem endpoint, é o único destino)");
+  }
   return missing;
 }
