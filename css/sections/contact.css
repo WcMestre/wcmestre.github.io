@@ -1,50 +1,49 @@
 /* ==========================================================================
-   sections/contact.css — Formulário + canais diretos
+   sections/contact.css — Formulário centralizado + canais diretos
+
+   Era um grid de duas colunas com o formulário à esquerda e um aside à
+   direita. O aside foi esvaziado a pedido do cliente (atendimento e "como
+   funciona" removidos em 2026-09-02) e o formulário passou a ocupar uma
+   coluna única, centralizada.
+
+   Os canais diretos sobreviveram como uma linha abaixo do formulário. Eles
+   só aparecem quando `js/config.js` estiver preenchido — até lá,
+   js/modules/contact-links.js remove a lista inteira.
    ========================================================================== */
 
 .contact__grid {
   display: grid;
-  gap: clamp(2rem, 5vw, 3.5rem);
-  align-items: start;
+  gap: var(--space-xl);
+  justify-items: center;
+  /* Formulário estreito o bastante para a linha de leitura não esticar, e
+     largo o bastante para os campos ainda caberem em duas colunas. */
+  max-inline-size: 48rem;
+  margin-inline: auto;
 }
 
-@media (min-width: 62rem) {
-  .contact__grid {
-    grid-template-columns: 1.25fr 0.75fr;
-  }
+.contact__grid > .form {
+  inline-size: 100%;
 }
 
-.contact__aside {
-  display: grid;
-  gap: var(--space-md);
-  align-content: start;
-  padding: var(--space-md);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--bg-secondary);
-}
-
-.section--alt .contact__aside {
-  background: var(--bg-elevated);
-}
-
-.contact__block {
-  display: grid;
-  gap: var(--space-3xs);
-}
-
-.contact__block-title {
-  font-size: var(--fs-eyebrow);
-  font-weight: 600;
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-}
+/* --------------------------------------------------------------------------
+   Canais diretos
+   -------------------------------------------------------------------------- */
 
 .contact__channels {
-  display: grid;
-  gap: var(--space-2xs);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) var(--space-lg);
   margin: 0;
+  padding-block-start: var(--space-md);
+  border-block-start: 1px solid var(--border);
+  inline-size: 100%;
+}
+
+/* Lista sem nenhum canal configurado é removida do DOM por contact-links.js;
+   esta regra é só a rede de segurança para o instante antes do script rodar. */
+.contact__channels:empty {
+  display: none;
 }
 
 .contact__channel {
@@ -66,8 +65,3 @@
   flex: none;
   color: var(--accent);
 }
-
-/* Canal não configurado em js/config.js é REMOVIDO do DOM por
-   js/modules/contact-links.js — não existe estado "desabilitado" a estilizar.
-   Quando a lista inteira fica vazia, o módulo remove também o bloco e o
-   título, para não sobrar um cabeçalho órfão sobre uma lista vazia. */

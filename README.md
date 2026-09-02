@@ -53,7 +53,8 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── diagram.css         Comparação + árvore matriz/unidades
 │   │   ├── form.css
 │   │   ├── modal.css           Diálogos das soluções
-│   │   └── logo-marquee.css    Faixa rolante de logos de clientes
+│   │   ├── logo-marquee.css    Faixa rolante de logos de clientes
+│   │   └── lang-switch.css     Seletor de idioma
 │   ├── sections/               Composição específica de cada seção
 │   │   ├── hero.css
 │   │   ├── solutions.css
@@ -70,6 +71,7 @@ repositório é exatamente o que o navegador recebe.
 │   ├── modules/                Um concern por arquivo
 │   │   ├── navigation.js       Menu mobile + acessibilidade
 │   │   ├── header-scroll.js    Header compacto ao rolar
+│   │   ├── i18n.js             Português / inglês / espanhol
 │   │   ├── modal.js            Diálogos das soluções
 │   │   ├── smooth-scroll.js    Foco de teclado ao pular para âncora
 │   │   ├── scroll-spy.js       Link ativo na navegação
@@ -82,6 +84,10 @@ repositório é exatamente o que o navegador recebe.
 │       ├── dom.js              $, $$, on, observeOnce
 │       ├── motion.js           prefers-reduced-motion em JS
 │       └── scroll-lock.js      Trava de rolagem com contagem de referência
+│
+├── i18n/
+│   ├── en.json                 Português → inglês (267 strings)
+│   └── es.json                 Português → espanhol (267 strings)
 │
 ├── assets/
 │   ├── images/
@@ -145,7 +151,24 @@ e não é a mesma para todas: normalizar pela altura faria a marca quadrada
 (FORP, CS) parecer bem menor que o wordmark largo (Vittia), porque o olho
 compara área, não altura.
 
-**5. Duas versões do logo, por legibilidade.**
+**5. Três idiomas, trocados no cliente.**
+Português (o próprio HTML), inglês e espanhol. `js/modules/i18n.js` detecta o
+idioma na ordem `?lang=` na URL → `navigator.languages` → português, e troca os
+textos sobre a mesma URL. A preferência vive na URL porque o site não usa
+cookie nem storage; de quebra, o link fica compartilhável.
+
+Os dicionários são indexados **pelo texto de origem** — `i18n/en.json` mapeia a
+frase em português para o inglês. Não há `data-i18n` na marcação.
+
+> ⚠️ **Mudou uma palavra no `index.html`? As duas traduções param de casar** e o
+> texto fica em português nos outros idiomas, sem erro visível. Rode
+> `python tools/validate.py`, que reprova se faltar tradução ou sobrar chave
+> órfã.
+
+Consequências assumidas desta arquitetura: o Google indexa apenas o português,
+e sem JavaScript a página fica em português.
+
+**6. Duas versões do logo, por legibilidade.**
 O header usa o lockup **compacto** (erlenmeyer + LABMÍDIA TECHOPS) a 36px; a
 36px as linhas "Technology Operations" e "PROCESSES | AUTOMATION…" do lockup
 completo viram borrão. O completo fica no rodapé, com 200px de largura.
@@ -279,7 +302,8 @@ O deploy leva de alguns segundos a poucos minutos após o push.
 |---|---|
 | WhatsApp, e-mail, LinkedIn, endpoint do formulário | `js/config.js` |
 | Qualquer cor, espaçamento, raio, duração de animação | `css/base/tokens.css` |
-| Textos, títulos, cards, opções do formulário | `index.html` |
+| Textos, títulos, cards, opções do formulário | `index.html` **+ as traduções** |
+| Traduções | `i18n/en.json` e `i18n/es.json` — chave = a frase em português |
 | Conteúdo dos 4 diálogos | `index.html`, blocos `<dialog class="modal">` |
 | Título, descrição, Open Graph, JSON-LD | `<head>` do `index.html` |
 | Imagem de compartilhamento | `assets/images/og-cover.png` (1200×630) |

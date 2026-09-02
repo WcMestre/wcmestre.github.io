@@ -18,11 +18,13 @@ Verifica, no index.html e nos CSS:
   9. gatilhos data-modal-open com <dialog> correspondente
  10. var(--token) usado mas nunca definido
  11. chaves desbalanceadas nos CSS
+ 12. cobertura dos dicionarios de i18n/ contra o texto do index.html
 
 Não substitui um validador de HTML completo nem o Lighthouse: pega a classe de
 erro que quebra acessibilidade e que passa despercebida numa revisão visual.
 """
 import glob
+import json
 import os
 import re
 import sys
@@ -129,6 +131,115 @@ class Collector(HTMLParser):
             self._heading[2].append(data)
 
 
+# --------------------------------------------------------------------------
+# i18n
+# --------------------------------------------------------------------------
+
+# Elementos cujo conteudo nunca e texto de interface.
+I18N_IGNORAR = {
+    "script", "style", "svg", "symbol", "path", "circle", "rect",
+    "ellipse", "line", "polygon", "polyline", "use",
+}
+I18N_ATTRS = ("alt", "aria-label", "placeholder")
+I18N_METAS = {
+    ("name", "description"),
+    ("property", "og:title"),
+    ("property", "og:description"),
+    ("property", "og:image:alt"),
+    ("name", "twitter:title"),
+    ("name", "twitter:description"),
+}
+
+
+def norm(t):
+    """Colapsa espacos e apara as pontas.
+
+    DEVE ser identica a `norm` de js/modules/i18n.js. Se as duas divergirem,
+    a chave nao casa em runtime e o texto fica em portugues sem erro visivel.
+    """
+    return re.sub(r"\s+", " ", t).strip()
+
+
+class I18nExtractor(HTMLParser):
+    """Reproduz o que o runtime considera traduzivel."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.skip = 0
+        self.in_title = False
+        self.strings = []
+
+    def _add(self, texto):
+        t = norm(texto)
+        if not t or t in self.strings:
+            return
+        if re.fullmatch(r"[\d\W]+", t):  # "01", "—", "×" etc
+            return
+        self.strings.append(t)
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag in I18N_IGNORAR:
+            self.skip += 1
+        if tag == "title":
+            self.in_title = True
+        for key in I18N_ATTRS:
+            if key in a and not a[key].startswith("#"):
+                self._add(a[key])
+        if tag == "meta":
+            for attr, valor in I18N_METAS:
+                if a.get(attr) == valor:
+                    self._add(a.get("content", ""))
+
+    def handle_endtag(self, tag):
+        if tag in I18N_IGNORAR:
+            self.skip = max(0, self.skip - 1)
+        if tag == "title":
+            self.in_title = False
+
+    def handle_data(self, data):
+        if self.skip and not self.in_title:
+            return
+        self._add(data)
+
+
+def checar_i18n(source):
+    """Compara o texto do index.html com cada dicionario em i18n/."""
+    dicts = sorted(glob.glob(os.path.join(ROOT, "i18n", "*.json")))
+    dicts = [p for p in dicts if not os.path.basename(p).startswith("_")]
+    if not dicts:
+        return 0
+
+    ex = I18nExtractor()
+    ex.feed(source)
+    fonte = ex.strings
+
+    for path in dicts:
+        idioma = os.path.splitext(os.path.basename(path))[0]
+        with open(path, encoding="utf-8") as fh:
+            try:
+                d = json.load(fh)
+            except json.JSONDecodeError as erro:
+                problems.append(f"i18n/{idioma}.json: JSON invalido — {erro}")
+                continue
+
+        for s in fonte:
+            if s not in d:
+                problems.append(
+                    f"i18n/{idioma}.json: sem traducao para {s[:70]!r}"
+                )
+            elif not str(d[s]).strip():
+                problems.append(f"i18n/{idioma}.json: traducao vazia para {s[:70]!r}")
+
+        for k in d:
+            if k not in fonte:
+                problems.append(
+                    f"i18n/{idioma}.json: chave orfa (nao existe no HTML) {k[:70]!r}"
+                )
+
+    return len(fonte)
+
+
 def main():
     with open(HTML, encoding="utf-8") as fh:
         source = fh.read()
@@ -210,10 +321,12 @@ def main():
                 f"({body.count('{')} abrem, {body.count('}')} fecham)"
             )
 
+    n_i18n = checar_i18n(source)
+
     print(
         f"  {len(parser.ids)} ids · {len(parser.headings)} headings · "
         f"{len(dialogs)} dialogs · {len(css_files)} arquivos CSS · "
-        f"{len(defined)} tokens"
+        f"{len(defined)} tokens · {n_i18n} strings i18n"
     )
     print()
 

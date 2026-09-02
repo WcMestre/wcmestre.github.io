@@ -15,6 +15,14 @@
     <meta name="theme-color" content="#0a101e" />
     <link rel="canonical" href="https://labmidia.tec.br/" />
 
+    <!-- Variantes de idioma. A troca e feita no cliente sobre a mesma URL,
+         entao as alternativas sao declaradas por parametro. js/modules/i18n.js
+         atualiza o canonical acima quando o idioma ativo nao e o portugues. -->
+    <link rel="alternate" hreflang="pt-BR" href="https://labmidia.tec.br/" />
+    <link rel="alternate" hreflang="en" href="https://labmidia.tec.br/?lang=en" />
+    <link rel="alternate" hreflang="es" href="https://labmidia.tec.br/?lang=es" />
+    <link rel="alternate" hreflang="x-default" href="https://labmidia.tec.br/" />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="LabMídia TechOps" />
@@ -89,6 +97,7 @@
     <link rel="stylesheet" href="./css/components/form.css" />
     <link rel="stylesheet" href="./css/components/modal.css" />
     <link rel="stylesheet" href="./css/components/logo-marquee.css" />
+    <link rel="stylesheet" href="./css/components/lang-switch.css" />
     <!-- sections -->
     <link rel="stylesheet" href="./css/sections/hero.css" />
     <link rel="stylesheet" href="./css/sections/solutions.css" />
@@ -280,6 +289,12 @@
               <li><a class="nav__link" href="#contato">Contato</a></li>
             </ul>
           </nav>
+          <div class="lang-switch" role="group" aria-label="Idioma" hidden>
+            <button class="lang-switch__btn" type="button" data-lang="pt" aria-label="Português" aria-pressed="true">PT</button>
+            <button class="lang-switch__btn" type="button" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
+            <button class="lang-switch__btn" type="button" data-lang="es" aria-label="Español" aria-pressed="false">ES</button>
+          </div>
+
           <a class="btn btn--primary btn--sm header__cta" href="#contato">
             Falar com um especialista
           </a>
@@ -1431,7 +1446,7 @@
            ================================================================== -->
       <section class="section" id="contato" aria-labelledby="contato-title">
         <div class="container">
-          <header class="section__head reveal">
+          <header class="section__head section__head--center reveal">
             <p class="eyebrow">Contato</p>
             <h2 class="section__title" id="contato-title">
               Como sua operação funciona hoje?
@@ -1607,40 +1622,26 @@
               </div>
             </form>
 
-            <aside class="contact__aside reveal" aria-label="Outros canais e atendimento">
-              <div class="contact__block">
-                <h3 class="contact__block-title">Canais diretos</h3>
-                <ul class="contact__channels">
-                  <li data-channel-item>
-                    <a class="contact__channel" data-channel="whatsapp" href="#contato">
-                      <svg aria-hidden="true" focusable="false"><use href="#i-whatsapp" /></svg>
-                      WhatsApp
-                    </a>
-                  </li>
-                  <li data-channel-item>
-                    <a class="contact__channel" data-channel="email" href="#contato">
-                      <svg aria-hidden="true" focusable="false"><use href="#i-mail" /></svg>
-                      <span data-channel-value>E-mail</span>
-                    </a>
-                  </li>
-                  <li data-channel-item>
-                    <a class="contact__channel" data-channel="linkedin" href="#contato">
-                      <svg aria-hidden="true" focusable="false"><use href="#i-linkedin" /></svg>
-                      LinkedIn
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="contact__block">
-                <h3 class="contact__block-title">Como funciona</h3>
-                <ul class="list-check">
-                  <li>Conversa inicial para entender a operação</li>
-                  <li>Recorte do problema e do retorno esperado</li>
-                  <li>Proposta de diagnóstico ou de sprint</li>
-                </ul>
-              </div>
-            </aside>
+            <ul class="contact__channels reveal" aria-label="Canais diretos">
+              <li data-channel-item>
+                <a class="contact__channel" data-channel="whatsapp" href="#contato">
+                  <svg aria-hidden="true" focusable="false"><use href="#i-whatsapp" /></svg>
+                  WhatsApp
+                </a>
+              </li>
+              <li data-channel-item>
+                <a class="contact__channel" data-channel="email" href="#contato">
+                  <svg aria-hidden="true" focusable="false"><use href="#i-mail" /></svg>
+                  <span data-channel-value>E-mail</span>
+                </a>
+              </li>
+              <li data-channel-item>
+                <a class="contact__channel" data-channel="linkedin" href="#contato">
+                  <svg aria-hidden="true" focusable="false"><use href="#i-linkedin" /></svg>
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </section>

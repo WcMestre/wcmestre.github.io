@@ -23,8 +23,3 @@
 .u-center-x {
   justify-content: center;
 }
-
-/* Ícone alinhado ao topo de um texto de várias linhas, em vez de centralizado. */
-.u-align-start {
-  align-items: flex-start;
-}

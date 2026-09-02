@@ -136,6 +136,39 @@ pedido do cliente. `img/` guarda a arte original da marca, fora do site.
 
 ---
 
+## Três idiomas — e a armadilha que vem junto
+
+Português (o HTML), inglês e espanhol. A troca é feita **no cliente**, sobre a
+mesma URL, por `js/modules/i18n.js`. Escolha do cliente em 2026-09-02, ciente
+de que o Google indexa apenas o português e de que sem JavaScript a página fica
+em português.
+
+**Os dicionários são indexados pelo texto de origem**, não por chaves
+simbólicas: `i18n/en.json` e `i18n/es.json` mapeiam a frase em português para a
+tradução. Não existe `data-i18n` na marcação.
+
+> ⚠️ **Toda vez que você mudar uma palavra do `index.html`, a chave dos dois
+> dicionários deixa de casar — e o texto fica em português nos outros idiomas,
+> sem nenhum erro visível.** Rode `python tools/validate.py`: ele reextrai as
+> strings e reprova se faltar tradução ou se sobrar chave órfã. É a única coisa
+> que impede a página de degradar em silêncio a cada revisão de copy.
+
+A função `norm()` (colapsa espaços, apara as pontas) existe duas vezes: em
+`js/modules/i18n.js` e em `tools/validate.py`. **Elas têm de permanecer
+idênticas.** Se divergirem, o validador aprova e o runtime erra a chave.
+
+Ordem de detecção: `?lang=` na URL → `navigator.languages` → português. A
+preferência vive na URL porque o projeto não usa cookie nem storage — e de
+quebra o link fica compartilhável. O seletor nasce com `hidden` e só aparece
+sob JavaScript: controle morto é pior que controle nenhum.
+
+Marcas, siglas e nomes de produto **não** se traduzem: LabMídia TechOps,
+Technology Office, Technology Operations, Technology Efficiency Score, TEO
+Framework, Fractional CTO, as etapas Discover/Measure/Design/Execute/Optimize,
+os nomes dos clientes e os tokens técnicos (API, CRM, ERP, BI, RPA, n8n…).
+
+---
+
 ## Revisões de texto posteriores ao briefing
 
 O cliente revisa a copy **sessão a sessão**, apontando um trecho por vez. As
@@ -151,6 +184,7 @@ página com o briefing.
 | 2026-09-02 | Localidade | "São José do Rio Preto e região" no aside de contato e no rodapé (§33) | Removida da página |
 | 2026-09-02 | Título da seção Contato | "Conte como sua operação funciona hoje." + parágrafo de apoio | "Como sua operação funciona hoje?" — sem parágrafo |
 | 2026-09-02 | Faixa de clientes | Botão "Pausar" + rótulo em cinza | Sem botão; rótulo "Clientes" com a classe `.eyebrow`, igual às demais seções |
+| 2026-09-02 | Aside da seção Contato | "Atendimento" + "Como funciona" ao lado do formulário | Removidos; formulário centralizado, canais diretos em linha abaixo dele |
 
 Ao aplicar um pedido destes, verifique se o mesmo texto se repete em outro
 lugar — vários CTAs compartilham rótulo — e **pergunte** antes de propagar,

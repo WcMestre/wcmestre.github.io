@@ -1,0 +1,3 @@
+# Cache de bytecode do Python, gerado ao importar tools/validate.py
+__pycache__/
+*.py[cod]

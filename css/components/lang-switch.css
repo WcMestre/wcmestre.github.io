@@ -1,0 +1,52 @@
+/* ==========================================================================
+   components/lang-switch.css — Seletor de idioma
+
+   Nasce com o atributo `hidden` no HTML; js/modules/i18n.js o revela. Sem
+   JavaScript não há troca de idioma, e um controle morto é pior que controle
+   nenhum.
+   ========================================================================== */
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-inset);
+  flex: none;
+}
+
+.lang-switch[hidden] {
+  display: none;
+}
+
+.lang-switch__btn {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  background: transparent;
+  transition: color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.lang-switch__btn:hover {
+  color: var(--text-primary);
+}
+
+/* aria-pressed é a fonte da verdade do estado, não uma classe: o botão é um
+   toggle, e o leitor de tela precisa da informação de qualquer forma. */
+.lang-switch__btn[aria-pressed="true"] {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+@media (max-width: 63.999rem) {
+  /* No painel mobile o seletor ganha respiro e alinha com os demais itens. */
+  .lang-switch {
+    align-self: start;
+  }
+}

@@ -53,14 +53,8 @@ function pruneEmptyLists(lists) {
     if (!list || !list.isConnected) continue;
     if (list.querySelector("li")) continue;
 
-    // No aside de contato o bloco só contém título + lista: sai inteiro.
-    const block = list.closest(".contact__block");
-    if (block) {
-      block.remove();
-      continue;
-    }
-
-    // No rodapé, remove o título imediatamente anterior e a lista.
+    // Remove o título imediatamente anterior, quando houver, e a lista.
+    // Na seção de contato a lista de canais não tem título — sai sozinha.
     const column = list.parentElement;
     const heading = list.previousElementSibling;
     if (heading && /^H[1-6]$/.test(heading.tagName)) heading.remove();

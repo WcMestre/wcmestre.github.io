@@ -13,6 +13,7 @@ import { initNavigation } from "./modules/navigation.js";
 import { initHeaderScroll } from "./modules/header-scroll.js";
 import { initScrollSpy } from "./modules/scroll-spy.js";
 import { initSmoothScroll } from "./modules/smooth-scroll.js";
+import { initI18n } from "./modules/i18n.js";
 import { initReveal } from "./modules/reveal.js";
 import { initScoreMeters } from "./modules/score-meter.js";
 import { initLogoMarquee } from "./modules/logo-marquee.js";
@@ -26,6 +27,10 @@ import { initForm } from "./modules/form.js";
  */
 const MODULES = [
   ["reveal", initReveal],
+  // i18n antes de contact-links: ele guarda o texto original de cada nó, e
+  // contact-links reescreve o rótulo do e-mail com o endereço de config.js.
+  // Invertido, o "original" guardado seria o endereço, não o rótulo.
+  ["i18n", initI18n],
   ["navigation", initNavigation],
   ["header-scroll", initHeaderScroll],
   // modal ANTES de smooth-scroll: os gatilhos são âncoras, e os dois módulos
