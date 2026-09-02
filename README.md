@@ -379,13 +379,8 @@ consentimento adequado antes de carregá-lo.
 
 ## Pendências conhecidas
 
-- [ ] Preencher `js/config.js` com WhatsApp, e-mail, LinkedIn e endpoint do formulário
-- [ ] **Reexportar as logos de clientes em resolução maior.** Os arquivos
-      atuais vieram num canvas de 144×144 px, então o desenho útil tem de 30 a
-      91 px de altura — abaixo de 2× o tamanho de exibição, o que deixa a faixa
-      levemente mole em tela retina. Peça o **desenho** (não o canvas) com pelo
-      menos 300 px de altura, ou em SVG. A troca é drop-in.
-- [ ] Marcar **Enforce HTTPS** em Settings → Pages
+- [ ] Preencher WhatsApp, e-mail e LinkedIn em `js/config.js` — sem eles esses
+      canais são removidos da página. O formulário já está ativo (Web3Forms).
 - [ ] Substituir `assets/logo/labmidia-techops-compact.png` pela versão
       horizontal oficial da marca, se o designer tiver uma
 - [ ] Validar os textos com a área comercial

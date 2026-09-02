@@ -253,7 +253,13 @@ export function initForm() {
     setBusy(true);
     setStatus(statusEl, MESSAGES.sending, "pending");
 
-    if (accessKey) payload.access_key = accessKey;
+    if (accessKey) {
+      payload.access_key = accessKey;
+      // O Web3Forms usa `subject` como assunto do e-mail que envia. Sem ele,
+      // toda notificação chega com o mesmo título e a caixa de entrada não
+      // diferencia um lead do outro.
+      payload.subject = `Site — ${payload.empresa || payload.nome || "novo contato"}`;
+    }
 
     try {
       const response = await fetch(endpoint, {

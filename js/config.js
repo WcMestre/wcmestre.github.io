@@ -40,25 +40,19 @@ export const CONFIG = {
    * o formulário usa CONFIG.email como fallback: abre o cliente de e-mail do
    * visitante com os dados já preenchidos.
    *
-   * >>> SERVIÇO ESCOLHIDO: Web3Forms (decisão de 2026-09-02) <<<
+   * SERVIÇO ATIVO: Web3Forms, configurado em 2026-09-02.
    *
-   * Falta apenas a chave. Para obtê-la:
-   *   1. entre em https://web3forms.com
-   *   2. informe o e-mail que deve receber os leads
-   *   3. a Access Key chega por e-mail
-   *   4. cole a chave em `accessKey` e a URL em `endpoint`:
-   *
-   *        endpoint: "https://api.web3forms.com/submit",
-   *        accessKey: "cole-a-chave-aqui",
-   *
-   * Não é preciso criar conta e o plano é gratuito e ilimitado.
+   * O destino dos e-mails NÃO fica aqui: está amarrado ao endereço com que a
+   * Access Key foi gerada em web3forms.com. Para trocar quem recebe os leads,
+   * gere uma chave nova lá e substitua `accessKey` — mexer em CONFIG.email
+   * não muda nada nesse caminho.
    *
    * Outras opções, caso mude de ideia:
    *   Formspree   endpoint: "https://formspree.io/f/SEU_ID"   (sem accessKey)
    *   API própria endpoint: "https://sua-api.com/leads"       (aceita POST JSON)
    */
   form: {
-    endpoint: "",
+    endpoint: "https://api.web3forms.com/submit",
 
     /**
      * Chave pública do Web3Forms. Vai no payload como `access_key` e é
@@ -68,7 +62,7 @@ export const CONFIG = {
      * bloqueado de propósito: o serviço rejeitaria o POST e o visitante veria
      * um erro de rede em vez do fallback por e-mail. Ver js/modules/form.js.
      */
-    accessKey: "",
+    accessKey: "2279d22e-6020-450e-b3fa-48605ca3a822",
 
     /** Para onde levar o visitante depois do envio. Vazio => mensagem inline. */
     redirectOnSuccess: "",

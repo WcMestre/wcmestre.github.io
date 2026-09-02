@@ -218,14 +218,14 @@ diagnostique "deploy quebrado" antes de sondar algumas vezes.
 
 Dependem do cliente, não de código:
 
-- [ ] **`js/config.js` está vazio.** Em produção, agora, os canais WhatsApp,
-      e-mail e LinkedIn são removidos da página — comportamento correto por
-      design, mas é conteúdo comercial fora do ar. Falta: número do WhatsApp,
-      e-mail comercial, URL do LinkedIn e a Access Key do **Web3Forms**
-      (serviço escolhido em 2026-09-02; ver as instruções no próprio
-      `config.js`).
-- [ ] **Enforce HTTPS** desmarcado em Settings → Pages: `http://labmidia.tec.br/`
-      responde 200 direto em vez de redirecionar.
+- [ ] **Faltam os canais de contato em `js/config.js`.** WhatsApp, e-mail e
+      LinkedIn continuam vazios, então `contact-links.js` remove esses canais
+      da página e a coluna Contato do rodapé — comportamento correto por
+      design, mas é conteúdo comercial fora do ar. **O formulário já funciona**
+      (Web3Forms configurado em 2026-09-02); o que falta são os links diretos.
+- [x] ~~Enforce HTTPS~~ — **ativado em 2026-09-02.** Verificado:
+      `http://labmidia.tec.br/`, `http://www.labmidia.tec.br/` e
+      `wcmestre.github.io` respondem 301 para `https://labmidia.tec.br/`.
 - [x] ~~`address` no JSON-LD~~ — **resolvido em 2026-09-02.** Removido. Ele
       tinha sido adicionado para a marcação `LocalBusiness` ser elegível no
       Rich Results, sob o argumento de que a cidade já aparecia duas vezes na
@@ -234,12 +234,13 @@ Dependem do cliente, não de código:
       não adicionar endereço. `areaServed` continua, porque está literal no
       briefing. Consequência aceita: o `ProfessionalService` não fica elegível
       a rich result de negócio local.
-- [ ] **As logos de clientes estão abaixo da resolução ideal.** Os arquivos
-      vieram num canvas de 144×144 px, então o desenho útil tem entre 30 e 91
-      px de altura — menos de 2× o tamanho de exibição. O cliente vai
-      reexportar os PNG maiores (decisão de 2026-09-02): **o desenho**, não o
-      canvas, a pelo menos 300 px de altura. A troca é drop-in — mesmos nomes
-      de arquivo, mesmo `--logo-h`, nada de HTML ou CSS muda.
+- [x] ~~Resolução das logos de clientes~~ — **encerrado em 2026-09-02 por
+      decisão do cliente: ficam como estão.** Registro do trade-off aceito: o
+      desenho útil dos arquivos tem de 30 a 91 px de altura, menos de 2× o
+      tamanho de exibição (a Vittia fica em 0,75×, ou seja, o navegador
+      amplia), então a faixa fica levemente mole em tela retina. **Não
+      reabra este ponto** — se um dia quiser resolver, a troca é drop-in:
+      mesmos nomes de arquivo, mesmo `--logo-h`.
 - [ ] **Logo compacto do header é derivado.** `labmidia-techops-compact.png`
       foi montado a partir do original escalando a marca até a altura do
       wordmark. Se o designer entregar uma versão horizontal oficial, basta
