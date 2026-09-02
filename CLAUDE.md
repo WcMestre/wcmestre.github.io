@@ -112,6 +112,23 @@ pedido do cliente. `img/` guarda a arte original da marca, fora do site.
 
 ---
 
+## Revisões de texto posteriores ao briefing
+
+O cliente revisa a copy **sessão a sessão**, apontando um trecho por vez. As
+mudanças abaixo são decisão dele, tomada depois do briefing e **substituem** o
+texto original. Não as trate como regressão nem as "restaure" ao comparar a
+página com o briefing.
+
+| Data | Onde | Antes (briefing) | Agora |
+|---|---|---|---|
+| 2026-09-02 | CTA primário do hero | "Conversar sobre minha operação" (§15) | "Fale com um de nossos especialistas" |
+
+Ao aplicar um pedido destes, verifique se o mesmo texto se repete em outro
+lugar — vários CTAs compartilham rótulo — e **pergunte** antes de propagar,
+em vez de mudar tudo por conta própria.
+
+---
+
 ## Verificar antes de commitar
 
 ```bash
