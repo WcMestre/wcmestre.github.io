@@ -122,13 +122,15 @@ como a grade estática que o HTML entrega.
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
-| `#diagnostico` | card Solução 01 | Efficiency Score, Impacto × Esforço, entregáveis, IA |
-| `#sprint` | card Solução 02 | Iniciativas, ciclo TEO, automações e integrações |
-| `#tech-office` | card Solução 03 | Comparação tradicional × Tech Office, escopo |
-| `#multiunidades` | link dentro de `#tech-office` | Árvore matriz → unidades |
+| `#diagnostico` | card 01 — Análise Diagnóstica de Processos | Efficiency Score, Impacto × Esforço, entregáveis, IA |
+| `#outsourcing-ti` | card 02 — Outsourcing de TI por Projeto | Software, hardware e infraestrutura; identificamos → planejamos → deixamos funcionando; automações e integrações |
+| `#gestao-ti` | card 03 — Gestão e Sustentação de TI (recorrente) | Comparação área montada internamente × nossa gestão, escopo |
+| `#multiunidades` | link dentro de `#gestao-ti` | Árvore matriz → unidades |
 
-Os ids `#ia` e `#integracoes` **não existem mais** — o conteúdo foi para dentro
-dos diálogos. Nenhum link interno apontava para eles.
+Os ids `#ia`, `#integracoes`, `#sprint` e `#tech-office` **não existem mais**:
+os dois primeiros foram absorvidos pelos diálogos; os dois últimos foram
+renomeados para `#outsourcing-ti` e `#gestao-ti` na reestruturação das frentes
+(2026-10-21). Nenhum link interno apontava para eles.
 
 `vendor/`, `assets/css/`, `assets/js/` e `assets/webfonts/` são restos do
 template antigo. Não são referenciados pelo site novo; ficam no repositório a
@@ -187,6 +189,11 @@ página com o briefing.
 | 2026-09-02 | Aside da seção Contato | "Atendimento" + "Como funciona" ao lado do formulário | Removidos; formulário centralizado, canais diretos em linha abaixo dele |
 | 2026-09-02 | CTA final (`cta-band`) | "Conversar com a LabMídia TechOps" (§28) | "Começar uma conversa" — sem o nome da empresa |
 | 2026-09-02 | H2 da Proposta de valor | "…para o empresário administrar" (§18) | "…para você administrar" — segunda pessoa, coerente com o lead |
+| 2026-10-21 | Seção Soluções e seus 3 diálogos | Diagnóstico de Eficiência Tecnológica / Sprint de Eficiência Operacional / Technology Office (§§20–27) | **Análise Diagnóstica de Processos** (diagnóstico + planejamento com sugestões de melhoria) / **Outsourcing de TI por Projeto** (software, hardware e infraestrutura: identificamos, planejamos e deixamos funcionando) / **Gestão e Sustentação de TI** (recorrente: gestão do time e dos ativos, construção de time, onboarding dos processos, sustentação da operação). "Fractional CTO" saiu da lista de escopo; "Technology Office" deixou de ser nome de produto (o hub do diálogo multiunidades virou "Gestão de TI") |
+
+> Os nomes das frentes 02 e 03 são **minha proposta**: o pedido do cliente
+> chamava as duas de "Outsourcing de TI". Se ele preferir outros nomes, a troca
+> é em `index.html` (card, título do diálogo, JSON-LD) e nos dois dicionários.
 
 Ao aplicar um pedido destes, verifique se o mesmo texto se repete em outro
 lugar — vários CTAs compartilham rótulo — e **pergunte** antes de propagar,

@@ -176,7 +176,7 @@
 
 /* Bloco temático dentro do corpo do diálogo, separado por um fio.
    Usado pelos trechos que antes eram seções próprias da página
-   (IA no diálogo do diagnóstico, integrações no do sprint). */
+   (IA no diálogo da análise diagnóstica, integrações no do outsourcing). */
 .modal__section {
   display: grid;
   gap: var(--space-sm);

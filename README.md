@@ -128,14 +128,18 @@ A rolagem ficou com 10 seções; o material de aprofundamento vive nos diálogos
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
-| `#diagnostico` | card Solução 01 | Technology Efficiency Score, Impacto × Esforço, entregáveis, **Inteligência Artificial** |
-| `#sprint` | card Solução 02 | O que entra num sprint, ciclo TEO (Design/Execute/Optimize), **automações e integrações** |
-| `#tech-office` | card Solução 03 | Comparação modelo tradicional × Tech Office, escopo |
-| `#multiunidades` | link dentro de `#tech-office` | Árvore matriz → unidades |
+| `#diagnostico` | card 01 — Análise Diagnóstica de Processos | Technology Efficiency Score, Impacto × Esforço, entregáveis, **Inteligência Artificial** |
+| `#outsourcing-ti` | card 02 — Outsourcing de TI por Projeto | Software, hardware e infraestrutura; identificamos → planejamos → deixamos funcionando; **automações e integrações** |
+| `#gestao-ti` | card 03 — Gestão e Sustentação de TI (recorrente) | Comparação área montada internamente × nossa gestão, escopo |
+| `#multiunidades` | link dentro de `#gestao-ti` | Árvore matriz → unidades |
 
-IA foi para o diagnóstico porque *onde a IA tem retorno* é uma das perguntas
-que o diagnóstico responde; integrações foram para o sprint porque são o
-conteúdo típico de um ciclo de implantação.
+As três frentes são, nesta ordem: **diagnosticar** (planejamento com sugestões
+de melhoria), **entregar** (terceirização de uma demanda até funcionar) e
+**sustentar** (gestão recorrente da área de TI do contratante).
+
+IA foi para a análise diagnóstica porque *onde a IA tem retorno* é uma das
+perguntas que ela responde; integrações e automações foram para o outsourcing
+por projeto porque são o conteúdo típico de desenvolvimento de software.
 
 **4. As logos de clientes são renderizadas em branco puro.**
 `filter: brightness(0) invert(1)` zera o RGB e leva tudo ao branco, preservando

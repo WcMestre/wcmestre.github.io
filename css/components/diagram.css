@@ -79,7 +79,7 @@
   white-space: nowrap;
 }
 
-/* Lado "Technology Office": poucos blocos, sólidos. */
+/* Lado "Gestão e Sustentação de TI": poucos blocos, sólidos. */
 .compare__blocks {
   display: grid;
   gap: var(--space-2xs);
