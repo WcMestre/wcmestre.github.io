@@ -45,10 +45,10 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── navigation.css      Nav desktop + painel mobile
 │   │   ├── button.css
 │   │   ├── card.css
-│   │   ├── chip.css            Pills, tags, selo "Exemplo ilustrativo"
+│   │   ├── chip.css            Pills e tags
 │   │   ├── orbit.css           Diagrama do hero
-│   │   ├── score-meter.css     Barras do Technology Efficiency Score
-│   │   ├── stepper.css         TEO Framework
+│   │   ├── score-meter.css     Barras de score (sem uso no conteúdo atual)
+│   │   ├── stepper.css         Etapas (Como trabalhamos)
 │   │   ├── flow.css            Cadeia ERP → API → … → BI
 │   │   ├── diagram.css         Comparação + árvore matriz/unidades
 │   │   ├── form.css
@@ -76,7 +76,7 @@ repositório é exatamente o que o navegador recebe.
 │   │   ├── smooth-scroll.js    Foco de teclado ao pular para âncora
 │   │   ├── scroll-spy.js       Link ativo na navegação
 │   │   ├── reveal.js           Animação de entrada
-│   │   ├── score-meter.js      Animação das barras do diagnóstico
+│   │   ├── score-meter.js      Animação das barras de score (sem uso no conteúdo atual)
 │   │   ├── logo-marquee.js     Faixa de logos (clona a trilha para o laço)
 │   │   ├── contact-links.js    Aplica config.js aos canais de contato
 │   │   └── form.js             Validação e envio
@@ -128,18 +128,19 @@ A rolagem ficou com 10 seções; o material de aprofundamento vive nos diálogos
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
-| `#diagnostico` | card 01 — Análise Diagnóstica de Processos | Technology Efficiency Score, Impacto × Esforço, entregáveis, **Inteligência Artificial** |
-| `#outsourcing-ti` | card 02 — Outsourcing de TI por Projeto | Software, hardware e infraestrutura; identificamos → planejamos → deixamos funcionando; **automações e integrações** |
-| `#gestao-ti` | card 03 — Gestão e Sustentação de TI (recorrente) | Comparação área montada internamente × nossa gestão, escopo |
-| `#multiunidades` | link dentro de `#gestao-ti` | Árvore matriz → unidades |
+| `#instalacao` | card 01 — Instalação Comercial | PDV, CFTV, servidores e redes; materiais e equipamentos por conta do cliente; sem recorrência |
+| `#sistema-gestao` | card 02 — Sistema de Gestão Comercial | Seu sistema instalado (sem recorrência) × nosso sistema pay-to-use (recorrente) |
+| `#recorrencia-noc` | card 03 — Contrato Recorrente com NOC | Aluguel de equipamentos, sistema pay-to-use e NOC próprio; comparação com a instalação pontual |
+| `#multiunidades` | link dentro de `#recorrencia-noc` | Árvore matriz → NOC → unidades |
 
-As três frentes são, nesta ordem: **diagnosticar** (planejamento com sugestões
-de melhoria), **entregar** (terceirização de uma demanda até funcionar) e
-**sustentar** (gestão recorrente da área de TI do contratante).
+O negócio tem **dois modelos de contrato**, e as três frentes os cruzam com o
+que é contratado:
 
-IA foi para a análise diagnóstica porque *onde a IA tem retorno* é uma das
-perguntas que ela responde; integrações e automações foram para o outsourcing
-por projeto porque são o conteúdo típico de desenvolvimento de software.
+| | Sem recorrência | Com recorrência |
+|---|---|---|
+| Infraestrutura (PDV, CFTV, servidores, redes) | Instalação; materiais e equipamentos por conta do cliente | Equipamentos em aluguel |
+| Sistema de gestão comercial | Instalamos e configuramos o sistema do cliente | Nosso sistema, pay-to-use |
+| Monitoramento e suporte | — | NOC próprio, em todo contrato recorrente |
 
 **4. As logos de clientes são renderizadas em branco puro.**
 `filter: brightness(0) invert(1)` zera o RGB e leva tudo ao branco, preservando
@@ -314,15 +315,6 @@ O deploy leva de alguns segundos a poucos minutos após o push.
 | Logo do header / do rodapé | `assets/logo/*.png` |
 | Logos de clientes | `assets/logos-clientes/` + os `src`/`alt` na seção `#clientes` |
 | Ícones | sprite `<svg>` no topo do `<body>` |
-| Valores do Technology Efficiency Score | `index.html`, atributo `style="--value: NN"` |
-
-### Sobre os números do diagnóstico
-
-Os valores do **Technology Efficiency Score** e a lista **Impacto × Esforço**
-(dentro do diálogo `#diagnostico`) são **simulados** e existem só para mostrar o
-formato da entrega. Cada bloco carrega o selo `Exemplo ilustrativo` e o rodapé
-do diálogo tem uma nota explícita. Se trocar os números, **mantenha os selos** —
-a menos que passem a ser dados reais de um cliente com autorização de divulgação.
 
 ---
 
@@ -361,8 +353,7 @@ A página é totalmente legível sem JavaScript:
   header deixa de ser sticky (senão o menu aberto comeria a tela no celular)
 - Sem JS os `<dialog>` voltam ao fluxo como seções normais, e os gatilhos —
   que são âncoras de verdade — funcionam como links comuns
-- Sem JS os blocos com animação de entrada nascem visíveis e as barras do
-  diagnóstico já vêm preenchidas
+- Sem JS os blocos com animação de entrada nascem visíveis
 - Se os módulos falharem ao carregar, um temporizador no `<head>` **desfaz** a
   troca de classe e devolve o documento ao estado `.no-js` em 2,5s — o que
   reativa todos os fallbacks acima de uma vez

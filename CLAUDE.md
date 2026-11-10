@@ -24,10 +24,10 @@ Vieram do briefing do cliente, não são preferência de implementação:
   certificações, parceiros, quantidade de profissionais, percentuais de
   economia ou qualquer estatística. Também não inventar telefone, e-mail ou
   LinkedIn — esses vêm de `js/config.js`.
-- **Números simulados exigem selo.** O Technology Efficiency Score e a lista
-  Impacto × Esforço (no diálogo `#diagnostico`) são fictícios e carregam
-  `Exemplo ilustrativo`, mais uma nota no rodapé do diálogo. **Não remova os
-  selos** enquanto os números não forem reais e autorizados.
+- **Nenhum número simulado na página.** O Technology Efficiency Score e a
+  lista Impacto × Esforço (que exigiam o selo `Exemplo ilustrativo`) saíram
+  com o diálogo de diagnóstico em 2026-11-10. **Se voltar qualquer número de
+  exemplo, volta junto o selo e a nota de rodapé do diálogo.**
 - **Logos de clientes: só as reais.** A seção `#clientes` traz sete logos
   fornecidas pelo cliente em 2026-09-02 — Sicoob Frutal, O Boticário, Informa
   Solutions, FORP, Flora Néctar, CS Energia Solar e Vittia. Se um dia faltar
@@ -76,8 +76,7 @@ empurravam a seção 168px abaixo do topo.
 **Progressive enhancement é real, não decorativo.** Tudo funciona sem
 JavaScript:
 
-- `.no-js` no `<html>` mantém navegação estática, diálogos no fluxo e barras do
-  diagnóstico preenchidas. **Abaixo de 64rem** o header também deixa de ser
+- `.no-js` no `<html>` mantém navegação estática e diálogos no fluxo. **Abaixo de 64rem** o header também deixa de ser
   sticky — a regra vive dentro do media query em `css/components/navigation.css`,
   porque só ali o menu empilhado inflaria o header para ~450px. Em desktop sem
   JS o header segue sticky, e está certo: a navegação continua horizontal.
@@ -122,15 +121,30 @@ como a grade estática que o HTML entrega.
 
 | Diálogo | Aberto por | Conteúdo |
 |---|---|---|
-| `#diagnostico` | card 01 — Análise Diagnóstica de Processos | Efficiency Score, Impacto × Esforço, entregáveis, IA |
-| `#outsourcing-ti` | card 02 — Outsourcing de TI por Projeto | Software, hardware e infraestrutura; identificamos → planejamos → deixamos funcionando; automações e integrações |
-| `#gestao-ti` | card 03 — Gestão e Sustentação de TI (recorrente) | Comparação área montada internamente × nossa gestão, escopo |
-| `#multiunidades` | link dentro de `#gestao-ti` | Árvore matriz → unidades |
+| `#instalacao` | card 01 — Instalação Comercial | PDV, CFTV, servidores e redes; materiais e equipamentos por conta do cliente; sem recorrência |
+| `#sistema-gestao` | card 02 — Sistema de Gestão Comercial | Sistema do cliente instalado (sem recorrência) × nosso sistema pay-to-use (recorrente) |
+| `#recorrencia-noc` | card 03 — Contrato Recorrente com NOC | Aluguel de equipamentos, sistema pay-to-use e NOC próprio; comparação com a instalação pontual |
+| `#multiunidades` | link dentro de `#recorrencia-noc` | Árvore matriz → NOC → unidades |
 
-Os ids `#ia`, `#integracoes`, `#sprint` e `#tech-office` **não existem mais**:
-os dois primeiros foram absorvidos pelos diálogos; os dois últimos foram
-renomeados para `#outsourcing-ti` e `#gestao-ti` na reestruturação das frentes
-(2026-10-21). Nenhum link interno apontava para eles.
+**O negócio, desde 2026-11-10:** instalações comerciais — PDV, CFTV, servidores
+e redes. Dois modelos de contrato. *Sem recorrência:* materiais e equipamentos
+por conta do cliente; nós instalamos e configuramos. *Com recorrência:*
+equipamentos em aluguel e **NOC próprio** (monitoramento e suporte dos ativos de
+rede). O sistema de gestão comercial segue a mesma lógica: instalamos o do
+cliente (pontual) ou ele usa o nosso, **pay-to-use** (recorrente).
+
+Os ids `#ia`, `#integracoes`, `#sprint`, `#tech-office`, `#diagnostico`,
+`#outsourcing-ti` e `#gestao-ti` **não existem mais** (substituídos nas
+reestruturações de 2026-10-21 e 2026-11-10). Nenhum link interno apontava para
+eles.
+
+> **Código morto deixado de propósito.** O diálogo de diagnóstico e o diagrama
+> de integrações saíram, mas ficam sem uso no repositório:
+> `css/components/score-meter.css` (o `.panel` e `.panel__head` **ainda são
+> usados** pelos diálogos — não apague o arquivo sem mover essas regras),
+> `css/sections/efficiency.css`, `css/components/flow.css`,
+> `js/modules/score-meter.js` e o selo `.illustrative-badge`. Limpar é seguro
+> desde que `.panel` seja preservado e o `main.js` deixe de importar o módulo.
 
 `vendor/`, `assets/css/`, `assets/js/` e `assets/webfonts/` são restos do
 template antigo. Não são referenciados pelo site novo; ficam no repositório a
@@ -165,9 +179,8 @@ quebra o link fica compartilhável. O seletor nasce com `hidden` e só aparece
 sob JavaScript: controle morto é pior que controle nenhum.
 
 Marcas, siglas e nomes de produto **não** se traduzem: LabMídia TechOps,
-Technology Office, Technology Operations, Technology Efficiency Score, TEO
-Framework, Fractional CTO, as etapas Discover/Measure/Design/Execute/Optimize,
-os nomes dos clientes e os tokens técnicos (API, CRM, ERP, BI, RPA, n8n…).
+Technology Operations, NOC, pay-to-use, Wi-Fi, os nomes dos clientes e os
+tokens técnicos. **PDV e CFTV são traduzidos** (EN: POS, CCTV; ES: PDV, CCTV).
 
 ---
 
@@ -190,8 +203,10 @@ página com o briefing.
 | 2026-09-02 | CTA final (`cta-band`) | "Conversar com a LabMídia TechOps" (§28) | "Começar uma conversa" — sem o nome da empresa |
 | 2026-09-02 | H2 da Proposta de valor | "…para o empresário administrar" (§18) | "…para você administrar" — segunda pessoa, coerente com o lead |
 | 2026-10-21 | Seção Soluções e seus 3 diálogos | Diagnóstico de Eficiência Tecnológica / Sprint de Eficiência Operacional / Technology Office (§§20–27) | **Análise Diagnóstica de Processos** (diagnóstico + planejamento com sugestões de melhoria) / **Outsourcing de TI por Projeto** (software, hardware e infraestrutura: identificamos, planejamos e deixamos funcionando) / **Gestão e Sustentação de TI** (recorrente: gestão do time e dos ativos, construção de time, onboarding dos processos, sustentação da operação). "Fractional CTO" saiu da lista de escopo; "Technology Office" deixou de ser nome de produto (o hub do diálogo multiunidades virou "Gestão de TI") |
+| 2026-11-10 | **Foco do negócio — todo o site** | Consultoria de eficiência tecnológica: diagnóstico, sprint, Technology Office, TEO Framework (§§1–41) | **Instalações comerciais:** PDV, CFTV, servidores e redes; contrato sem recorrência (materiais e equipamentos por conta do cliente) e com recorrência (aluguel de equipamentos + NOC próprio); sistema de gestão comercial instalado ou pay-to-use. Reescritos hero, problema, proposta, soluções (3 frentes e 4 diálogos), para quem, metodologia (agora "Como trabalhamos"), diferenciais, CTA, opções do formulário, SEO e JSON-LD. Saíram o Efficiency Score, o diagrama de integrações, o TEO Framework, o pilar "Technology Management" e o nó "Automation" |
 
-> Os nomes das frentes 02 e 03 são **minha proposta**: o pedido do cliente
+> Os nomes das frentes 02 e 03 (então "Outsourcing de TI por Projeto" e "Gestão
+> e Sustentação de TI") eram **minha proposta**: o pedido do cliente
 > chamava as duas de "Outsourcing de TI". Se ele preferir outros nomes, a troca
 > é em `index.html` (card, título do diálogo, JSON-LD) e nos dois dicionários.
 
@@ -252,11 +267,3 @@ Dependem do cliente, não de código:
       foi montado a partir do original escalando a marca até a altura do
       wordmark. Se o designer entregar uma versão horizontal oficial, basta
       substituir o PNG.
-
-Mantidos **deliberadamente**, contra a recomendação da revisão, por estarem
-literais no briefing (§15 e §27) — não "corrija" sem falar com o cliente:
-
-- o pilar **"Technology Management"** no hero, que destoa da assinatura
-  "Technology Operations" e não é retomado em nenhum outro lugar;
-- o nó **"Automation"** em inglês no diagrama de integrações, entre nós em
-  português ("IA", e "Automação" no hero).

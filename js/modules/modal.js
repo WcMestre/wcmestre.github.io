@@ -7,8 +7,8 @@
  * clicar no backdrop, animar a saída e encadear um diálogo no outro.
  *
  * Marcação esperada:
- *   <a href="#diagnostico" data-modal-open>Conhecer o diagnóstico</a>
- *   <dialog class="modal" id="diagnostico"> … <button data-modal-close> … </dialog>
+ *   <a href="#instalacao" data-modal-open>Conhecer a instalação comercial</a>
+ *   <dialog class="modal" id="instalacao"> … <button data-modal-close> … </dialog>
  *
  * Os gatilhos são âncoras de verdade: sem JavaScript o navegador simplesmente
  * pula para o conteúdo, que o CSS devolve ao fluxo sob .no-js.
@@ -85,7 +85,7 @@ export function initModals() {
 
     $$("[data-modal-close]", dialog).forEach((button) =>
       on(button, "click", () => {
-        // Âncora que sai do diálogo (ex.: "Solicitar diagnóstico" → #contato):
+        // Âncora que sai do diálogo (ex.: "Falar com um especialista" → #contato):
         // fecha na hora, sem animação, para que a navegação nativa e o foco do
         // destino não briguem com a saída em curso.
         const href = button.getAttribute("href") || "";

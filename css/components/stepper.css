@@ -1,5 +1,5 @@
 /* ==========================================================================
-   components/stepper.css — TEO Framework (5 etapas)
+   components/stepper.css — Etapas (Como trabalhamos, 5 etapas)
    Vertical no mobile, horizontal a partir de 62rem. O conector é desenhado
    com pseudo-elemento no vão entre os cards, então não há elemento extra
    no DOM só para decorar.
